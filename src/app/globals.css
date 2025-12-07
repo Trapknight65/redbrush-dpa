@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  /* Redbrush Digital Agency Palette */
+  --crimson-red: #DC2626;
+  --ocean-blue: #0ea5e9;
+  --deep-sea: #0C4A6E;
+  --sunset-gold: #f59e0b;
+  --ink-black: #0a0a0a;
+  --canvas-white: #FaFaFa;
+
+  --redbrush-gradient: linear-gradient(45deg, var(--deep-sea) 10%, var(--ocean-blue) 90%);
+
+  --background: var(--redbrush-gradient);
+  --foreground: var(--canvas-white);
+}
+
+
+
+
+body {
+  background: var(--background);
+  background-attachment: fixed;
+  background-size: cover;
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 700;
+}
+
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+.text-redbrush-gradient {
+  background: var(--redbrush-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.border-deep-sea {
+
+  border: 1px solid var(--deep-sea);
+}
+
+
+/* 3D Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
