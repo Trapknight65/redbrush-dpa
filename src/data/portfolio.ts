@@ -22,6 +22,11 @@ export const portfolioProjects = [
         description: "Complete brand transformation for a tech startup, including logo design, color palette, typography system, and brand guidelines.",
         tech: ["Figma", "Adobe Illustrator", "Brand Strategy"],
         image: "🎨",
+        figmaDesign: {
+            thumbnail: "/figma-thumbnail.png",
+            title: "Brand Guidelines & Assets",
+            url: "#",
+        },
         challenge: "A growing tech startup needed to rebrand to appeal to enterprise clients while maintaining their innovative, approachable identity.",
         solution: "We conducted extensive market research, developed a sophisticated yet friendly visual identity, and created comprehensive brand guidelines for consistent application.",
         results: [
@@ -48,6 +53,27 @@ export const portfolioProjects = [
         gallery: ["📱", "📊", "💬", "🎯"],
     },
     {
+        id: "cms-architecture",
+        title: "CMS Architecture",
+        category: "System Architecture",
+        description: "Scalable and headless CMS architecture designed for flexibility and high performance content delivery.",
+        tech: ["Headless CMS", "GraphQL", "Next.js"],
+        image: "🏗️",
+        figmaDesign: {
+            thumbnail: "/figma-thumbnail.png",
+            title: "Architecture Diagrams",
+            url: "#",
+        },
+        challenge: "Legacy CMS constraints limited content flexibility and reduced site performance.",
+        solution: "Implemented a decoupled architecture using a headless CMS and GraphQL to deliver content dynamically to multiple frontends.",
+        results: [
+            "Content delivery speed increased by 40%",
+            "Reduced editorial workflow time by 50%",
+            "Seamless multi-channel publishing",
+        ],
+        gallery: ["🏗️", "🔌", "📡", "💾"],
+    },
+    {
         id: "saas-dashboard",
         title: "SaaS Dashboard",
         category: "Web Development",
@@ -70,6 +96,11 @@ export const portfolioProjects = [
         description: "User-centered mobile app design for a fitness platform, featuring intuitive navigation and engaging workout tracking interfaces.",
         tech: ["Figma", "Prototyping", "User Research"],
         image: "📲",
+        figmaDesign: {
+            thumbnail: "/figma-thumbnail.png",
+            title: "App Prototype",
+            url: "#",
+        },
         challenge: "The fitness app had poor user retention due to a confusing interface and lack of engaging features.",
         solution: "We conducted user research, redesigned the entire app with a focus on simplicity and motivation, and created interactive prototypes for testing.",
         results: [
@@ -86,6 +117,11 @@ export const portfolioProjects = [
         description: "Comprehensive SEO strategy that improved organic traffic by 250% and achieved first-page rankings for 20+ target keywords.",
         tech: ["SEO", "Google Search Console", "Content Marketing"],
         image: "🔍",
+        figmaDesign: {
+            thumbnail: "/figma-thumbnail.png",
+            title: "Strategy Framework",
+            url: "#",
+        },
         challenge: "The client's website was buried on page 5+ of Google search results, resulting in minimal organic traffic and lost revenue opportunities.",
         solution: "We performed a complete SEO audit, optimized on-page elements, built high-quality backlinks, and created targeted content for key search terms.",
         results: [

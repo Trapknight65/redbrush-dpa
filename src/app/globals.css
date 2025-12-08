@@ -10,22 +10,27 @@
   --canvas-white: #FaFaFa;
 
   --redbrush-gradient: linear-gradient(45deg, var(--deep-sea) 10%, var(--ocean-blue) 90%);
-
-  --background: var(--redbrush-gradient);
-  --foreground: var(--canvas-white);
+  --background: #ffffff;
+  --foreground: #171717;
+  --color-gold: #d4af37;
+  --color-fog: #a8a8a8;
+  --color-black: #0a0a0a;
 }
 
-
-
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
 
 body {
   background: var(--background);
-  background-attachment: fixed;
-  background-size: cover;
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
 }
 
 h1,
@@ -38,6 +43,7 @@ h6 {
   font-weight: 700;
 }
 
+/* Animations */
 @keyframes bounce-slow {
 
   0%,
@@ -54,6 +60,7 @@ h6 {
   animation: bounce-slow 2s ease-in-out infinite;
 }
 
+/* Utilities */
 .text-redbrush-gradient {
   background: var(--redbrush-gradient);
   -webkit-background-clip: text;
@@ -62,10 +69,8 @@ h6 {
 }
 
 .border-deep-sea {
-
   border: 1px solid var(--deep-sea);
 }
-
 
 /* 3D Flip Card Utilities */
 .perspective-1000 {
@@ -83,4 +88,149 @@ h6 {
 
 .rotate-y-180 {
   transform: rotateY(180deg);
+}
+
+/* Cinematic Effects from Interactive Report */
+.film-grain {
+  pointer-events: none;
+  opacity: .05;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  width: 100%;
+  height: 100%;
+  animation: grain 8s steps(10, end) infinite;
+  position: absolute;
+  /* Changed from fixed to absolute for container containment option */
+  top: 0;
+  left: 0;
+}
+
+@keyframes grain {
+
+  0%,
+  100% {
+    transform: translate(0);
+  }
+
+  10% {
+    transform: translate(-5%, -10%);
+  }
+
+  20% {
+    transform: translate(-15%, 5%);
+  }
+
+  30% {
+    transform: translate(7%, -25%);
+  }
+
+  40% {
+    transform: translate(-5%, 25%);
+  }
+
+  50% {
+    transform: translate(-15%, 10%);
+  }
+
+  60% {
+    transform: translate(15%);
+  }
+
+  70% {
+    transform: translate(0%, 15%);
+  }
+
+  80% {
+    transform: translate(3%, 35%);
+  }
+
+  90% {
+    transform: translate(-10%, 10%);
+  }
+}
+
+.spotlight {
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(rgba(212, 175, 55, 0.15) 0%, rgba(0, 0, 0, 0) 60%);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.glass-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(20, 20, 20, 0.6);
+}
+
+.tab-button {
+  color: var(--color-fog);
+  cursor: pointer;
+  background: rgba(30, 30, 30, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s;
+}
+
+.tab-button:hover {
+  color: var(--color-gold);
+  background: rgba(40, 40, 40, 0.8);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.tab-button.active {
+  color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--color-gold);
+}
+
+.content-card {
+  background: rgba(30, 30, 30, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.stat-badge {
+  color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.stat-box {
+  text-align: center;
+  background: rgba(20, 20, 20, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+/* Helper Colors */
+.text-gold {
+  color: var(--color-gold);
+}
+
+.text-fog {
+  color: var(--color-fog);
+}
+
+.bg-gold\/5 {
+  background-color: rgba(212, 175, 55, 0.05);
+}
+
+.bg-gold\/10 {
+  background-color: rgba(212, 175, 55, 0.1);
 }
