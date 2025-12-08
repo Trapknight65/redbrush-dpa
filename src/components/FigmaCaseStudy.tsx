@@ -10,9 +10,55 @@ import {
     Shield,
     TrendingUp,
     Globe,
+    LucideIcon,
 } from "lucide-react";
 
-export default function FigmaCaseStudy() {
+export interface CaseStudyData {
+    overview: {
+        heritage: {
+            title: string;
+            description: string;
+            items: { label?: string; text: string }[];
+        };
+        mission: {
+            statement: string;
+            stats: { label: string; subLabel: string }[];
+        };
+    };
+    architecture: {
+        coreStack: { label: string; value: string }[];
+        decisions: { title: string; description: string }[];
+    };
+    features: {
+        items: { title: string; icon: string; points: { label?: string; text: string }[] }[];
+    };
+    roadmap: {
+        performance: { title: string; description: string }[];
+        security: { title: string; description: string }[];
+        features: { title: string; description: string }[];
+        status: string;
+    };
+    deployment?: {
+        steps: { title: string; description: string; points?: { label?: string; text: string }[]; notes?: { title: string; text: string }[] }[];
+    };
+    meta: {
+        title: string;
+        date: string;
+        agency: string;
+    };
+}
+
+const icons: Record<string, LucideIcon> = {
+    Film,
+    Code,
+    Layers,
+    Rocket,
+    Shield,
+    TrendingUp,
+    Globe,
+};
+
+export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
     const [activeTab, setActiveTab] = useState("overview");
 
     const tabs = [
@@ -20,7 +66,7 @@ export default function FigmaCaseStudy() {
         { id: "architecture", label: "Architecture", icon: Layers },
         { id: "features", label: "Key Features", icon: Code },
         { id: "roadmap", label: "Future Vision", icon: Rocket },
-        { id: "deployment", label: "Next Steps", icon: Globe },
+        ...(data.deployment ? [{ id: "deployment", label: "Next Steps", icon: Globe }] : []),
     ];
 
     return (
@@ -57,7 +103,7 @@ export default function FigmaCaseStudy() {
                                 transition={{ delay: 0.1 }}
                                 className="text-white text-3xl font-bold mb-2"
                             >
-                                Bambi Portfolio App
+                                {data.meta.title}
                             </motion.h2>
                             <motion.div
                                 initial={{ opacity: 0 }}
@@ -65,8 +111,8 @@ export default function FigmaCaseStudy() {
                                 transition={{ delay: 0.2 }}
                                 className="flex flex-wrap gap-4 sm:gap-6 text-fog text-sm"
                             >
-                                <span>Agency: Redbrush Studio</span>
-                                <span>Date: 2025-12-08</span>
+                                <span>Agency: {data.meta.agency}</span>
+                                <span>Date: {data.meta.date}</span>
                             </motion.div>
                         </div>
                         <motion.div
@@ -120,35 +166,20 @@ export default function FigmaCaseStudy() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="content-card">
                                         <h4 className="text-white font-bold mb-3">
-                                            Heritage & Evolution
+                                            {data.overview.heritage.title}
                                         </h4>
                                         <p className="text-fog mb-3 text-sm leading-relaxed">
-                                            Culmination of iterative development
-                                            across multiple repositories:
+                                            {data.overview.heritage.description}
                                         </p>
                                         <ul className="space-y-2 text-fog text-sm">
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">•</span>
-                                                <span>
-                                                    <strong>bambi-portfolio65:</strong>{" "}
-                                                    Initial prototype and core identity
-                                                </span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">•</span>
-                                                <span>
-                                                    <strong>bmbiprod:</strong> Production
-                                                    refinement and deployment
-                                                </span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">•</span>
-                                                <span>
-                                                    <strong>Current:</strong> Unified,
-                                                    high-performance codebase with
-                                                    cinematic UI
-                                                </span>
-                                            </li>
+                                            {data.overview.heritage.items.map((item, i) => (
+                                                <li key={i} className="flex items-start gap-2">
+                                                    <span className="text-gold">•</span>
+                                                    <span>
+                                                        {item.label && <strong>{item.label}:</strong>} {item.text}
+                                                    </span>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
 
@@ -157,38 +188,17 @@ export default function FigmaCaseStudy() {
                                             Mission Statement
                                         </h4>
                                         <p className="text-fog mb-4 text-sm leading-relaxed">
-                                            A high-performance, visually immersive
-                                            Single Page Application designed to
-                                            showcase the work of videographer Aparicio
-                                            Bambi.
+                                            {data.overview.mission.statement}
                                         </p>
                                         <div className="grid grid-cols-2 gap-3">
-                                            <div className="stat-box">
-                                                <div className="text-gold mb-1 font-bold">
-                                                    React 19
+                                            {data.overview.mission.stats.map((stat, i) => (
+                                                <div key={i} className="stat-box">
+                                                    <div className="text-gold mb-1 font-bold">
+                                                        {stat.label}
+                                                    </div>
+                                                    <div className="text-fog text-xs">{stat.subLabel}</div>
                                                 </div>
-                                                <div className="text-fog text-xs">Frontend</div>
-                                            </div>
-                                            <div className="stat-box">
-                                                <div className="text-gold mb-1 font-bold">
-                                                    Firebase
-                                                </div>
-                                                <div className="text-fog text-xs">Backend</div>
-                                            </div>
-                                            <div className="stat-box">
-                                                <div className="text-gold mb-1 font-bold">
-                                                    Tailwind
-                                                </div>
-                                                <div className="text-fog text-xs">Styling</div>
-                                            </div>
-                                            <div className="stat-box">
-                                                <div className="text-gold mb-1 font-bold">
-                                                    Framer
-                                                </div>
-                                                <div className="text-fog text-xs">
-                                                    Animation
-                                                </div>
-                                            </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -212,50 +222,19 @@ export default function FigmaCaseStudy() {
                                             Core Stack
                                         </h4>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-fog text-sm">
-                                            <div className="flex items-start gap-3">
-                                                <Code className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
-                                                <div>
-                                                    <div className="text-white font-semibold">
-                                                        Frontend Framework
-                                                    </div>
+                                            {data.architecture.coreStack.map((stack, i) => (
+                                                <div key={i} className="flex items-start gap-3">
+                                                    <Code className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
                                                     <div>
-                                                        React 19 with Create React App
+                                                        <div className="text-white font-semibold">
+                                                            {stack.label}
+                                                        </div>
+                                                        <div>
+                                                            {stack.value}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="flex items-start gap-3">
-                                                <Code className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
-                                                <div>
-                                                    <div className="text-white font-semibold">
-                                                        Routing
-                                                    </div>
-                                                    <div>
-                                                        React Router DOM v7 (Lazy loading)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-start gap-3">
-                                                <Code className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
-                                                <div>
-                                                    <div className="text-white font-semibold">
-                                                        Styling
-                                                    </div>
-                                                    <div>
-                                                        Tailwind CSS + Custom variables
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-start gap-3">
-                                                <Code className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
-                                                <div>
-                                                    <div className="text-white font-semibold">
-                                                        Backend
-                                                    </div>
-                                                    <div>
-                                                        Firebase Firestore (Real-time DB)
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            ))}
                                         </div>
                                     </div>
 
@@ -264,44 +243,17 @@ export default function FigmaCaseStudy() {
                                             Key Architectural Decisions
                                         </h4>
                                         <ul className="space-y-3 text-fog text-sm">
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">→</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        Optimized Loading:
-                                                    </strong>{" "}
-                                                    React.lazy and Suspense for
-                                                    code-splitting routes
-                                                </span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">→</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        Protected Routes:
-                                                    </strong>{" "}
-                                                    Secure admin panel with redirect logic
-                                                </span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">→</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        Global Contexts:
-                                                    </strong>{" "}
-                                                    AuthProvider for session management
-                                                </span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">→</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        PWA Ready:
-                                                    </strong>{" "}
-                                                    Mobile-first with native app
-                                                    capabilities
-                                                </span>
-                                            </li>
+                                            {data.architecture.decisions.map((decision, i) => (
+                                                <li key={i} className="flex items-start gap-2">
+                                                    <span className="text-gold">→</span>
+                                                    <span>
+                                                        <strong className="text-white">
+                                                            {decision.title}:
+                                                        </strong>{" "}
+                                                        {decision.description}
+                                                    </span>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
                                 </div>
@@ -320,109 +272,27 @@ export default function FigmaCaseStudy() {
                                     Key Features & Modules
                                 </h3>
                                 <div className="space-y-4">
-                                    <div className="content-card">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <Film className="w-5 h-5 text-gold" />
-                                            <h4 className="text-white font-bold">
-                                                Cinematic User Experience
-                                            </h4>
-                                        </div>
-                                        <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            <li>
-                                                <strong className="text-white">
-                                                    Visual Language:
-                                                </strong>{" "}
-                                                Dark mode aesthetic with gold accents
-                                            </li>
-                                            <li>
-                                                <strong className="text-white">
-                                                    Atmospheric Effects:
-                                                </strong>{" "}
-                                                Film grain, spotlight effects,
-                                                glassmorphism
-                                            </li>
-                                            <li>
-                                                <strong className="text-white">
-                                                    Smooth Transitions:
-                                                </strong>{" "}
-                                                Custom PageWrapper with fade/slide
-                                                animations
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div className="content-card">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <Shield className="w-5 h-5 text-gold" />
-                                            <h4 className="text-white font-bold">
-                                                Admin Panel & Content Management
-                                            </h4>
-                                        </div>
-                                        <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            <li>
-                                                <strong className="text-white">
-                                                    Dashboard:
-                                                </strong>{" "}
-                                                Real-time stats for Projects, Featured
-                                                Work, and Reviews
-                                            </li>
-                                            <li>
-                                                <strong className="text-white">
-                                                    Dynamic Content:
-                                                </strong>{" "}
-                                                Create, edit, and delete portfolio
-                                                projects
-                                            </li>
-                                            <li>
-                                                <strong className="text-white">
-                                                    Discover Module:
-                                                </strong>{" "}
-                                                Manage featured work items
-                                            </li>
-                                            <li>
-                                                <strong className="text-white">
-                                                    Feedback System:
-                                                </strong>{" "}
-                                                Moderate and publish client reviews
-                                            </li>
-                                            <li>
-                                                <strong className="text-white">
-                                                    Security:
-                                                </strong>{" "}
-                                                Protected by Firebase Authentication
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div className="content-card">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <TrendingUp className="w-5 h-5 text-gold" />
-                                            <h4 className="text-white font-bold">
-                                                Mobile & Performance
-                                            </h4>
-                                        </div>
-                                        <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            <li>
-                                                <strong className="text-white">
-                                                    Adaptive Navigation:
-                                                </strong>{" "}
-                                                Desktop header + mobile bottom bar
-                                            </li>
-                                            <li>
-                                                <strong className="text-white">
-                                                    Skeleton Loading:
-                                                </strong>{" "}
-                                                Visual feedback during data fetching
-                                            </li>
-                                            <li>
-                                                <strong className="text-white">
-                                                    PWA Features:
-                                                </strong>{" "}
-                                                Install app prompt for compatible
-                                                devices
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    {data.features.items.map((feature, i) => {
+                                        const FeatureIcon = icons[feature.icon] || Code;
+                                        return (
+                                            <div key={i} className="content-card">
+                                                <div className="flex items-center gap-2 mb-3">
+                                                    <FeatureIcon className="w-5 h-5 text-gold" />
+                                                    <h4 className="text-white font-bold">
+                                                        {feature.title}
+                                                    </h4>
+                                                </div>
+                                                <ul className="space-y-2 text-fog ml-7 text-sm">
+                                                    {feature.points.map((point, j) => (
+                                                        <li key={j}>
+                                                            {point.label && <strong className="text-white">{point.label}:</strong>}{" "}
+                                                            {point.text}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             </motion.div>
                         )}
@@ -447,25 +317,15 @@ export default function FigmaCaseStudy() {
                                             </h4>
                                         </div>
                                         <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">□</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        Image Optimization:
-                                                    </strong>{" "}
-                                                    Implement AVIF/WebP formats via build
-                                                    pipeline
-                                                </span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">□</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        Bundle Analysis:
-                                                    </strong>{" "}
-                                                    Further reduce initial load size
-                                                </span>
-                                            </li>
+                                            {data.roadmap.performance.map((item, i) => (
+                                                <li key={i} className="flex items-start gap-2">
+                                                    <span className="text-gold">□</span>
+                                                    <span>
+                                                        <strong className="text-white">{item.title}:</strong>{" "}
+                                                        {item.description}
+                                                    </span>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
 
@@ -477,25 +337,15 @@ export default function FigmaCaseStudy() {
                                             </h4>
                                         </div>
                                         <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">□</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        Firestore Rules:
-                                                    </strong>{" "}
-                                                    Tighten security rules with strict
-                                                    validation
-                                                </span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">□</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        Environment Variables:
-                                                    </strong>{" "}
-                                                    Properly scope sensitive configuration
-                                                </span>
-                                            </li>
+                                            {data.roadmap.security.map((item, i) => (
+                                                <li key={i} className="flex items-start gap-2">
+                                                    <span className="text-gold">□</span>
+                                                    <span>
+                                                        <strong className="text-white">{item.title}:</strong>{" "}
+                                                        {item.description}
+                                                    </span>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
 
@@ -507,35 +357,15 @@ export default function FigmaCaseStudy() {
                                             </h4>
                                         </div>
                                         <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">□</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        Blog/News Section:
-                                                    </strong>{" "}
-                                                    CMS-lite for smaller updates
-                                                </span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">□</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        Dark/Light Mode Toggle:
-                                                    </strong>{" "}
-                                                    High-contrast light mode for
-                                                    accessibility
-                                                </span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-gold">□</span>
-                                                <span>
-                                                    <strong className="text-white">
-                                                        Client Portal:
-                                                    </strong>{" "}
-                                                    Private albums and draft approval
-                                                    system
-                                                </span>
-                                            </li>
+                                            {data.roadmap.features.map((item, i) => (
+                                                <li key={i} className="flex items-start gap-2">
+                                                    <span className="text-gold">□</span>
+                                                    <span>
+                                                        <strong className="text-white">{item.title}:</strong>{" "}
+                                                        {item.description}
+                                                    </span>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
 
@@ -544,16 +374,14 @@ export default function FigmaCaseStudy() {
                                             <strong className="text-gold">
                                                 Current Status:
                                             </strong>{" "}
-                                            Application is stable, production-ready,
-                                            and optimized with code splitting active.
-                                            Deployed on Render with full SPA support.
+                                            {data.roadmap.status}
                                         </p>
                                     </div>
                                 </div>
                             </motion.div>
                         )}
 
-                        {activeTab === "deployment" && (
+                        {activeTab === "deployment" && data.deployment && (
                             <motion.div
                                 key="deployment"
                                 initial={{ opacity: 0, x: -20 }}
@@ -565,30 +393,41 @@ export default function FigmaCaseStudy() {
                                     Next Steps: Launching Your Custom Domain
                                 </h3>
                                 <div className="space-y-4">
-                                    <div className="content-card bg-gold/5 border border-gold/20">
-                                        <p className="text-fog text-sm">
-                                            <strong className="text-gold">
-                                                What{"'"}s Next:
-                                            </strong>{" "}
-                                            Your Bambi Portfolio app is fully built
-                                            and ready to go live! Now we just need to
-                                            connect it to your own custom domain name
-                                            using Cloudflare. This will give you a
-                                            professional web address like{" "}
-                                            <span className="text-white">
-                                                bambistudios.com
-                                            </span>{" "}
-                                            instead of the temporary Render URL.
-                                        </p>
-                                    </div>
-                                    {/* ... Rest of content truncated for brevity, but could be added if critical ... */}
-                                    {/* Placeholder for the rest of deployment steps which were very long. 
-                      Simplifying for this iteration, but can expand if needed. */}
-                                    <div className="content-card">
-                                        <p className="text-fog italic">
-                                            (Detailed deployment steps are available in the design file)
-                                        </p>
-                                    </div>
+                                    {data.deployment.steps.map((step, i) => (
+                                        <div key={i} className="content-card">
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <Shield className="w-5 h-5 text-gold" />
+                                                <h4 className="text-white font-bold">
+                                                    {step.title}
+                                                </h4>
+                                            </div>
+                                            <div className="space-y-3 text-fog ml-7 text-sm">
+                                                <p>{step.description}</p>
+                                                {step.points && (
+                                                    <ul className="space-y-2">
+                                                        {step.points.map((point, j) => (
+                                                            <li key={j} className="flex items-start gap-2">
+                                                                <span className="text-gold">→</span>
+                                                                <span>
+                                                                    {point.label && <strong>{point.label}</strong>} {point.text}
+                                                                </span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                )}
+                                                {step.notes && step.notes.map((note, k) => (
+                                                    <div key={k} className="bg-black/40 border border-gold/20 rounded p-3 mt-3">
+                                                        <div className="text-white mb-1">
+                                                            {note.title}
+                                                        </div>
+                                                        <div className="text-sm">
+                                                            {note.text}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </motion.div>
                         )}

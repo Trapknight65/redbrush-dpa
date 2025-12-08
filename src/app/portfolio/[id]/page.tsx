@@ -68,10 +68,10 @@ export default function ProjectDetail({ params }: { params: { id: string } }) {
             </section>
 
             {/* Figma Case Study / Design Process */}
-            {project.figmaDesign && (
+            {project.caseStudy && (
                 <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 scale-90 sm:scale-100 origin-center">
                     <h2 className="text-3xl sm:text-4xl font-bold text-center text-dark-gray mb-8">Design Process</h2>
-                    <FigmaCaseStudy />
+                    <FigmaCaseStudy data={project.caseStudy} />
                 </section>
             )}
 

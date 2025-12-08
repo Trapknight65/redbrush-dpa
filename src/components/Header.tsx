@@ -36,10 +36,10 @@ export default function Header() {
 
                     {/* Desktop Navigation */}
                     <nav className="hidden md:flex space-x-8">
-                        {['Services', 'Portfolio', 'About', 'Contact'].map((item) => (
+                        {['Services', 'Portfolio', 'Case Studies', 'About', 'Contact'].map((item) => (
                             <Link
                                 key={item}
-                                href={`/${item.toLowerCase()}`}
+                                href={`/${item.toLowerCase().replace(' ', '-')}`}
                                 className="text-base font-medium text-charcoal hover:text-crimson-red transition-colors relative group"
                             >
                                 {item}
@@ -83,10 +83,10 @@ export default function Header() {
             {mobileMenuOpen && (
                 <div className="md:hidden bg-pure-white border-t border-gray-200 shadow-lg">
                     <nav className="px-4 py-4 space-y-3">
-                        {['Services', 'Portfolio', 'About', 'Contact'].map((item) => (
+                        {['Services', 'Portfolio', 'Case Studies', 'About', 'Contact'].map((item) => (
                             <Link
                                 key={item}
-                                href={`/${item.toLowerCase()}`}
+                                href={`/${item.toLowerCase().replace(' ', '-')}`}
                                 className="block py-2 text-base font-medium text-charcoal hover:text-crimson-red transition-colors"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
