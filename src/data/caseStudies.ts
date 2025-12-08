@@ -160,5 +160,25 @@ export const bambiPortfolioCaseStudy: CaseStudyData = {
                 ]
             }
         ]
+    },
+    visuals: {
+        title: "Visual Gallery",
+        items: [
+            {
+                type: "image",
+                url: "/images/case-studies/bambi/walkthrough.webp",
+                caption: "Public Site Walkthrough: Cinematic user experience and navigation"
+            },
+            {
+                type: "image",
+                url: "/images/case-studies/bambi/admin-access.webp",
+                caption: "Secure Admin Access: Authentication flow"
+            },
+            {
+                type: "image",
+                url: "/images/case-studies/bambi/dashboard.png",
+                caption: "Admin Dashboard: Real-time content management statistics"
+            }
+        ]
     }
 };

@@ -19,7 +19,7 @@ export default function CaseStudiesPage() {
         : portfolioProjects.filter((p) => p.tags?.includes(selectedTag));
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-off-white via-pure-white to-off-white">
+        <div className="min-h-screen bg-gradient-to-br from-green-400 to-blue-600">
             {/* Hero Section */}
             <section className="bg-dark-gray text-white py-16 sm:py-24 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5 mix-blend-overlay"></div>
@@ -48,8 +48,8 @@ export default function CaseStudiesPage() {
                                 key={tag}
                                 onClick={() => setSelectedTag(tag)}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${selectedTag === tag
-                                        ? "bg-crimson-red text-white shadow-lg scale-105"
-                                        : "bg-gray-100 text-charcoal hover:bg-gray-200"
+                                    ? "bg-crimson-red text-white shadow-lg scale-105"
+                                    : "bg-gray-100 text-charcoal hover:bg-gray-200"
                                     }`}
                             >
                                 {tag}

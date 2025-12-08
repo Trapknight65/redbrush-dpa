@@ -41,6 +41,10 @@ export interface CaseStudyData {
     deployment?: {
         steps: { title: string; description: string; points?: { label?: string; text: string }[]; notes?: { title: string; text: string }[] }[];
     };
+    visuals?: {
+        title: string;
+        items: { type: 'image' | 'video'; url: string; caption: string }[];
+    };
     meta: {
         title: string;
         date: string;
@@ -67,6 +71,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
         { id: "features", label: "Key Features", icon: Code },
         { id: "roadmap", label: "Future Vision", icon: Rocket },
         ...(data.deployment ? [{ id: "deployment", label: "Next Steps", icon: Globe }] : []),
+        ...(data.visuals ? [{ id: "visuals", label: "Gallery", icon: Film }] : []),
     ];
 
     return (
@@ -425,6 +430,44 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                                         </div>
                                                     </div>
                                                 ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {activeTab === "visuals" && data.visuals && (
+                            <motion.div
+                                key="visuals"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 20 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                    {data.visuals.title}
+                                </h3>
+                                <div className="grid grid-cols-1 gap-8">
+                                    {data.visuals.items.map((item, i) => (
+                                        <div key={i} className="glass-card border border-gold/10 overflow-hidden rounded-lg">
+                                            {item.type === 'image' ? (
+                                                <img
+                                                    src={item.url}
+                                                    alt={item.caption}
+                                                    className="w-full h-auto object-cover"
+                                                />
+                                            ) : (
+                                                <video
+                                                    src={item.url}
+                                                    controls
+                                                    className="w-full h-auto"
+                                                />
+                                            )}
+                                            <div className="p-4 bg-black/60 border-t border-gold/10">
+                                                <p className="text-fog text-sm text-center italic">
+                                                    {item.caption}
+                                                </p>
                                             </div>
                                         </div>
                                     ))}
