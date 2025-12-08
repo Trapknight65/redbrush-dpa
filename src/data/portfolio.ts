@@ -1,4 +1,13 @@
-import { bambiPortfolioCaseStudy } from './caseStudies';
+import {
+    bambiPortfolioCaseStudy,
+    ecommerceCaseStudy,
+    brandingCaseStudy,
+    socialMediaCaseStudy,
+    cmsCaseStudy,
+    saasCaseStudy,
+    mobileAppCaseStudy,
+    seoCaseStudy
+} from './caseStudies';
 
 export const portfolioProjects = [
     {
@@ -9,6 +18,7 @@ export const portfolioProjects = [
         description: "A modern, high-performance online store built with Next.js, featuring real-time inventory, secure payments, and an intuitive admin dashboard.",
         tech: ["Next.js", "TypeScript", "Stripe", "Tailwind CSS"],
         image: "🛒",
+        caseStudies: [ecommerceCaseStudy],
         challenge: "The client needed a fast, scalable e-commerce solution that could handle thousands of products and high traffic volumes during sales events.",
         solution: "We built a custom Next.js application with server-side rendering for optimal performance, integrated Stripe for secure payments, and implemented a real-time inventory system.",
         results: [
@@ -26,6 +36,7 @@ export const portfolioProjects = [
         description: "Complete brand transformation for a tech startup, including logo design, color palette, typography system, and brand guidelines.",
         tech: ["Figma", "Adobe Illustrator", "Brand Strategy"],
         image: "🎨",
+        caseStudies: [brandingCaseStudy],
         figmaDesign: {
             thumbnail: "/figma-thumbnail.png",
             title: "Brand Guidelines & Assets",
@@ -48,6 +59,7 @@ export const portfolioProjects = [
         description: "Multi-platform marketing campaign that increased engagement by 300% and drove 50K+ new followers across Instagram, LinkedIn, and Twitter.",
         tech: ["Meta Ads", "Google Analytics", "Content Strategy"],
         image: "📱",
+        caseStudies: [socialMediaCaseStudy],
         challenge: "The client struggled with low social media engagement and needed to build a stronger online presence to compete in their industry.",
         solution: "We developed a comprehensive content strategy, created engaging visual content, and ran targeted ad campaigns across multiple platforms.",
         results: [
@@ -65,6 +77,7 @@ export const portfolioProjects = [
         description: "Scalable and headless CMS architecture designed for flexibility and high performance content delivery.",
         tech: ["Headless CMS", "GraphQL", "Next.js"],
         image: "🏗️",
+        caseStudies: [cmsCaseStudy],
         figmaDesign: {
             thumbnail: "/figma-thumbnail.png",
             title: "Architecture Diagrams",
@@ -87,6 +100,7 @@ export const portfolioProjects = [
         description: "Enterprise-grade analytics dashboard with real-time data visualization, custom reporting, and role-based access control.",
         tech: ["React", "Node.js", "PostgreSQL", "Chart.js"],
         image: "📊",
+        caseStudies: [saasCaseStudy],
         challenge: "An enterprise client needed a powerful analytics platform that could process millions of data points in real-time while remaining user-friendly.",
         solution: "We architected a scalable backend with Node.js and PostgreSQL, built an intuitive React frontend, and implemented advanced data visualization with Chart.js.",
         results: [
@@ -104,6 +118,7 @@ export const portfolioProjects = [
         description: "User-centered mobile app design for a fitness platform, featuring intuitive navigation and engaging workout tracking interfaces.",
         tech: ["Figma", "Prototyping", "User Research"],
         image: "📲",
+        caseStudies: [mobileAppCaseStudy],
         figmaDesign: {
             thumbnail: "/figma-thumbnail.png",
             title: "App Prototype",
@@ -126,6 +141,7 @@ export const portfolioProjects = [
         description: "Comprehensive SEO strategy that improved organic traffic by 250% and achieved first-page rankings for 20+ target keywords.",
         tech: ["SEO", "Google Search Console", "Content Marketing"],
         image: "🔍",
+        caseStudies: [seoCaseStudy],
         figmaDesign: {
             thumbnail: "/figma-thumbnail.png",
             title: "Strategy Framework",
@@ -148,7 +164,7 @@ export const portfolioProjects = [
         description: "A high-performance, visually immersive Single Page Application designed to showcase the work of videographer Aparicio Bambi.",
         tech: ["React 19", "Firebase", "Tailwind CSS", "Framer Motion"],
         image: "🎬",
-        caseStudy: bambiPortfolioCaseStudy,
+        caseStudies: [bambiPortfolioCaseStudy],
         challenge: "To create a portfolio that feels like a cinematic experience, matching the high quality of the videographer's work, while ensuring top-tier performance.",
         solution: "Built a custom SPA with React 19, featuring advanced animations, a custom dark mode aesthetic, and a robust admin panel for content management.",
         results: [

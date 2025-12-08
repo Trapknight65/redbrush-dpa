@@ -15,9 +15,10 @@ export const metadata: Metadata = {
   },
 };
 
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import SplashingParticles from "@/components/SplashingParticles";
+import LogPose from "@/components/ui/LogPose";
 
 export default function RootLayout({
   children,
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={`${inter.variable} antialiased flex flex-col min-h-screen`}
       >
         <SplashingParticles />
+        <LogPose />
         <Header />
         <main className="flex-grow">
           {children}

@@ -182,3 +182,389 @@ export const bambiPortfolioCaseStudy: CaseStudyData = {
         ]
     }
 };
+
+export const ecommerceCaseStudy: CaseStudyData = {
+    meta: {
+        title: "E-commerce Platform Scale",
+        date: "2025-11-15",
+        agency: "Redbrush Studio"
+    },
+    overview: {
+        heritage: {
+            title: "Project Background",
+            description: "A high-traffic fashion retailer needed to migrate from Shopify to a custom solution to avoid transaction fees and enable custom features.",
+            items: [
+                { label: "Challenge", text: "Legacy platform limitations and high costs" },
+                { label: "Goal", text: "Custom headless solution with 0% transaction fees" }
+            ]
+        },
+        mission: {
+            statement: "Build a blazingly fast, SEO-optimized e-commerce platform capable of handling flash sales with 10k+ concurrent users.",
+            stats: [
+                { label: "Next.js", subLabel: "Framework" },
+                { label: "Stripe", subLabel: "Payments" },
+                { label: "Vercel", subLabel: "Hosting" },
+                { label: "Redis", subLabel: "Caching" }
+            ]
+        }
+    },
+    architecture: {
+        coreStack: [
+            { label: "Frontend", value: "Next.js 14 (App Router)" },
+            { label: "Database", value: "PostgreSQL + Prisma" },
+            { label: "Payments", value: "Stripe Connect" },
+            { label: "Search", value: "Algolia InstantSearch" }
+        ],
+        decisions: [
+            { title: "Server-Side Rendering", description: "Utilized for product pages to ensure maximum SEO visibility." },
+            { title: "Edge Caching", description: "Implemented Vercel Edge Config for real-time feature flags and pricing updates." }
+        ]
+    },
+    features: {
+        items: [
+            {
+                title: "Real-Time Inventory",
+                icon: "TrendingUp",
+                points: [
+                    { label: "WebSockets", text: "Live stock updates during checkouts" },
+                    { label: "Cart Reservation", text: "Temporary hold architecture to prevent overselling" }
+                ]
+            },
+            {
+                title: "Admin Dashboard",
+                icon: "Shield",
+                points: [
+                    { label: "Analytics", text: "Custom revenue charts and user behavior tracking" },
+                    { label: "Order Management", text: "Bulk printing of shipping labels via EasyPost API" }
+                ]
+            }
+        ]
+    },
+    roadmap: {
+        status: "Live and generating revenue.",
+        performance: [{ title: "Core Vitals", description: "LCP < 1.2s, CLS 0" }],
+        security: [{ title: "PCI Compliance", description: "SAQ-A compliant via Stripe Elements" }],
+        features: [{ title: "AI Recommendations", description: "Product suggestion engine based on browsing history" }]
+    }
+};
+
+export const brandingCaseStudy: CaseStudyData = {
+    meta: {
+        title: "Tech Startup Rebrand",
+        date: "2025-10-01",
+        agency: "Redbrush Studio"
+    },
+    overview: {
+        heritage: {
+            title: "Identity Crisis",
+            description: "The startup's original DIY logo was holding them back from enterprise deals.",
+            items: [
+                { label: "Previous", text: "Generic, clip-art style logo" },
+                { label: "New Direction", text: "Trust, Innovation, Scalability" }
+            ]
+        },
+        mission: {
+            statement: "Create a visual identity that communicates reliability to Fortune 500 CTOs while retaining the startup's energetic culture.",
+            stats: [
+                { label: "Figma", subLabel: "Design" },
+                { label: "Illustrator", subLabel: "Vectors" },
+                { label: "Motion", subLabel: "Brand Guidelines" },
+                { label: "Print", subLabel: "Collateral" }
+            ]
+        }
+    },
+    architecture: {
+        coreStack: [
+            { label: "Design Tool", value: "Figma" },
+            { label: "Asset Management", value: "Brandfolder" },
+            { label: "Typography", value: "Custom Sans-Serif Family" }
+        ],
+        decisions: [
+            { title: "Color Theory", description: "Shifted from aggressive red to deep navy and electric teal to signify stability and energy." },
+            { title: "Logo System", description: "Responsive logo marks for different context (App icon, Header, Print)." }
+        ]
+    },
+    features: {
+        items: [
+            {
+                title: "Visual System",
+                icon: "Layers",
+                points: [
+                    { label: "Logo Suite", text: "Primary wordmark, pictorial mark, and monochrome variants" },
+                    { label: "Typography", text: "Licensed 'Inter' paired with a custom display font" }
+                ]
+            },
+            {
+                title: "Brand Guidelines",
+                icon: "Film",
+                points: [
+                    { label: "Usage Rules", text: "Clear do's and don'ts for partner co-branding" },
+                    { label: "Tone of Voice", text: "Guide for copywriters to maintain brand personality" }
+                ]
+            }
+        ]
+    },
+    roadmap: {
+        status: "Rolled out globally.",
+        performance: [],
+        security: [],
+        features: [{ title: "Motion Identity", description: "Developing a motion language for video intros" }]
+    }
+};
+
+export const socialMediaCaseStudy: CaseStudyData = {
+    meta: {
+        title: "Viral Growth Campaign",
+        date: "2025-09-20",
+        agency: "Redbrush Studio"
+    },
+    overview: {
+        heritage: {
+            title: "Stagnant Growth",
+            description: "Client had plateaued at 5k followers for 2 years.",
+            items: []
+        },
+        mission: {
+            statement: "Ignite organic growth through a data-backed content strategy focusing on short-form video.",
+            stats: [
+                { label: "TikTok", subLabel: "Primary" },
+                { label: "Reels", subLabel: "Secondary" },
+                { label: "CapCut", subLabel: "Editing" },
+                { label: "Notion", subLabel: "Management" }
+            ]
+        }
+    },
+    architecture: {
+        coreStack: [
+            { label: "Analytics", value: "Google Data Studio" },
+            { label: "Scheduling", value: "Buffer" },
+            { label: "Ads", value: "Meta Business Manager" }
+        ],
+        decisions: [
+            { title: "Video First", description: "Pivoted 100% of budget to vertical video production." },
+            { title: "Community Management", description: "Implemented a 'reply to all' strategy within 1 hour." }
+        ]
+    },
+    features: {
+        items: [
+            {
+                title: "Content Engines",
+                icon: "Film",
+                points: [
+                    { label: "Trend Jacking", text: "System to identify and adapt trends within 24 hours" },
+                    { label: "Educational Series", text: "Deep dive content that established authority" }
+                ]
+            }
+        ]
+    },
+    roadmap: {
+        status: "Campaign concluded.",
+        performance: [],
+        security: [],
+        features: []
+    }
+};
+
+export const cmsCaseStudy: CaseStudyData = {
+    meta: {
+        title: "Headless CMS Migration",
+        date: "2025-08-10",
+        agency: "Redbrush Studio"
+    },
+    overview: {
+        heritage: {
+            title: "WordPress Bottleneck",
+            description: "Marketing team was dependent on devs for every text change.",
+            items: []
+        },
+        mission: {
+            statement: "Decouple content from code to empower the marketing team and speed up site performance.",
+            stats: [
+                { label: "Sanity.io", subLabel: "CMS" },
+                { label: "Next.js", subLabel: "Frontend" },
+                { label: "GROQ", subLabel: "Query Lang" },
+                { label: "Vercel", subLabel: "Deploy" }
+            ]
+        }
+    },
+    architecture: {
+        coreStack: [
+            { label: "Content Lake", value: "Sanity.io" },
+            { label: "Frontend", value: "Next.js ISR" },
+            { label: "Previews", value: "Sanity Presentation Mode" }
+        ],
+        decisions: [
+            { title: "Structured Content", description: "Modeled content as data, not HTML blobs, allowing reuse across web and mobile." }
+        ]
+    },
+    features: {
+        items: [
+            {
+                title: "Real-time Preview",
+                icon: "Code",
+                points: [
+                    { label: "Live Edit", text: "Marketing sees changes instantly before publishing" },
+                    { label: "Visual Editing", text: "Click-to-edit directly on the frontend preview" }
+                ]
+            }
+        ]
+    },
+    roadmap: {
+        status: "In production.",
+        performance: [],
+        security: [],
+        features: []
+    }
+};
+
+export const saasCaseStudy: CaseStudyData = {
+    meta: {
+        title: "Enterprise Analytics Dashboard",
+        date: "2025-07-22",
+        agency: "Redbrush Studio"
+    },
+    overview: {
+        heritage: {
+            title: "Big Data Problem",
+            description: "Client needed to visualize millions of rows without loading spinners.",
+            items: []
+        },
+        mission: {
+            statement: "Deliver actionable insights through a responsive, real-time dashboard.",
+            stats: [
+                { label: "React", subLabel: "UI" },
+                { label: "D3.js", subLabel: "Charts" },
+                { label: "cube.js", subLabel: "Analytics" },
+                { label: "AWS", subLabel: "Infra" }
+            ]
+        }
+    },
+    architecture: {
+        coreStack: [
+            { label: "Frontend", value: "React + TanStack Query" },
+            { label: "Visualization", value: "D3.js + Nivo" },
+            { label: "Backend", value: "Node.js Microservices" }
+        ],
+        decisions: [
+            { title: "Pre-aggregation", description: "Used Cube.js to pre-aggregate data for sub-second query responses." }
+        ]
+    },
+    features: {
+        items: [
+            {
+                title: "Interactive Reports",
+                icon: "TrendingUp",
+                points: [
+                    { label: "Drill-down", text: "Users can click charts to filter global state" },
+                    { label: "Export", text: "PDF and CSV generation worker" }
+                ]
+            }
+        ]
+    },
+    roadmap: {
+        status: "Active development.",
+        performance: [],
+        security: [],
+        features: []
+    }
+};
+
+export const mobileAppCaseStudy: CaseStudyData = {
+    meta: {
+        title: "Fitness App UX Overhaul",
+        date: "2025-06-15",
+        agency: "Redbrush Studio"
+    },
+    overview: {
+        heritage: {
+            title: "Churn Reduction",
+            description: "Users were abandoning the app during onboarding.",
+            items: []
+        },
+        mission: {
+            statement: "Simplify the workout tracking flow to reduce friction and increase habit formation.",
+            stats: [
+                { label: "Figma", subLabel: "Prototyping" },
+                { label: "Maze", subLabel: "Testing" },
+                { label: "Lottie", subLabel: "Animation" }
+            ]
+        }
+    },
+    architecture: {
+        coreStack: [
+            { label: "Design System", value: "Atomic Design" },
+            { label: "Handoff", value: "Zeplin" }
+        ],
+        decisions: [
+            { title: "Gamification", description: "Introduced streak counters and confetti animations to reward consistency." }
+        ]
+    },
+    features: {
+        items: [
+            {
+                title: "Workout Tracker",
+                icon: "Layers",
+                points: [
+                    { label: "One-thumb use", text: "Controls placed within reach for gym us" },
+                    { label: "Dark Mode", text: "Battery saving OLED black theme" }
+                ]
+            }
+        ]
+    },
+    roadmap: {
+        status: "Released v2.0.",
+        performance: [],
+        security: [],
+        features: []
+    }
+};
+
+export const seoCaseStudy: CaseStudyData = {
+    meta: {
+        title: "Organic Traffic Turnaround",
+        date: "2025-05-30",
+        agency: "Redbrush Studio"
+    },
+    overview: {
+        heritage: {
+            title: "Invisible Brand",
+            description: "Great product, zero organic visibility.",
+            items: []
+        },
+        mission: {
+            statement: "Dominate the 'luxury travel' keyword niche.",
+            stats: [
+                { label: "Semrush", subLabel: "Analysis" },
+                { label: "Ahrefs", subLabel: "Backlinks" },
+                { label: "GSC", subLabel: "Tracking" }
+            ]
+        }
+    },
+    architecture: {
+        coreStack: [
+            { label: "Audit", value: "Screaming Frog" },
+            { label: "Content", value: "SurferSEO" }
+        ],
+        decisions: [
+            { title: "Topic Clusters", description: "Built pillar pages linking to cluster content to boost authority." }
+        ]
+    },
+    features: {
+        items: [
+            {
+                title: "Technical SEO",
+                icon: "Code",
+                points: [
+                    { label: "Core Web Vitals", text: "Optimized images and JS execution" },
+                    { label: "Schema Markup", text: "Added JSON-LD for rich snippets" }
+                ]
+            }
+        ]
+    },
+    roadmap: {
+        status: "Ongoing retainer.",
+        performance: [],
+        security: [],
+        features: []
+    }
+};

@@ -3,7 +3,7 @@ import { getProjectById, portfolioProjects } from '@/data/portfolio';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Link from 'next/link';
-import FigmaCaseStudy from '@/components/FigmaCaseStudy';
+import ProjectCaseStudies from '@/components/ProjectCaseStudies';
 
 export async function generateStaticParams() {
     return portfolioProjects.map((project) => ({
@@ -67,12 +67,12 @@ export default function ProjectDetail({ params }: { params: { id: string } }) {
                 </div>
             </section>
 
-            {/* Figma Case Study / Design Process */}
-            {project.caseStudy && (
-                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 scale-90 sm:scale-100 origin-center">
-                    <h2 className="text-3xl sm:text-4xl font-bold text-center text-dark-gray mb-8">Design Process</h2>
-                    <FigmaCaseStudy data={project.caseStudy} />
-                </section>
+            {/* Case Studies Section */}
+            {/* Case Studies Section */}
+            {project.caseStudies && (
+                <ProjectCaseStudies
+                    studies={project.caseStudies}
+                />
             )}
 
             {/* Case Study */}
