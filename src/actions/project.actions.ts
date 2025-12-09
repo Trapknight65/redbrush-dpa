@@ -33,6 +33,19 @@ export async function getProjectBySlug(slug: string) {
     }
 }
 
+export async function getProjectById(id: string) {
+    try {
+        const project = await prisma.project.findUnique({
+            where: { id },
+            include: { caseStudies: true }
+        })
+        return { success: true, data: project }
+    } catch (error) {
+        console.error('getProjectById error:', error)
+        return { success: false, error: 'Failed to fetch project' }
+    }
+}
+
 export async function createProject(data: ProjectCreateInput) {
     try {
         const project = await prisma.project.create({
