@@ -19,7 +19,7 @@ export default function CaseStudiesPage() {
         : portfolioProjects.filter((p) => p.tags?.includes(selectedTag));
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-off-white via-pure-white to-off-white text-gray-900 relative overflow-hidden">
+        <div className="min-h-screen bg-gradient-to-br bg-gradient from-deep-sea to-ocean-blue text-gray-900 relative overflow-hidden">
             {/* Hero Section */}
             <section className="relative z-10 py-16 sm:py-24 text-center">
                 <motion.div
