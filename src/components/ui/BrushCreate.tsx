@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 interface BrushCreateProps {
     text: string;
@@ -11,15 +11,15 @@ interface BrushCreateProps {
 export default function BrushCreate({ text, className = "", delay = 0 }: BrushCreateProps) {
     const letters = Array.from(text);
 
-    const container = {
+    const container: Variants = {
         hidden: { opacity: 0 },
-        visible: (i = 1) => ({
+        visible: () => ({
             opacity: 1,
             transition: { staggerChildren: 0.05, delayChildren: delay }
         })
     };
 
-    const child = {
+    const child: Variants = {
         visible: {
             opacity: 1,
             pathLength: 1,
@@ -27,7 +27,7 @@ export default function BrushCreate({ text, className = "", delay = 0 }: BrushCr
             scale: 1,
             filter: "blur(0px)",
             transition: {
-                type: "spring",
+                type: "spring" as const,
                 damping: 12,
                 stiffness: 100
             }
