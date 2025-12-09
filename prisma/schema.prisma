@@ -1,6 +1,7 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -42,4 +43,19 @@ model CaseStudy {
 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model Profile {
+  id             String   @id @default(cuid())
+  name           String
+  headline       String
+  bio            String
+  avatar         String?
+  skills         String[]
+  experiences    Json[]   // [{ title, company, period, description, logo }]
+  education      Json[]   // [{ title, institution, year }]
+  certifications Json[]   // [{ title, issuer, date }]
+  languages      Json[]   // [{ language, proficiency }]
+  
+  updatedAt      DateTime @updatedAt
 }

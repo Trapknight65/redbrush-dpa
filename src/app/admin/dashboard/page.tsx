@@ -41,6 +41,10 @@ export default async function AdminDashboardPage() {
                         <Users className="w-5 h-5" />
                         Crew
                     </Link>
+                    <Link href="/admin/about" className="flex items-center gap-3 px-4 py-3 text-amber-700/60 hover:text-amber-500 hover:bg-amber-900/10 rounded transition-colors">
+                        <Users className="w-5 h-5" />
+                        About / Profile
+                    </Link>
                 </nav>
 
                 <div className="mt-auto pt-6 border-t border-amber-900/30">

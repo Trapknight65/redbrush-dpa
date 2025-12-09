@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createProject, updateProject } from "@/actions/project.actions";
 import { useState } from "react";
 import { Loader2, Save } from "lucide-react";
+import ImageUpload from "./ImageUpload";
 
 type ProjectFormData = {
     title: string;
@@ -18,10 +19,17 @@ type ProjectFormData = {
     solution: string;
 };
 
-// We don't import Project type to avoid large payloads, just infer from initialData
-// But technically we should share the Prisma type. For now, using 'any' for initialData to move fast.
+import { Prisma } from "@prisma/client";
+
+// ...
+
+// Use the return type of our getProject actions
+type ProjectWithRelations = Prisma.ProjectGetPayload<{
+    include: { caseStudies: true }
+}>;
+
 interface ProjectFormProps {
-    initialData?: any;
+    initialData?: ProjectWithRelations | null;
 }
 
 export default function ProjectForm({ initialData }: ProjectFormProps) {
@@ -29,7 +37,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ProjectFormData>({
+    const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<ProjectFormData>({
         defaultValues: {
             title: initialData?.title || "",
             slug: initialData?.slug || "",
@@ -54,8 +62,10 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                 tags: data.tags.split(",").map((t) => t.trim()).filter(Boolean),
                 tech: data.tech.split(",").map((t) => t.trim()).filter(Boolean),
                 // Add defaults for arrays not in form if needed
+                // Add defaults for arrays not in form if needed
                 results: initialData?.results || [],
                 gallery: initialData?.gallery || [],
+                figmaDesign: initialData?.figmaDesign ?? Prisma.JsonNull,
             };
 
             let result;
@@ -124,11 +134,11 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
 
                 {/* Image */}
                 <div className="space-y-2">
-                    <label className="text-amber-700 text-sm font-bold uppercase">Image (Emoji or URL)</label>
-                    <input
-                        {...register("image", { required: "Image is required" })}
-                        className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-amber-100 focus:border-amber-600 focus:outline-none transition-colors"
-                        placeholder="e.g. 🛒 or https://..."
+                    <label className="text-amber-700 text-sm font-bold uppercase">Image</label>
+                    <ImageUpload
+                        value={watch("image")}
+                        onChange={(url) => setValue("image", url)}
+                        onRemove={() => setValue("image", "")}
                     />
                     {errors.image && <span className="text-red-500 text-xs">{errors.image.message}</span>}
                 </div>
