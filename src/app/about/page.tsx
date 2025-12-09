@@ -1,6 +1,8 @@
 import Image from "next/image";
 
-// ... existing imports
+import { getProfile } from "@/actions/profile.actions";
+import { Card } from "@/components/ui/card";
+import ExperienceCarousel from "@/components/ExperienceCarousel";
 
 export default async function About() {
     const { data: profile } = await getProfile();
