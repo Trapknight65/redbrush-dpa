@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button";
 import Card from "@/components/Card";
 import Testimonials from "@/components/Testimonials";
+import BrushCreate from "@/components/ui/BrushCreate";
 
 export default function Home() {
   return (
@@ -11,8 +12,8 @@ export default function Home() {
           {/* Left: Hero Content */}
           <div className="text-center lg:text-left">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-              Digital Solutions for
-              <span className="text-crimson-red"> Modern Brands</span>
+              <BrushCreate text="Digital Solutions for" className="block" delay={0.2} />
+              <span className="text-crimson-red block">Modern Brands</span>
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-canvas-white max-w-2xl lg:max-w-none mb-8 sm:mb-10">
               We craft stunning digital experiences that drive results. From web development to branding, we&apos;ve got you covered.
@@ -29,7 +30,7 @@ export default function Home() {
           </div>
 
           {/* Right: Video */}
-          <div className="relative">
+          <div className="relative brush-mask">
             <video
               autoPlay
               loop

@@ -19,6 +19,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SplashingParticles from "@/components/SplashingParticles";
 import LogPose from "@/components/ui/LogPose";
+import CustomCursor from "@/components/ui/CustomCursor";
 
 export default function RootLayout({
   children,
@@ -28,8 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased flex flex-col min-h-screen`}
+        className={`${inter.variable} antialiased flex flex-col min-h-screen cursor-none`}
       >
+        <CustomCursor />
         <SplashingParticles />
         <LogPose />
         <Header />
