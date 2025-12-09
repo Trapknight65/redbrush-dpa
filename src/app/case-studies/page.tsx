@@ -19,11 +19,7 @@ export default function CaseStudiesPage() {
         : portfolioProjects.filter((p) => p.tags?.includes(selectedTag));
 
     return (
-        <div className="min-h-screen bg-black text-white relative overflow-hidden">
-            {/* Cinematic Effects */}
-            <div className="film-grain" />
-            <div className="spotlight top-[-20%] left-[50%] opacity-60" />
-
+        <div className="min-h-screen bg-gradient-to-br from-off-white via-pure-white to-off-white text-gray-900 relative overflow-hidden">
             {/* Hero Section */}
             <section className="relative z-10 py-16 sm:py-24 text-center">
                 <motion.div
@@ -32,16 +28,16 @@ export default function CaseStudiesPage() {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
-                        <span className="text-white">Case Studies</span> <span className="text-gold">Library</span>
+                        <span className="text-gray-900">Case Studies</span> <span className="text-crimson-red">Library</span>
                     </h1>
-                    <p className="text-xl sm:text-2xl text-fog max-w-2xl mx-auto mb-10">
+                    <p className="text-xl sm:text-2xl text-gray-600 max-w-2xl mx-auto mb-10">
                         A curated collection of digital experiences, architectural decisions, and growth strategies.
                     </p>
                 </motion.div>
             </section>
 
             {/* Filter Bar */}
-            <div className="sticky top-0 z-20 bg-black/80 backdrop-blur-md border-b border-gold/10">
+            <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-gray-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 overflow-x-auto">
                     <div className="flex space-x-2 min-w-max justify-center">
                         {allTags.map((tag) => (
@@ -49,8 +45,8 @@ export default function CaseStudiesPage() {
                                 key={tag}
                                 onClick={() => setSelectedTag(tag)}
                                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${selectedTag === tag
-                                    ? "bg-gold/20 text-gold border-gold"
-                                    : "bg-transparent text-fog border-transparent hover:border-gold/30 hover:text-white"
+                                    ? "bg-crimson-red/10 text-crimson-red border-crimson-red"
+                                    : "bg-transparent text-gray-600 border-transparent hover:border-crimson-red/30 hover:text-gray-900"
                                     }`}
                             >
                                 {tag}
@@ -137,9 +133,9 @@ export default function CaseStudiesPage() {
                         animate={{ opacity: 1 }}
                         className="text-center py-20"
                     >
-                        <Search className="w-16 h-16 text-fog/30 mx-auto mb-4" />
-                        <h3 className="text-xl font-bold text-fog">No projects found</h3>
-                        <p className="text-fog/60">Try selecting a different filter.</p>
+                        <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                        <h3 className="text-xl font-bold text-gray-600">No projects found</h3>
+                        <p className="text-gray-500">Try selecting a different filter.</p>
                     </motion.div>
                 )}
             </section>
