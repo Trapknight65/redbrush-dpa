@@ -1,4 +1,4 @@
-import Button from "@/components/Button";
+import Button from "@/components/ui/Button";
 import Card from "@/components/Card";
 import Testimonials from "@/components/Testimonials";
 
@@ -15,7 +15,7 @@ export default function Home() {
               <span className="text-crimson-red"> Modern Brands</span>
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-canvas-white max-w-2xl lg:max-w-none mb-8 sm:mb-10">
-              We craft stunning digital experiences that drive results. From web development to branding, we've got you covered.
+              We craft stunning digital experiences that drive results. From web development to branding, we&apos;ve got you covered.
             </p>
 
             <div className="flex gap-3 sm:gap-4 items-center justify-center lg:justify-start flex-wrap">

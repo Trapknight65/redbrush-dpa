@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getProjectById, portfolioProjects } from '@/data/portfolio';
-import Button from '@/components/Button';
+import Button from "@/components/ui/Button";
 import Card from '@/components/Card';
 import Link from 'next/link';
 import ProjectCaseStudies from '@/components/ProjectCaseStudies';
@@ -104,7 +104,7 @@ export default function ProjectDetail({ params }: { params: { id: string } }) {
                 <div className="bg-crimson-red rounded-2xl p-8 sm:p-12 text-center text-white">
                     <h2 className="text-3xl sm:text-4xl font-bold mb-4">Like What You See?</h2>
                     <p className="text-lg sm:text-xl mb-6 sm:mb-8 opacity-90">
-                        Let's create something amazing for your business too.
+                        Let&apos;s create something amazing for your business too.
                     </p>
                     <Link href="/contact">
                         <Button variant="secondary" size="lg" className="bg-white text-crimson-red hover:bg-off-white border-white">

@@ -1,5 +1,5 @@
 import Card from "@/components/Card";
-import Button from "@/components/Button";
+import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { portfolioProjects } from "@/data/portfolio";
 
@@ -13,7 +13,7 @@ export default function Portfolio() {
                         Our <span className="text-crimson-red">Portfolio</span>
                     </h1>
                     <p className="text-lg sm:text-xl text-charcoal max-w-2xl mx-auto mb-8 sm:mb-10 px-4">
-                        Explore our recent work and see how we've helped brands achieve their digital goals.
+                        Explore our recent work and see how we&apos;ve helped brands achieve their digital goals.
                     </p>
                 </div>
             </section>
@@ -57,7 +57,7 @@ export default function Portfolio() {
                 <div className="bg-crimson-red rounded-2xl p-8 sm:p-12 text-center text-white">
                     <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Start Your Project?</h2>
                     <p className="text-lg sm:text-xl mb-6 sm:mb-8 opacity-90">
-                        Let's create something amazing together.
+                        Let&apos;s create something amazing together.
                     </p>
                     <Link href="/contact">
                         <Button variant="secondary" size="lg" className="bg-white text-crimson-red hover:bg-off-white border-white">

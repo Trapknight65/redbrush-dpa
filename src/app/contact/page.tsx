@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Button from "@/components/Button";
+import Button from "@/components/ui/Button";
 import Card from "@/components/Card";
 
 export default function Contact() {
@@ -35,10 +35,10 @@ export default function Contact() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
                 <div className="text-center">
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark-gray mb-4 sm:mb-6">
-                        Let's <span className="text-crimson-red">Work Together</span>
+                        Let&apos;s <span className="text-crimson-red">Work Together</span>
                     </h1>
                     <p className="text-base sm:text-lg lg:text-xl text-charcoal max-w-2xl mx-auto px-4">
-                        Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                        Have a project in mind? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
                     </p>
                 </div>
             </section>
@@ -114,7 +114,7 @@ export default function Contact() {
 
                             {submitted && (
                                 <div className="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                                    Thank you! We'll get back to you soon.
+                                    Thank you! We&apos;ll get back to you soon.
                                 </div>
                             )}
 

@@ -1,5 +1,5 @@
 import Card from "@/components/Card";
-import Button from "@/components/Button";
+import Button from "@/components/ui/Button";
 import Link from "next/link";
 
 export default function Services() {
