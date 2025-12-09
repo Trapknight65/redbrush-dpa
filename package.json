@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@prisma/client": "^7.1.0",
+    "@prisma/client": "^5.22.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-aspect-ratio": "^1.1.8",
@@ -71,6 +71,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.0.5",
     "postcss": "^8.5.6",
+    "prisma": "^5.22.0",
     "tailwindcss": "^4.1.17",
     "typescript": "^5",
     "vite": "^6.4.1"
