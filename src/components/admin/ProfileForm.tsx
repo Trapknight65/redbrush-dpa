@@ -87,20 +87,20 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-amber-700 text-sm font-bold mb-1">Name</label>
-                        <input {...register("name")} className="w-full bg-[#0a0505] border border-amber-900/30 p-2 rounded text-amber-100" />
+                        <input {...register("name")} className="w-full bg-[#0a0505] border border-amber-900/30 p-3 sm:p-2 rounded text-amber-100 text-base sm:text-sm" />
                     </div>
                     <div>
                         <label className="block text-amber-700 text-sm font-bold mb-1">Headline</label>
-                        <input {...register("headline")} className="w-full bg-[#0a0505] border border-amber-900/30 p-2 rounded text-amber-100" />
+                        <input {...register("headline")} className="w-full bg-[#0a0505] border border-amber-900/30 p-3 sm:p-2 rounded text-amber-100 text-base sm:text-sm" />
                     </div>
                 </div>
                 <div>
                     <label className="block text-amber-700 text-sm font-bold mb-1">Bio</label>
-                    <textarea {...register("bio")} rows={4} className="w-full bg-[#0a0505] border border-amber-900/30 p-2 rounded text-amber-100" />
+                    <textarea {...register("bio")} rows={4} className="w-full bg-[#0a0505] border border-amber-900/30 p-3 sm:p-2 rounded text-amber-100 text-base sm:text-sm" />
                 </div>
                 <div>
                     <label className="block text-amber-700 text-sm font-bold mb-1">Skills (Comma separated)</label>
-                    <input {...register("skills")} className="w-full bg-[#0a0505] border border-amber-900/30 p-2 rounded text-amber-100" />
+                    <input {...register("skills")} className="w-full bg-[#0a0505] border border-amber-900/30 p-3 sm:p-2 rounded text-amber-100 text-base sm:text-sm" />
                 </div>
             </div>
 
@@ -126,12 +126,12 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
                             />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-2">
-                            <input {...register(`experiences.${index}.title`)} placeholder="Title" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
-                            <input {...register(`experiences.${index}.company`)} placeholder="Company" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <input {...register(`experiences.${index}.title`)} placeholder="Title" className="bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm w-full" />
+                            <input {...register(`experiences.${index}.company`)} placeholder="Company" className="bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm w-full" />
                         </div>
-                        <input {...register(`experiences.${index}.period`)} placeholder="Period (e.g. 2022-Present)" className="w-full bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
-                        <textarea {...register(`experiences.${index}.description`)} placeholder="Description" rows={2} className="w-full bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
+                        <input {...register(`experiences.${index}.period`)} placeholder="Period (e.g. 2022-Present)" className="w-full bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm" />
+                        <textarea {...register(`experiences.${index}.description`)} placeholder="Description" rows={3} className="w-full bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm" />
                     </div>
                 ))}
             </div>
@@ -147,10 +147,10 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
                 {eduFields.map((field, index) => (
                     <div key={field.id} className="p-4 bg-[#0a0505] rounded border border-amber-900/20 space-y-2 relative">
                         <button type="button" onClick={() => removeEdu(index)} className="absolute top-2 right-2 text-red-500"><Trash2 size={16} /></button>
-                        <div className="grid grid-cols-3 gap-2">
-                            <input {...register(`education.${index}.title`)} placeholder="Degree" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
-                            <input {...register(`education.${index}.institution`)} placeholder="Institution" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
-                            <input {...register(`education.${index}.year`)} placeholder="Year" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-2">
+                            <input {...register(`education.${index}.title`)} placeholder="Degree" className="bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm w-full" />
+                            <input {...register(`education.${index}.institution`)} placeholder="Institution" className="bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm w-full" />
+                            <input {...register(`education.${index}.year`)} placeholder="Year" className="bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm w-full" />
                         </div>
                     </div>
                 ))}
@@ -167,18 +167,18 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
                 {certFields.map((field, index) => (
                     <div key={field.id} className="p-4 bg-[#0a0505] rounded border border-amber-900/20 space-y-2 relative">
                         <button type="button" onClick={() => removeCert(index)} className="absolute top-2 right-2 text-red-500"><Trash2 size={16} /></button>
-                        <div className="grid grid-cols-3 gap-2">
-                            <input {...register(`certifications.${index}.title`)} placeholder="Title" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
-                            <input {...register(`certifications.${index}.issuer`)} placeholder="Issuer" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
-                            <input {...register(`certifications.${index}.date`)} placeholder="Date" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-2">
+                            <input {...register(`certifications.${index}.title`)} placeholder="Title" className="bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm w-full" />
+                            <input {...register(`certifications.${index}.issuer`)} placeholder="Issuer" className="bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm w-full" />
+                            <input {...register(`certifications.${index}.date`)} placeholder="Date" className="bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm w-full" />
                         </div>
                     </div>
                 ))}
             </div>
 
-            <button type="submit" disabled={loading} className="fixed bottom-8 right-8 bg-amber-600 text-[#120c0c] font-bold px-6 py-3 rounded-full shadow-lg hover:bg-amber-500 transition-colors flex items-center gap-2">
+            <button type="submit" disabled={loading} className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 bg-amber-600 text-[#120c0c] font-bold px-6 py-3 rounded-full shadow-lg hover:bg-amber-500 transition-colors flex items-center gap-2 z-40">
                 {loading ? <Loader2 className="animate-spin" /> : <Save />}
-                Save Profile
+                Save
             </button>
         </form>
     );
