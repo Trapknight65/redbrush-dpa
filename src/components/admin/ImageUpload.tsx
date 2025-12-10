@@ -1,6 +1,9 @@
 "use client";
 
 import { CldUploadWidget, CloudinaryUploadWidgetResults } from "next-cloudinary";
+import { useCallback } from "react";
+import Image from "next/image";
+import { Trash, ImagePlus } from "lucide-react";
 
 // ...
 

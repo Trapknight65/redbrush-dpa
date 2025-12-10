@@ -2,7 +2,7 @@
 
 import { useForm, useFieldArray } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { updateProfile } from "@/actions/profile.actions";
+import { updateProfile, Experience, Education } from "@/actions/profile.actions";
 import { useState } from "react";
 import { Loader2, Save, Plus, Trash2 } from "lucide-react";
 import ImageUpload from "@/components/admin/ImageUpload";
@@ -13,8 +13,8 @@ interface ProfileFormData {
     bio: string;
     avatar: string;
     skills: string; // Comma separated for editing
-    experiences: { title: string; company: string; period: string; description: string }[];
-    education: { title: string; institution: string; year: string }[];
+    experiences: Experience[];
+    education: Education[];
     languages: { language: string; proficiency: string }[];
 }
 
@@ -112,6 +112,17 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
                 {expFields.map((field, index) => (
                     <div key={field.id} className="p-4 bg-[#0a0505] rounded border border-amber-900/20 space-y-2 relative">
                         <button type="button" onClick={() => removeExp(index)} className="absolute top-2 right-2 text-red-500"><Trash2 size={16} /></button>
+
+                        {/* Logo Upload */}
+                        <div className="mb-2">
+                            <label className="block text-amber-700 text-xs font-bold mb-1">Company Logo</label>
+                            <ImageUpload
+                                value={watch(`experiences.${index}.logo`) || ""}
+                                onChange={(url) => setValue(`experiences.${index}.logo`, url)}
+                                onRemove={() => setValue(`experiences.${index}.logo`, "")}
+                            />
+                        </div>
+
                         <div className="grid grid-cols-2 gap-2">
                             <input {...register(`experiences.${index}.title`)} placeholder="Title" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
                             <input {...register(`experiences.${index}.company`)} placeholder="Company" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
