@@ -25,7 +25,7 @@ export default async function About() {
     const languages = (profile?.languages || []) as unknown as Language[];
 
     return (
-        <div className="min-h-screen text-white">
+        <div className="min-h-screen text-white bg-gradient-to-br from-deep-sea to-ocean-blue">
             <AboutQuickNav />
             <FloatingActions />
 
