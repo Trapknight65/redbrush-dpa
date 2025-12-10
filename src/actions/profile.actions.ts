@@ -26,6 +26,13 @@ export interface Certification {
     date: string
 }
 
+export interface HeroSlide {
+    type: 'image' | 'video' | '3d'
+    url?: string
+    component?: string
+    alt?: string
+}
+
 export interface Language {
     language: string
     proficiency: string
@@ -59,7 +66,8 @@ export async function updateProfile(data: Prisma.ProfileCreateInput) {
                     experiences: data.experiences,
                     education: data.education,
                     certifications: data.certifications,
-                    languages: data.languages
+                    languages: data.languages,
+                    heroSlides: data.heroSlides
                 }
             })
         } else {
@@ -73,7 +81,8 @@ export async function updateProfile(data: Prisma.ProfileCreateInput) {
                     experiences: data.experiences || [],
                     education: data.education || [],
                     certifications: data.certifications || [],
-                    languages: data.languages || []
+                    languages: data.languages || [],
+                    heroSlides: data.heroSlides || []
                 }
             })
         }

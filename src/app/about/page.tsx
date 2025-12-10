@@ -25,20 +25,21 @@ export default async function About() {
         <div className="min-h-screen bg-gradient-to-br from-deep-sea to-ocean-blue">
             {/* ... Hero Section omitted ... */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-                <div className="text-center mb-8">
-                    {/* ... Avatar omitted ... */}
-                    <div className="relative w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-crimson-red shadow-lg">
+                <div className="flex flex-row items-center text-left gap-4 mb-8 lg:block lg:text-center">
+                    <div className="relative w-24 h-24 sm:w-32 sm:h-32 shrink-0 rounded-full overflow-hidden border-4 border-crimson-red shadow-lg mb-0 lg:mx-auto lg:mb-6">
                         <Image src={avatar} alt={profile?.name || "Profile"} fill className="object-cover" />
                     </div>
 
                     <PrintResumeButton />
 
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-canvas-white mb-4">
-                        {name.split(" ")[0]} <span className="text-crimson-red">{name.split(" ").slice(1).join(" ")}</span>
-                    </h1>
-                    <p className="text-xl sm:text-2xl text-canvas-white/90">
-                        {headline}
-                    </p>
+                    <div className="flex-1 lg:w-full">
+                        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-canvas-white mb-1 sm:mb-4">
+                            {name.split(" ")[0]} <span className="text-crimson-red">{name.split(" ").slice(1).join(" ")}</span>
+                        </h1>
+                        <p className="text-lg sm:text-2xl text-canvas-white/90">
+                            {headline}
+                        </p>
+                    </div>
                 </div>
 
                 {/* Three Row Layout */}

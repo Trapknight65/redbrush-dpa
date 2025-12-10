@@ -2,16 +2,19 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/Card";
 import Testimonials from "@/components/Testimonials";
 import BrushCreate from "@/components/ui/BrushCreate";
+import HeroSlider from "@/components/HeroSlider";
+import { getProfile } from "@/actions/profile.actions";
 
-export default function Home() {
+export default async function Home() {
+  const { data: profile } = await getProfile();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left: Hero Content */}
-          <div className="text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+          <div className="text-left w-full">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
               <BrushCreate text="Digital Solutions for" className="block" delay={0.2} />
               <span className="text-crimson-red block">Modern Brands</span>
             </h1>
@@ -19,7 +22,7 @@ export default function Home() {
               We craft stunning digital experiences that drive results. From web development to branding, we&apos;ve got you covered.
             </p>
 
-            <div className="flex gap-3 sm:gap-4 items-center justify-center lg:justify-start flex-wrap">
+            <div className="flex gap-3 sm:gap-4 items-center justify-start flex-wrap">
               <Button variant="primary" size="lg" className="w-full sm:w-auto">
                 Start Your Project
               </Button>
@@ -29,18 +32,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right: Video */}
-          <div className="relative brush-mask">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-auto"
-            >
-              <source src="/frog.webm" type="video/webm" />
-              Your browser does not support the video tag.
-            </video>
+          {/* Right: Hero Slider */}
+          <div className="w-full">
+            <HeroSlider slides={(profile?.heroSlides as any) || []} />
           </div>
         </div>
       </section>
