@@ -101,12 +101,7 @@ export default function Header() {
                             </Link>
                         ))}
 
-                        <div className="py-2 flex items-center justify-between border-t border-gray-100 mt-2 pt-4">
-                            <span className="text-sm text-gray-500 font-medium">Theme</span>
-                            <div onClick={() => setMobileMenuOpen(false)}>
-                                <DevModeSwitch />
-                            </div>
-                        </div>
+
 
                         <Link
                             href="/contact"
@@ -118,6 +113,11 @@ export default function Header() {
                     </nav>
                 </div>
             )}
+
+            {/* Floating Dev Switch (Mobile: Fixed Bottom Right, Desktop: In Navbar) */}
+            <div className="fixed bottom-24 right-4 z-50 md:hidden">
+                <DevModeSwitch />
+            </div>
         </header>
     );
 }

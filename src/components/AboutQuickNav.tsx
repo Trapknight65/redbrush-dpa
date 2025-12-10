@@ -41,7 +41,7 @@ export default function AboutQuickNav() {
     };
 
     return (
-        <div className="fixed right-2 sm:right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-4 p-2 bg-black/40 backdrop-blur-md rounded-full border border-white/10 shadow-2xl">
+        <div className="fixed left-0 right-0 top-[60px] sm:top-1/2 sm:right-4 sm:left-auto sm:-translate-y-1/2 z-40 flex flex-row sm:flex-col justify-center gap-4 p-2 bg-black/40 backdrop-blur-md sm:rounded-full border-b sm:border border-white/10 shadow-2xl">
             {navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 const Icon = item.icon;

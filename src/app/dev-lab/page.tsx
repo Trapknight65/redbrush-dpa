@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { ArrowRight, FileText, FlaskConical, LayoutTemplate } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { DevGridBackground } from "@/components/dev/DevGridBackground";
 
 export const dynamic = 'force-dynamic';
 
@@ -12,8 +13,9 @@ export default async function DevLabPage() {
     const { data: reports } = await getDevReports(false);
 
     return (
-        <div className="min-h-screen bg-[var(--dev-bg)] text-white p-6 sm:p-8 pt-24">
-            <div className="max-w-6xl mx-auto space-y-16">
+        <div className="min-h-screen bg-[var(--dev-bg)] text-white p-6 sm:p-8 pt-24 relative overflow-hidden">
+            <DevGridBackground />
+            <div className="max-w-6xl mx-auto space-y-16 relative z-10">
 
                 {/* Header */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
