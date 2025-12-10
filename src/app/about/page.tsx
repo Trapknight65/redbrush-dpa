@@ -4,6 +4,8 @@ import { getProfile, Education, Experience } from "@/actions/profile.actions";
 import { Card } from "@/components/ui/card";
 import ExperienceCarousel from "@/components/ExperienceCarousel";
 
+export const dynamic = 'force-dynamic';
+
 export default async function About() {
     const { data: profile } = await getProfile();
     const avatar = profile?.avatar;

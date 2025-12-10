@@ -3,6 +3,8 @@ import { getProjects, deleteProject } from "@/actions/project.actions";
 import { Plus, Pencil, Trash2, ArrowLeft } from "lucide-react";
 import { revalidatePath } from "next/cache";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminProjectsPage() {
     const { data: projects, error } = await getProjects();
 

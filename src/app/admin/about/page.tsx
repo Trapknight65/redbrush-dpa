@@ -3,6 +3,8 @@ import { getProfile } from "@/actions/profile.actions";
 import ProfileForm from "@/components/admin/ProfileForm";
 import { UserCircle } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminAboutPage() {
     const { data: profile } = await getProfile();
 
