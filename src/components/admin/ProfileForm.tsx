@@ -2,7 +2,7 @@
 
 import { useForm, useFieldArray } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { updateProfile, Experience, Education } from "@/actions/profile.actions";
+import { updateProfile, Experience, Education, Certification } from "@/actions/profile.actions";
 import { useState } from "react";
 import { Loader2, Save, Plus, Trash2 } from "lucide-react";
 import ImageUpload from "@/components/admin/ImageUpload";
@@ -15,6 +15,7 @@ interface ProfileFormData {
     skills: string; // Comma separated for editing
     experiences: Experience[];
     education: Education[];
+    certifications: Certification[];
     languages: { language: string; proficiency: string }[];
 }
 
@@ -32,12 +33,14 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
             skills: initialData?.skills?.join(", ") || "",
             experiences: initialData?.experiences || [],
             education: initialData?.education || [],
+            certifications: initialData?.certifications || [],
             languages: initialData?.languages || [],
         },
     });
 
     const { fields: expFields, append: appendExp, remove: removeExp } = useFieldArray({ control, name: "experiences" });
     const { fields: eduFields, append: appendEdu, remove: removeEdu } = useFieldArray({ control, name: "education" });
+    const { fields: certFields, append: appendCert, remove: removeCert } = useFieldArray({ control, name: "certifications" });
 
     const onSubmit = async (data: ProfileFormData) => {
         setLoading(true);
@@ -148,6 +151,26 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
                             <input {...register(`education.${index}.title`)} placeholder="Degree" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
                             <input {...register(`education.${index}.institution`)} placeholder="Institution" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
                             <input {...register(`education.${index}.year`)} placeholder="Year" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Certifications */}
+            <div className="bg-[#1a1515] p-6 rounded-lg border border-amber-900/30 space-y-4">
+                <div className="flex justify-between items-center">
+                    <h2 className="text-xl font-bold text-amber-500">Certifications</h2>
+                    <button type="button" onClick={() => appendCert({ title: "", issuer: "", date: "" })} className="text-amber-500 hover:text-amber-400">
+                        <Plus size={20} />
+                    </button>
+                </div>
+                {certFields.map((field, index) => (
+                    <div key={field.id} className="p-4 bg-[#0a0505] rounded border border-amber-900/20 space-y-2 relative">
+                        <button type="button" onClick={() => removeCert(index)} className="absolute top-2 right-2 text-red-500"><Trash2 size={16} /></button>
+                        <div className="grid grid-cols-3 gap-2">
+                            <input {...register(`certifications.${index}.title`)} placeholder="Title" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
+                            <input {...register(`certifications.${index}.issuer`)} placeholder="Issuer" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
+                            <input {...register(`certifications.${index}.date`)} placeholder="Date" className="bg-transparent border-b border-amber-900/30 p-1 text-amber-100" />
                         </div>
                     </div>
                 ))}

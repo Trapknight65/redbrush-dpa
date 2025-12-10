@@ -27,8 +27,8 @@ export default function ExperienceCarousel({ experiences }: ExperienceCarouselPr
         <div className="lg:col-span-3">
             <h2 className="text-2xl font-bold mb-4 text-canvas-white">Experience</h2>
 
-            {/* Desktop: Grid view */}
-            <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Desktop: Grid view (Screen Only) */}
+            <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 print:hidden">
                 {experiences.map((exp, index) => (
                     <ExperienceCard
                         key={index}
@@ -42,8 +42,8 @@ export default function ExperienceCarousel({ experiences }: ExperienceCarouselPr
                 ))}
             </div>
 
-            {/* Mobile: Carousel view */}
-            <div className="sm:hidden relative">
+            {/* Mobile: Carousel view (Screen Only) */}
+            <div className="sm:hidden relative print:hidden">
                 <div className="overflow-hidden">
                     <div
                         className="flex transition-transform duration-300 ease-in-out"
@@ -98,6 +98,17 @@ export default function ExperienceCarousel({ experiences }: ExperienceCarouselPr
                         />
                     ))}
                 </div>
+            </div>
+
+            {/* Print View (Vertical List) */}
+            <div className="hidden print:block space-y-6">
+                {experiences.map((exp, index) => (
+                    <div key={index} className="border-l-2 border-black pl-4">
+                        <h3 className="font-bold text-lg text-black">{exp.title}</h3>
+                        <p className="text-gray-800 font-semibold">{exp.company} | {exp.period}</p>
+                        <p className="text-sm text-gray-700 mt-1">{exp.description}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
