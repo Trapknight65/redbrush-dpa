@@ -2,15 +2,7 @@
 
 import { useState } from 'react';
 import ExperienceCard from './ExperienceCard';
-
-interface Experience {
-    title: string;
-    company: string;
-    period: string;
-    location?: string;
-    description: string;
-    logo: string;
-}
+import { Experience } from '@/actions/profile.actions';
 
 interface ExperienceCarouselProps {
     experiences: Experience[];
@@ -99,8 +91,8 @@ export default function ExperienceCarousel({ experiences }: ExperienceCarouselPr
                             key={index}
                             onClick={() => goToSlide(index)}
                             className={`w-2 h-2 rounded-full transition-all ${index === currentIndex
-                                    ? 'bg-crimson-red w-8'
-                                    : 'bg-canvas-white/40 hover:bg-canvas-white/60'
+                                ? 'bg-crimson-red w-8'
+                                : 'bg-canvas-white/40 hover:bg-canvas-white/60'
                                 }`}
                             aria-label={`Go to experience ${index + 1}`}
                         />

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { getProfile } from "@/actions/profile.actions";
+import { getProfile, Education, Experience } from "@/actions/profile.actions";
 import { Card } from "@/components/ui/card";
 import ExperienceCarousel from "@/components/ExperienceCarousel";
 
@@ -8,7 +8,13 @@ export default async function About() {
     const { data: profile } = await getProfile();
     const avatar = profile?.avatar;
 
-    // ... (rest of vars)
+    const name = profile?.name || "Aparicio Bambi";
+    const headline = profile?.headline || "Videographer | Creative Director";
+    const bio = profile?.bio || "";
+    const skills = profile?.skills || [];
+    // Cast JSON arrays to strict types
+    const experiences = (profile?.experiences || []) as unknown as Experience[];
+    const education = (profile?.education || []) as unknown as Education[];
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-deep-sea to-ocean-blue">
@@ -56,7 +62,7 @@ export default async function About() {
 
                     {/* Row 2: Experience Board - Flippable Cards */}
                     {/* Note: Ensure ExperienceCarousel handles the data structure correctly (logo is optional in DB) */}
-                    <ExperienceCarousel experiences={experiences as any} />
+                    <ExperienceCarousel experiences={experiences} />
 
                     {/* Row 3: Education & Languages */}
                     <Card className="lg:col-span-2">
@@ -68,7 +74,7 @@ export default async function About() {
                             <div>
                                 <h3 className="font-bold text-base text-canvas-white mb-3">Education</h3>
                                 <div className="space-y-3">
-                                    {education.map((edu: any, index: number) => (
+                                    {education.map((edu, index) => ( // Type inferred from 'education' array check
                                         <div key={index}>
                                             <h4 className="font-bold text-sm">{edu.title}</h4>
                                             <p className="text-xs text-ocean-blue">{edu.institution}</p>
