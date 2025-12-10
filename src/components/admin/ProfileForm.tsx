@@ -182,8 +182,16 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
                             <div>
                                 <label className="block text-amber-700 text-xs font-bold mb-1">URL / Source</label>
                                 <div className="flex gap-2 items-center">
-                                    <input {...register(`heroSlides.${index}.url`)} placeholder="URL or /path" className="w-full bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm" />
-                                    {/* Optional: Add ImageUpload helper if type is image */}
+                                    <div className="space-y-2">
+                                        <input {...register(`heroSlides.${index}.url`)} placeholder="URL or /path" className="w-full bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm" />
+                                        {watch(`heroSlides.${index}.type`) === 'image' && (
+                                            <ImageUpload
+                                                value={watch(`heroSlides.${index}.url`) || ""}
+                                                onChange={(url) => setValue(`heroSlides.${index}.url`, url)}
+                                                onRemove={() => setValue(`heroSlides.${index}.url`, "")}
+                                            />
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                             {watch(`heroSlides.${index}.type`) === '3d' && (

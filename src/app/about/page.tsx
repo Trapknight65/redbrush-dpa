@@ -3,7 +3,7 @@ import Image from "next/image";
 import { getProfile, Education, Experience, Certification, Language } from "@/actions/profile.actions";
 import { Card } from "@/components/ui/card";
 import ExperienceCarousel from "@/components/ExperienceCarousel";
-import PrintResumeButton from "@/components/PrintResumeButton";
+import FloatingActions from "@/components/FloatingActions";
 
 export const dynamic = 'force-dynamic';
 
@@ -24,14 +24,12 @@ export default async function About() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-deep-sea to-ocean-blue">
             {/* ... Hero Section omitted ... */}
+            <FloatingActions />
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
                 <div className="flex flex-row items-center text-left gap-4 mb-8 lg:block lg:text-center">
                     <div className="relative w-24 h-24 sm:w-32 sm:h-32 shrink-0 rounded-full overflow-hidden border-4 border-crimson-red shadow-lg mb-0 lg:mx-auto lg:mb-6">
                         <Image src={avatar} alt={profile?.name || "Profile"} fill className="object-cover" />
                     </div>
-
-                    <PrintResumeButton />
-
                     <div className="flex-1 lg:w-full">
                         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-canvas-white mb-1 sm:mb-4">
                             {name.split(" ")[0]} <span className="text-crimson-red">{name.split(" ").slice(1).join(" ")}</span>
