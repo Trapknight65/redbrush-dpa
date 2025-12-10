@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { compare, hash } from "bcryptjs";
 import { createSession, deleteSession, verifySession } from "@/lib/session";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient();
 
@@ -44,6 +45,7 @@ export async function login(prevState: any, formData: FormData) {
         return { error: "Something went wrong" };
     }
 
+    revalidatePath("/admin");
     redirect("/admin/dashboard");
 }
 
@@ -54,7 +56,7 @@ export async function logout() {
 
 export async function createInitialUser() {
     const email = "zerolesignbeats@gmail.com";
-    const password = "admin_password_placeholder"; // Should be safe or passed in
+    const password = "admin_password_placeholder";
 
     const existingUser = await prisma.user.findUnique({
         where: { email },
