@@ -9,7 +9,7 @@ export default async function AdminAboutPage() {
     const { data: profile } = await getProfile();
 
     return (
-        <div className="min-h-screen bg-[#120c0c] text-amber-100 p-8">
+        <div className="p-8 text-amber-100">
             <div className="max-w-4xl mx-auto pb-20">
                 <div className="flex items-center gap-4 mb-8">
                     <div className="p-3 rounded-full bg-amber-900/20 text-amber-600">

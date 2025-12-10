@@ -1,25 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useActionState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Anchor, Globe } from "lucide-react";
+import { Lock, Anchor, Globe, Loader2 } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { login } from "@/actions/auth.actions";
+
+const initialState = {
+    error: "",
+};
 
 export default function AdminLoginPage() {
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const router = useRouter();
-
-    const handleLogin = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Simple hardcoded check for demo purposes
-        if (password === "654321") {
-            router.push("/admin/dashboard");
-        } else {
-            setError("Incorrect Captain's Code");
-        }
-    };
+    const [state, formAction, isPending] = useActionState(login, initialState);
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4">
@@ -44,37 +36,60 @@ export default function AdminLoginPage() {
                         <p className="text-amber-200/50 text-sm">Secure Entry Required</p>
                     </div>
 
-                    <form onSubmit={handleLogin} className="space-y-6">
+                    <form action={formAction} className="space-y-6">
+                        <div>
+                            <label className="block text-amber-700 text-xs uppercase tracking-wider font-bold mb-2">Email Address</label>
+                            <div className="relative">
+                                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-700" />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    defaultValue="zerolesignbeats@gmail.com"
+                                    className="w-full bg-[#0a0505] border border-amber-900/50 rounded p-3 pl-10 text-amber-100 focus:outline-none focus:border-amber-600 transition-colors font-mono"
+                                    placeholder="captain@redbrush.com"
+                                    required
+                                />
+                            </div>
+                        </div>
+
                         <div>
                             <label className="block text-amber-700 text-xs uppercase tracking-wider font-bold mb-2">Access Code</label>
                             <div className="relative">
                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-700" />
                                 <input
                                     type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    name="password"
                                     className="w-full bg-[#0a0505] border border-amber-900/50 rounded p-3 pl-10 text-amber-100 focus:outline-none focus:border-amber-600 transition-colors font-mono"
                                     placeholder="Enter passcode..."
+                                    required
                                 />
                             </div>
                         </div>
 
-                        {error && (
+                        {state?.error && (
                             <motion.div
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 className="text-red-500 text-sm text-center font-bold bg-red-950/30 py-2 rounded border border-red-900/50"
                             >
-                                {error}
+                                {state.error}
                             </motion.div>
                         )}
 
                         <Button
                             type="submit"
                             variant="primary"
-                            className="w-full border-amber-600 bg-amber-900/50 hover:bg-amber-800 text-amber-200"
+                            disabled={isPending}
+                            className="w-full border-amber-600 bg-amber-900/50 hover:bg-amber-800 text-amber-200 flex items-center justify-center gap-2"
                         >
-                            Unlock Logbook
+                            {isPending ? (
+                                <>
+                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                    Verifying Credentials...
+                                </>
+                            ) : (
+                                "Unlock Logbook"
+                            )}
                         </Button>
 
                         <div className="text-center mt-4">

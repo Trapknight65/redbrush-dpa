@@ -1,3 +1,15 @@
+// schema.prisma
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")

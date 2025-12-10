@@ -9,18 +9,13 @@ export default async function AdminProjectsPage() {
     const { data: projects, error } = await getProjects();
 
     return (
-        <div className="min-h-screen bg-[#120c0c] text-amber-100 p-8">
+        <div className="p-8 text-amber-100">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center gap-4">
-                        <Link href="/admin/dashboard" className="p-2 rounded-full hover:bg-amber-900/20 text-amber-600 transition-colors">
-                            <ArrowLeft className="w-6 h-6" />
-                        </Link>
-                        <div>
-                            <h1 className="text-3xl font-bold text-amber-100">Projects</h1>
-                            <p className="text-amber-700">Manage your portfolio content</p>
-                        </div>
+                    <div>
+                        <h1 className="text-3xl font-bold text-amber-100">Projects</h1>
+                        <p className="text-amber-700">Manage your portfolio content</p>
                     </div>
 
                     <Link

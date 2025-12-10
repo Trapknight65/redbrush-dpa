@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function About() {
     const { data: profile } = await getProfile();
-    const avatar = profile?.avatar;
+    const avatar = profile?.avatar || "/logo.png";
 
     const name = profile?.name || "Aparicio Bambi";
     const headline = profile?.headline || "Videographer | Creative Director";
