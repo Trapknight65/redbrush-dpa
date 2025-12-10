@@ -9,7 +9,7 @@
   --ink-black: #0a0a0a;
   --canvas-white: #FaFaFa;
 
-  --redbrush-gradient: linear-gradient(45deg, var(--deep-sea) 10%, var(--ocean-blue) 90%);
+  --redbrush-gradient: radial-gradient(circle at top right, #3b0764, #000000);
   --background: #ffffff;
   --foreground: #171717;
   --color-gold: #d4af37;
@@ -17,12 +17,18 @@
   --color-black: #0a0a0a;
 
   /* Developers Theme Palette (Dark, Hard, Dynamic, Flashy) */
-  --dev-bg: #050505;       /* Void Black */
-  --dev-surface: #0f0f0f;  /* Hard Surface */
-  --dev-neon-green: #00ff94; /* Cyber Mint */
-  --dev-neon-pink: #ff003c;  /* Hard Red */
-  --dev-neon-blue: #7000ff;  /* Electric Violet */
-  --dev-neon-yellow: #ccff00; /* Acid Yellow */
+  --dev-bg: #050505;
+  /* Void Black */
+  --dev-surface: #0f0f0f;
+  /* Hard Surface */
+  --dev-neon-green: #00ff94;
+  /* Cyber Mint */
+  --dev-neon-pink: #ff003c;
+  /* Hard Red */
+  --dev-neon-blue: #7000ff;
+  /* Electric Violet */
+  --dev-neon-yellow: #ccff00;
+  /* Acid Yellow */
 }
 
 @media (prefers-color-scheme: dark) {

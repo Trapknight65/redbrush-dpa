@@ -158,6 +158,127 @@ Stay tuned.
     })
     console.log(`Created article: ${article.title}`)
 
+    // --- SEED BAMBI VISUALS ARTICLE ---
+    const bambiArticle = await prisma.article.upsert({
+        where: { slug: "bambi-visuals-project-summary" },
+        update: {},
+        create: {
+            title: "Bambi Visuals — Complete Project Summary",
+            slug: "bambi-visuals-project-summary",
+            category: "Case Study",
+            isPublished: true,
+            excerpt: "How Redbrush transformed Bambi Visuals into a cinematic, culturally-rooted digital brand with a glassmorphic system.",
+            tags: ["Case Study", "Branding", "UI/UX", "Glassmorphism"],
+            techStack: [
+                { name: "Next.js", version: "14" },
+                { name: "Glassmorphism", version: "Custom" },
+                { name: "CMS", version: "Integrated" }
+            ],
+            content: `# Bambi Visuals — Complete Project Summary
+
+Redbrush developed the full brand identity, UI system, and website experience for Bambi Visuals, transforming it into a cinematic, culturally-rooted digital brand.
+
+## 1. Brand Identity Creation
+
+### 1.1 Visual Direction
+Redbrush built a unique aesthetic blending:
+- **Cinematic atmosphere**
+- **Angola-inspired colors & light**
+- **Elegance of the Palanca Negra Gigante** (the Angolan giant sable antelope)
+- **Soft cosmic glow** and dreaminess from Bambi’s personality
+
+**The result:** A warm, expressive, premium identity with cultural depth and modern flair.
+
+### 1.2 New Logo
+Redbrush designed a new Bambi logo that is:
+- Minimal
+- Elegant
+- Expressive
+- Optimized for mobile
+- Inspired by the shapes, curves, and contrast of the Angolan antelope
+
+The logo fits perfectly with the cinematic brand world.
+
+## 2. Color Palette (Final)
+
+Redbrush defined the official Bambi palette:
+
+- 🔴 **Crimson Red**: Passion, expression, energy — used for highlights, accents, logo details.
+- 🌑 **Black**: Depth, elegance, cinematic contrast — used for backgrounds, typography, strong zones.
+- 🌅 **Sunset Gold**: Warmth, light, African sunset glow — used for UI illumination and subtle accents.
+
+This palette roots Bambi in:
+- Angola’s natural beauty
+- Cinematic contrast
+- Emotional vividness
+
+## 3. UI/UX & Website Development
+
+### 3.1 Mobile-Friendly UI
+Redbrush delivered a full responsive UI, ensuring:
+- Thumb-friendly navigation
+- Scalable typography
+- Smooth transitions
+- High readability on dark backgrounds
+- Component layout optimized for small screens
+
+The mobile version preserves the cinematic look while staying practical.
+
+### 3.2 Glassmorphism System
+A signature feature of Bambi’s UI:
+- Frosted translucent layers
+- Soft glow and blur (12–16px)
+- Floating cards
+- Light diffusion
+- Depth and layering
+
+Glassmorphism became the core visual foundation of the site.
+
+### 3.3 Component & Navigation Design
+Redbrush designed:
+- A glass fixed header
+- Crimson hover labels
+- Sunset gold active indicators
+- Modern buttons with gold-glow on hover
+- Smooth transitions for all interactions
+- Floating cards and cinematic section breaks
+
+## 4. Website Infrastructure
+
+### 4.1 CMS Integration
+Redbrush added a full CMS so the Bambi team can:
+- Update portfolio items
+- Add projects
+- Manage text & images
+- Add blog / insights content
+- Control visuals without coding
+
+This transformed the site into a scalable storytelling platform.
+
+## 5. Content Work
+Redbrush also delivered:
+- Structured client feedback content
+- English translations
+- Organized copy for the CMS
+- A consistent narrative voice for Bambi
+
+## 6. Cinematic Brand Energy
+Redbrush gave Bambi:
+- A film-inspired tone
+- Deep blacks for contrast
+- Golden-hour highlights
+- Crimson emotional points
+- Movement inspired by African cinema and natural light
+- Identity anchored in the sable antelope’s silhouette
+
+**The final experience feels:** Bold, Warm, Cultural, Magical, Premium, Emotional.
+
+> **One-Liner:** Redbrush built a cinematic, mobile-first, Angola-inspired brand and website for Bambi Visuals—complete with a new logo, crimson–black–gold color system, glassmorphic UI, and a scalable CMS-driven platform.
+`
+        }
+    })
+    console.log(`Created article: ${bambiArticle.title}`)
+
     // --- SEED DEV REPORT ---
     const report = await prisma.devReport.upsert({
         where: { slug: "system-initialization-dec-2025" },
