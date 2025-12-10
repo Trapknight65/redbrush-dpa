@@ -1,12 +1,10 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { compare, hash } from "bcryptjs";
 import { createSession, deleteSession, verifySession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-
-const prisma = new PrismaClient();
 
 export async function login(prevState: any, formData: FormData) {
     const email = formData.get("email") as string;
