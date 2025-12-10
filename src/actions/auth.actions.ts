@@ -64,7 +64,7 @@ export async function createInitialUser() {
 
     if (!existingUser) {
         const hashedPassword = await hash("654321", 10);
-        await prisma.us654321er.create({
+        await prisma.user.create({
             data: {
                 email,
                 password: hashedPassword,
