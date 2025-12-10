@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 
+import { DevModeSwitch } from '@/components/dev/DevModeSwitch';
+
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -35,7 +37,7 @@ export default function Header() {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden md:flex space-x-8">
+                    <nav className="hidden md:flex items-center space-x-8">
                         {['Services', 'Portfolio', 'Case Studies', 'About', 'Contact'].map((item) => (
                             <Link
                                 key={item}
@@ -46,6 +48,11 @@ export default function Header() {
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-crimson-red transition-all group-hover:w-full"></span>
                             </Link>
                         ))}
+
+                        {/* Dev Switch */}
+                        <div className="pl-4 border-l border-gray-200">
+                            <DevModeSwitch />
+                        </div>
                     </nav>
 
                     {/* Desktop CTA Button */}
@@ -93,6 +100,14 @@ export default function Header() {
                                 {item}
                             </Link>
                         ))}
+
+                        <div className="py-2 flex items-center justify-between border-t border-gray-100 mt-2 pt-4">
+                            <span className="text-sm text-gray-500 font-medium">Theme</span>
+                            <div onClick={() => setMobileMenuOpen(false)}>
+                                <DevModeSwitch />
+                            </div>
+                        </div>
+
                         <Link
                             href="/contact"
                             className="block w-full text-center px-6 py-3 bg-crimson-red text-white rounded-full font-semibold hover:bg-electric-blue transition-all shadow-md mt-4"
