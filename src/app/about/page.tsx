@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { getProfile, Education, Experience, Certification } from "@/actions/profile.actions";
+import { getProfile, Education, Experience, Certification, Language } from "@/actions/profile.actions";
 import { Card } from "@/components/ui/card";
 import ExperienceCarousel from "@/components/ExperienceCarousel";
 import PrintResumeButton from "@/components/PrintResumeButton";
@@ -19,6 +19,7 @@ export default async function About() {
     const experiences = (profile?.experiences || []) as unknown as Experience[];
     const education = (profile?.education || []) as unknown as Education[];
     const certifications = (profile?.certifications || []) as unknown as Certification[];
+    const languages = (profile?.languages || []) as unknown as Language[];
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-deep-sea to-ocean-blue">
@@ -44,11 +45,29 @@ export default async function About() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
                     {/* ... About & Skills omitted ... */}
                     <Card className="lg:col-span-2">
-                        {/* ... */}
+                        <div className="h-full">
+                            <h2 className="text-2xl font-bold mb-4 text-canvas-white">Biography</h2>
+                            <div className="w-16 h-1 bg-crimson-red mt-2 mb-6"></div>
+                            <div className="prose prose-invert max-w-none text-canvas-white/80 whitespace-pre-wrap">
+                                {bio || "No biography available."}
+                            </div>
+                        </div>
                     </Card>
 
                     <Card>
-                        {/* ... */}
+                        <div className="h-full">
+                            <h2 className="text-xl font-bold mb-4 text-canvas-white">Skills</h2>
+                            <div className="w-16 h-1 bg-crimson-red mt-2 mb-6"></div>
+                            <div className="flex flex-wrap gap-2">
+                                {skills.length > 0 ? skills.map((skill, index) => (
+                                    <span key={index} className="px-3 py-1 bg-amber-900/20 text-amber-100 rounded-full text-sm border border-amber-900/40">
+                                        {skill}
+                                    </span>
+                                )) : (
+                                    <p className="text-sm opacity-50">No skills listed.</p>
+                                )}
+                            </div>
+                        </div>
                     </Card>
 
                     {/* ... ExperienceCarousel omitted ... */}
@@ -92,7 +111,21 @@ export default async function About() {
 
                     {/* ... Languages omitted ... */}
                     <Card>
-                        {/* ... */}
+                        <div className="h-full">
+                            <h2 className="text-xl font-bold mb-4 text-canvas-white">Languages</h2>
+                            <div className="w-16 h-1 bg-crimson-red mt-2 mb-6"></div>
+                            <div className="space-y-4">
+                                {languages.map((lang, index) => (
+                                    <div key={index} className="flex justify-between items-center border-b border-white/10 pb-2 last:border-0">
+                                        <span className="font-bold text-amber-100">{lang.language}</span>
+                                        <span className="text-sm text-ocean-blue bg-ocean-blue/10 px-2 py-1 rounded">{lang.proficiency}</span>
+                                    </div>
+                                ))}
+                                {languages.length === 0 && (
+                                    <p className="text-sm opacity-50">No languages listed.</p>
+                                )}
+                            </div>
+                        </div>
                     </Card>
                 </div>
             </section>
