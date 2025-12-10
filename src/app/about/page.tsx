@@ -45,7 +45,7 @@ export default async function About() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
                     {/* ... About & Skills omitted ... */}
                     <Card className="lg:col-span-2">
-                        <div className="h-full">
+                        <div className="h-full p-6">
                             <h2 className="text-2xl font-bold mb-4 text-canvas-white">Biography</h2>
                             <div className="w-16 h-1 bg-crimson-red mt-2 mb-6"></div>
                             <div className="prose prose-invert max-w-none text-canvas-white/80 whitespace-pre-wrap">
@@ -55,7 +55,7 @@ export default async function About() {
                     </Card>
 
                     <Card>
-                        <div className="h-full">
+                        <div className="h-full p-6">
                             <h2 className="text-xl font-bold mb-4 text-canvas-white">Skills</h2>
                             <div className="w-16 h-1 bg-crimson-red mt-2 mb-6"></div>
                             <div className="flex flex-wrap gap-2">
@@ -75,35 +75,37 @@ export default async function About() {
 
                     {/* Row 3: Education & Languages */}
                     <Card className="lg:col-span-2">
-                        <div className="mb-6">
-                            <h2 className="text-2xl font-bold mb-4 text-canvas-white">Education & Certifications</h2>
-                            <div className="w-16 h-1 bg-crimson-red mt-2"></div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <h3 className="font-bold text-base text-canvas-white mb-3">Education</h3>
-                                <div className="space-y-3">
-                                    {education.map((edu, index) => (
-                                        <div key={index}>
-                                            <h4 className="font-bold text-sm">{edu.title}</h4>
-                                            <p className="text-xs text-ocean-blue">{edu.institution}</p>
-                                            <p className="text-xs opacity-70">{edu.year}</p>
-                                        </div>
-                                    ))}
-                                    {education.length === 0 && <p className="text-xs opacity-50">No education listings available.</p>}
-                                </div>
+                        <div className="h-full p-6">
+                            <div className="mb-6">
+                                <h2 className="text-2xl font-bold mb-4 text-canvas-white">Education & Certifications</h2>
+                                <div className="w-16 h-1 bg-crimson-red mt-2"></div>
                             </div>
-                            <div>
-                                <h3 className="font-bold text-base text-canvas-white mb-3">Certifications</h3>
-                                <div className="space-y-3">
-                                    {certifications.map((cert, index) => (
-                                        <div key={index}>
-                                            <h4 className="font-bold text-sm">{cert.title}</h4>
-                                            <p className="text-xs text-ocean-blue">{cert.issuer}</p>
-                                            <p className="text-xs opacity-70">{cert.date}</p>
-                                        </div>
-                                    ))}
-                                    {certifications.length === 0 && <p className="text-xs opacity-50">No certifications listed.</p>}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h3 className="font-bold text-base text-canvas-white mb-3">Education</h3>
+                                    <div className="space-y-3">
+                                        {education.map((edu, index) => (
+                                            <div key={index}>
+                                                <h4 className="font-bold text-sm">{edu.title}</h4>
+                                                <p className="text-xs text-ocean-blue">{edu.institution}</p>
+                                                <p className="text-xs opacity-70">{edu.year}</p>
+                                            </div>
+                                        ))}
+                                        {education.length === 0 && <p className="text-xs opacity-50">No education listings available.</p>}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-base text-canvas-white mb-3">Certifications</h3>
+                                    <div className="space-y-3">
+                                        {certifications.map((cert, index) => (
+                                            <div key={index}>
+                                                <h4 className="font-bold text-sm">{cert.title}</h4>
+                                                <p className="text-xs text-ocean-blue">{cert.issuer}</p>
+                                                <p className="text-xs opacity-70">{cert.date}</p>
+                                            </div>
+                                        ))}
+                                        {certifications.length === 0 && <p className="text-xs opacity-50">No certifications listed.</p>}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +113,7 @@ export default async function About() {
 
                     {/* ... Languages omitted ... */}
                     <Card>
-                        <div className="h-full">
+                        <div className="h-full p-6">
                             <h2 className="text-xl font-bold mb-4 text-canvas-white">Languages</h2>
                             <div className="w-16 h-1 bg-crimson-red mt-2 mb-6"></div>
                             <div className="space-y-4">
