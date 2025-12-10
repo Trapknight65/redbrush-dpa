@@ -13,31 +13,25 @@ export async function login(prevState: any, formData: FormData) {
     const password = formData.get("password") as string;
 
     if (!email || !password) {
-        console.log("[Auth] Missing credentials");
         return { error: "Email and password are required" };
     }
 
     try {
-        console.log(`[Auth] Attempting login for: ${email}`);
         const user = await prisma.user.findUnique({
             where: { email },
         });
 
         if (!user) {
-            console.log("[Auth] User not found");
             return { error: "Invalid credentials" };
         }
 
         const isValidPassword = await compare(password, user.password);
-        console.log(`[Auth] Password valid: ${isValidPassword}`);
 
         if (!isValidPassword) {
-            console.log("[Auth] Invalid password");
             return { error: "Invalid credentials" };
         }
 
         // Create session
-        console.log("[Auth] Creating session");
         await createSession(user.id, user.role);
 
     } catch (error) {
