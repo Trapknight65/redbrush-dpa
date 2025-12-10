@@ -45,7 +45,7 @@ export default function ExperienceCard({ title, company, period, location, descr
                     <h3 className="font-bold text-base mb-3">{title}</h3>
                     <p className="text-sm text-ocean-blue mb-2">{company}</p>
                     <p className="text-xs opacity-70 mb-4">{period}</p>
-                    <p className="text-xs leading-relaxed">{description}</p>
+                    <p className="text-xs leading-relaxed whitespace-pre-wrap">{description}</p>
                     <p className="text-xs mt-4 opacity-60 text-center">Click to flip back</p>
                 </div>
             </div>

@@ -106,7 +106,7 @@ export default function ExperienceCarousel({ experiences }: ExperienceCarouselPr
                     <div key={index} className="border-l-2 border-black pl-4">
                         <h3 className="font-bold text-lg text-black">{exp.title}</h3>
                         <p className="text-gray-800 font-semibold">{exp.company} | {exp.period}</p>
-                        <p className="text-sm text-gray-700 mt-1">{exp.description}</p>
+                        <p className="text-sm text-gray-700 mt-1 whitespace-pre-wrap">{exp.description}</p>
                     </div>
                 ))}
             </div>
