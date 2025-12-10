@@ -68,6 +68,7 @@ model Profile {
   education      Json[]   // [{ title, institution, year }]
   certifications Json[]   // [{ title, issuer, date }]
   languages      Json[]   // [{ language, proficiency }]
+  contactInfo    Json?    // { email, phone, address, social }
   heroSlides     Json[]   // [{ type: 'image'|'video'|'3d', url, component, alt }]
   
   updatedAt      DateTime @updatedAt

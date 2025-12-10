@@ -38,6 +38,14 @@ export interface Language {
     proficiency: string
 }
 
+
+export interface ContactInfo {
+    email: string
+    phone: string
+    address: string
+    socials: { platform: string; url: string }[]
+}
+
 export async function getProfile() {
     try {
         const profile = await prisma.profile.findFirst()
@@ -67,7 +75,8 @@ export async function updateProfile(data: Prisma.ProfileCreateInput) {
                     education: data.education,
                     certifications: data.certifications,
                     languages: data.languages,
-                    heroSlides: data.heroSlides
+                    heroSlides: data.heroSlides,
+                    contactInfo: data.contactInfo
                 }
             })
         } else {
@@ -82,13 +91,15 @@ export async function updateProfile(data: Prisma.ProfileCreateInput) {
                     education: data.education || [],
                     certifications: data.certifications || [],
                     languages: data.languages || [],
-                    heroSlides: data.heroSlides || []
+                    heroSlides: data.heroSlides || [],
+                    contactInfo: data.contactInfo || Prisma.JsonNull
                 }
             })
         }
 
         revalidatePath('/about')
         revalidatePath('/admin/about')
+        revalidatePath('/contact')
         return { success: true, data: profile }
     } catch (error) {
         console.error('updateProfile error:', error)

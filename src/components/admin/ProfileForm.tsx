@@ -2,7 +2,7 @@
 
 import { useForm, useFieldArray } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { updateProfile, Experience, Education, Certification, HeroSlide } from "@/actions/profile.actions";
+import { updateProfile, Experience, Education, Certification, HeroSlide, ContactInfo } from "@/actions/profile.actions";
 import { useState } from "react";
 import { Loader2, Save, Plus, Trash2 } from "lucide-react";
 import ImageUpload from "@/components/admin/ImageUpload";
@@ -18,6 +18,7 @@ interface ProfileFormData {
     certifications: Certification[];
     languages: { language: string; proficiency: string }[];
     heroSlides: HeroSlide[];
+    contactInfo: ContactInfo;
 }
 
 export default function ProfileForm({ initialData }: { initialData?: any }) {
@@ -37,6 +38,7 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
             certifications: initialData?.certifications || [],
             languages: initialData?.languages || [],
             heroSlides: initialData?.heroSlides || [],
+            contactInfo: initialData?.contactInfo || { email: "", phone: "", address: "", socials: [] },
         },
     });
 
@@ -44,6 +46,7 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
     const { fields: eduFields, append: appendEdu, remove: removeEdu } = useFieldArray({ control, name: "education" });
     const { fields: certFields, append: appendCert, remove: removeCert } = useFieldArray({ control, name: "certifications" });
     const { fields: heroFields, append: appendHero, remove: removeHero } = useFieldArray({ control, name: "heroSlides" });
+    const { fields: socialFields, append: appendSocial, remove: removeSocial } = useFieldArray({ control, name: "contactInfo.socials" });
 
     const onSubmit = async (data: ProfileFormData) => {
         setLoading(true);
@@ -182,7 +185,7 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
                             <div>
                                 <label className="block text-amber-700 text-xs font-bold mb-1">URL / Source</label>
                                 <div className="flex gap-2 items-center">
-                                    <div className="space-y-2">
+                                    <div className="space-y-2 w-full">
                                         <input {...register(`heroSlides.${index}.url`)} placeholder="URL or /path" className="w-full bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm" />
                                         {watch(`heroSlides.${index}.type`) === 'image' && (
                                             <ImageUpload
@@ -208,6 +211,41 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            {/* Contact Info */}
+            <div className="bg-[#1a1515] p-6 rounded-lg border border-amber-900/30 space-y-4">
+                <h2 className="text-xl font-bold text-amber-500 mb-4">Contact Information</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-amber-700 text-sm font-bold mb-1">Email</label>
+                        <input {...register("contactInfo.email")} placeholder="hello@example.com" className="w-full bg-[#0a0505] border border-amber-900/30 p-3 sm:p-2 rounded text-amber-100 text-base sm:text-sm" />
+                    </div>
+                    <div>
+                        <label className="block text-amber-700 text-sm font-bold mb-1">Phone</label>
+                        <input {...register("contactInfo.phone")} placeholder="+1 234 567 890" className="w-full bg-[#0a0505] border border-amber-900/30 p-3 sm:p-2 rounded text-amber-100 text-base sm:text-sm" />
+                    </div>
+                    <div className="md:col-span-2">
+                        <label className="block text-amber-700 text-sm font-bold mb-1">Address</label>
+                        <textarea {...register("contactInfo.address")} rows={2} placeholder="123 Street, City, Country" className="w-full bg-[#0a0505] border border-amber-900/30 p-3 sm:p-2 rounded text-amber-100 text-base sm:text-sm" />
+                    </div>
+                </div>
+
+                <div className="pt-4 border-t border-amber-900/10">
+                    <div className="flex justify-between items-center mb-2">
+                        <label className="block text-amber-700 text-sm font-bold">Social Links</label>
+                        <button type="button" onClick={() => appendSocial({ platform: "", url: "" })} className="text-amber-500 hover:text-amber-400">
+                            <Plus size={16} />
+                        </button>
+                    </div>
+                    {socialFields.map((field, index) => (
+                        <div key={field.id} className="flex gap-2 items-center mb-2">
+                            <input {...register(`contactInfo.socials.${index}.platform`)} placeholder="Platform (e.g. LinkedIn)" className="bg-[#0a0505] border border-amber-900/30 p-2 rounded text-amber-100 text-sm w-1/3" />
+                            <input {...register(`contactInfo.socials.${index}.url`)} placeholder="URL" className="bg-[#0a0505] border border-amber-900/30 p-2 rounded text-amber-100 text-sm flex-1" />
+                            <button type="button" onClick={() => removeSocial(index)} className="text-red-500"><Trash2 size={16} /></button>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             <button type="submit" disabled={loading} className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 bg-amber-600 text-[#120c0c] font-bold px-6 py-3 rounded-full shadow-lg hover:bg-amber-500 transition-colors flex items-center gap-2 z-40">

@@ -3,31 +3,24 @@
 import { useState } from 'react';
 import Button from "@/components/ui/Button";
 import Card from "@/components/Card";
+import ContactModal from "@/components/ContactModal";
+import { getProfile, ContactInfo } from "@/actions/profile.actions";
+import { useEffect } from 'react';
 
 export default function Contact() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        company: '',
-        message: '',
-    });
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
 
-    const [submitted, setSubmitted] = useState(false);
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // In a real app, you'd send this to an API
-        console.log('Form submitted:', formData);
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 3000);
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
+    useEffect(() => {
+        async function fetchProfile() {
+            const { data } = await getProfile();
+            if (data?.contactInfo) {
+                // Cast to unknown first to avoid potential type mismatches with JSON
+                setContactInfo(data.contactInfo as unknown as ContactInfo);
+            }
+        }
+        fetchProfile();
+    }, []);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-off-white via-pure-white to-off-white">
@@ -37,124 +30,74 @@ export default function Contact() {
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark-gray mb-4 sm:mb-6">
                         Let&apos;s <span className="text-crimson-red">Work Together</span>
                     </h1>
-                    <p className="text-base sm:text-lg lg:text-xl text-charcoal max-w-2xl mx-auto px-4">
-                        Have a project in mind? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
-                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 sm:mb-10">
+                        <p className="text-base sm:text-lg lg:text-xl text-charcoal max-w-xl">
+                            Have a project in mind? We&apos;d love to hear from you.
+                        </p>
+                        <Button
+                            variant="primary"
+                            onClick={() => setIsModalOpen(true)}
+                            className="bg-crimson-red text-white hover:bg-red-700 shadow-lg"
+                        >
+                            Let&apos;s Talk
+                        </Button>
+                    </div>
                 </div>
             </section>
 
-            {/* Contact Form & Info */}
+            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+            {/* Contact Info Footer */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-                    {/* Contact Form */}
-                    <Card title="Send us a message">
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Card title="Get in touch" className="h-full">
+                        <div className="space-y-4">
                             <div>
-                                <label htmlFor="name" className="block text-sm font-semibold text-charcoal mb-2">
-                                    Name *
-                                </label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    required
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-crimson-red focus:border-transparent"
-                                    placeholder="John Doe"
-                                />
+                                <h4 className="font-semibold text-dark-gray mb-2">📧 Email</h4>
+                                <p className="text-charcoal break-all">{contactInfo?.email || "hello@redbrush.agency"}</p>
                             </div>
-
                             <div>
-                                <label htmlFor="email" className="block text-sm font-semibold text-charcoal mb-2">
-                                    Email *
-                                </label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    required
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-crimson-red focus:border-transparent"
-                                    placeholder="john@example.com"
-                                />
+                                <h4 className="font-semibold text-dark-gray mb-2">📞 Phone</h4>
+                                <p className="text-charcoal">{contactInfo?.phone || "+1 (555) 123-4567"}</p>
                             </div>
-
                             <div>
-                                <label htmlFor="company" className="block text-sm font-semibold text-charcoal mb-2">
-                                    Company
-                                </label>
-                                <input
-                                    type="text"
-                                    id="company"
-                                    name="company"
-                                    value={formData.company}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-crimson-red focus:border-transparent"
-                                    placeholder="Your Company"
-                                />
+                                <h4 className="font-semibold text-dark-gray mb-2">📍 Location</h4>
+                                <p className="text-charcoal whitespace-pre-line">
+                                    {contactInfo?.address || "123 Creative Street\nSan Francisco, CA 94102\nUnited States"}
+                                </p>
                             </div>
+                        </div>
+                    </Card>
 
-                            <div>
-                                <label htmlFor="message" className="block text-sm font-semibold text-charcoal mb-2">
-                                    Message *
-                                </label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    required
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    rows={5}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-crimson-red focus:border-transparent resize-none"
-                                    placeholder="Tell us about your project..."
-                                />
-                            </div>
-
-                            {submitted && (
-                                <div className="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                                    Thank you! We&apos;ll get back to you soon.
+                    <Card title="Socials & Hours" className="h-full">
+                        <div className="space-y-6">
+                            {contactInfo?.socials && contactInfo.socials.length > 0 && (
+                                <div>
+                                    <h4 className="font-semibold text-dark-gray mb-2">Connect with us</h4>
+                                    <div className="flex flex-wrap gap-3">
+                                        {contactInfo.socials.map((social, idx) => (
+                                            <a
+                                                key={idx}
+                                                href={social.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded text-sm text-charcoal transition-colors border border-gray-300"
+                                            >
+                                                {social.platform}
+                                            </a>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
 
-                            <Button type="submit" variant="primary" size="lg" className="w-full">
-                                Send Message
-                            </Button>
-                        </form>
-                    </Card>
-
-                    {/* Contact Info */}
-                    <div className="space-y-6">
-                        <Card title="Get in touch">
-                            <div className="space-y-4">
-                                <div>
-                                    <h4 className="font-semibold text-dark-gray mb-2">📧 Email</h4>
-                                    <p className="text-charcoal">hello@redbrush.agency</p>
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-dark-gray mb-2">📞 Phone</h4>
-                                    <p className="text-charcoal">+1 (555) 123-4567</p>
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-dark-gray mb-2">📍 Location</h4>
-                                    <p className="text-charcoal">
-                                        123 Creative Street<br />
-                                        San Francisco, CA 94102<br />
-                                        United States
-                                    </p>
-                                </div>
-                            </div>
-                        </Card>
-
-                        <Card title="Business Hours">
-                            <div className="space-y-2 text-charcoal">
+                            <div className="space-y-2 text-charcoal pt-4 border-t border-gray-100">
+                                <h4 className="font-semibold text-dark-gray mb-2">Business Hours</h4>
                                 <p><strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM</p>
                                 <p><strong>Saturday:</strong> 10:00 AM - 4:00 PM</p>
                                 <p><strong>Sunday:</strong> Closed</p>
                             </div>
-                        </Card>
-                    </div>
+                        </div>
+                    </Card>
                 </div>
             </section>
         </div>
