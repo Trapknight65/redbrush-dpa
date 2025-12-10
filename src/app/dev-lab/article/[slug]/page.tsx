@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { formatDate } from "@/lib/utils";
 import { TechStackGrid } from "@/components/dev/TechStackGrid";
 import { CodeBlock } from "@/components/dev/CodeBlock";
+import ReactMarkdown from "react-markdown";
 
 export const dynamic = 'force-dynamic';
 
@@ -56,16 +57,10 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 </div>
 
                 {/* Content */}
-                <article className="prose prose-invert prose-p:text-gray-300 prose-headings:text-white prose-a:text-[var(--dev-neon-blue)] max-w-none mb-16">
-                    {/* 
-                         Ideally we use a markdown parser here. 
-                         For now, we simply render text. If the text allows generic code blocks, 
-                         we might want to parse them. 
-                         MVP: Just rendering content.
-                     */}
-                    <div className="whitespace-pre-wrap font-sans text-lg leading-relaxed">
+                <article className="prose prose-sm sm:prose-base lg:prose-lg prose-invert max-w-none mb-16 prose-headings:font-bold prose-headings:text-white prose-p:text-gray-300 prose-a:text-[var(--dev-neon-blue)] prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-code:text-[var(--dev-neon-green)] prose-pre:bg-[var(--dev-surface)] prose-pre:border prose-pre:border-white/10 prose-blockquote:border-l-[var(--dev-neon-pink)] prose-blockquote:bg-[var(--dev-neon-pink)]/5 prose-blockquote:py-1 prose-blockquote:px-4 prose-li:text-gray-300">
+                    <ReactMarkdown>
                         {article.content}
-                    </div>
+                    </ReactMarkdown>
                 </article>
 
                 {/* Tech Stack Used */}
