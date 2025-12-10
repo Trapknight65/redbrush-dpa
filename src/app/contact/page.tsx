@@ -30,16 +30,17 @@ export default function Contact() {
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark-gray mb-4 sm:mb-6">
                         Let&apos;s <span className="text-crimson-red">Work Together</span>
                     </h1>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 sm:mb-10">
-                        <p className="text-base sm:text-lg lg:text-xl text-charcoal max-w-xl">
+                    <div className="flex items-center justify-center gap-6 mb-8 sm:mb-10 max-w-3xl mx-auto">
+                        <p className="text-base sm:text-lg lg:text-xl text-charcoal text-right flex-1">
                             Have a project in mind? We&apos;d love to hear from you.
                         </p>
                         <Button
                             variant="primary"
                             onClick={() => setIsModalOpen(true)}
-                            className="bg-crimson-red text-white hover:bg-red-700 shadow-lg"
+                            className="bg-crimson-red text-white hover:bg-red-700 shadow-lg flex-shrink-0"
                         >
-                            Let&apos;s Talk
+                            <span className="mr-2">Let&apos;s Talk</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                         </Button>
                     </div>
                 </div>

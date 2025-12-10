@@ -13,6 +13,7 @@ export default function AdminSidebar() {
     const navItems = [
         { href: "/admin/dashboard", label: "Dashboard", icon: BarChart3 },
         { href: "/admin/projects", label: "Projects", icon: FileText },
+        { href: "/admin/articles", label: "Articles", icon: FileText },
         { href: "/admin/about", label: "About / Profile", icon: Users },
     ];
 

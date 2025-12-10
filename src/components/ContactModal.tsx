@@ -44,19 +44,19 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     };
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="relative w-full max-w-lg bg-[#120c0c] border border-amber-900/30 rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-300">
+            <div className="relative w-full max-w-lg bg-[#0a0505] border border-crimson-red/30 rounded-2xl shadow-[0_0_50px_rgba(220,20,60,0.1)] overflow-hidden animate-in zoom-in-95 duration-300">
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-amber-700 hover:text-amber-500 transition-colors z-10"
+                    className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
                 >
                     <X size={24} />
                 </button>
 
                 <div className="p-6 sm:p-8">
-                    <h2 className="text-2xl font-bold text-amber-500 mb-2">Let&apos;s Talk</h2>
-                    <p className="text-amber-100/60 mb-6 text-sm">
+                    <h2 className="text-2xl font-bold text-white mb-2">Let&apos;s <span className="text-crimson-red">Talk</span></h2>
+                    <p className="text-gray-400 mb-6 text-sm">
                         Tell us about your project or just say hello. We&apos;ll get back to you shortly.
                     </p>
 
@@ -65,8 +65,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                             <div className="w-16 h-16 bg-green-900/20 text-green-500 rounded-full flex items-center justify-center border border-green-900/50">
                                 <Send size={32} />
                             </div>
-                            <h3 className="text-xl font-bold text-green-400">Message Sent!</h3>
-                            <p className="text-green-300/60">We&apos;ll be in touch soon.</p>
+                            <h3 className="text-xl font-bold text-white">Message Sent!</h3>
+                            <p className="text-gray-400">We&apos;ll be in touch soon.</p>
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} className="space-y-4">
@@ -79,7 +79,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                         required
                                         value={formData.name}
                                         onChange={handleChange}
-                                        className="w-full bg-black/40 border border-amber-900/30 rounded-lg px-4 py-3 text-amber-100 placeholder:text-amber-900/50 focus:border-amber-600 focus:outline-none transition-colors"
+                                        className="w-full bg-[#1a1515] border border-gray-800 rounded-lg px-4 py-3 text-white placeholder:text-gray-600 focus:border-crimson-red focus:outline-none transition-colors"
                                     />
                                 </div>
                                 <div>
@@ -90,7 +90,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                         required
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className="w-full bg-black/40 border border-amber-900/30 rounded-lg px-4 py-3 text-amber-100 placeholder:text-amber-900/50 focus:border-amber-600 focus:outline-none transition-colors"
+                                        className="w-full bg-[#1a1515] border border-gray-800 rounded-lg px-4 py-3 text-white placeholder:text-gray-600 focus:border-crimson-red focus:outline-none transition-colors"
                                     />
                                 </div>
                                 <div>
@@ -100,7 +100,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                         placeholder="Company (Optional)"
                                         value={formData.company}
                                         onChange={handleChange}
-                                        className="w-full bg-black/40 border border-amber-900/30 rounded-lg px-4 py-3 text-amber-100 placeholder:text-amber-900/50 focus:border-amber-600 focus:outline-none transition-colors"
+                                        className="w-full bg-[#1a1515] border border-gray-800 rounded-lg px-4 py-3 text-white placeholder:text-gray-600 focus:border-crimson-red focus:outline-none transition-colors"
                                     />
                                 </div>
                                 <div>
@@ -111,7 +111,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                         required
                                         value={formData.message}
                                         onChange={handleChange}
-                                        className="w-full bg-black/40 border border-amber-900/30 rounded-lg px-4 py-3 text-amber-100 placeholder:text-amber-900/50 focus:border-amber-600 focus:outline-none transition-colors resize-none"
+                                        className="w-full bg-[#1a1515] border border-gray-800 rounded-lg px-4 py-3 text-white placeholder:text-gray-600 focus:border-crimson-red focus:outline-none transition-colors resize-none"
                                     />
                                 </div>
                             </div>
@@ -119,7 +119,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                             <Button
                                 type="submit"
                                 variant="primary"
-                                className="w-full justify-center"
+                                className="w-full justify-center bg-crimson-red hover:bg-red-700 text-white border-none"
                                 disabled={loading}
                             >
                                 {loading ? <Loader2 className="animate-spin mr-2" /> : <Send className="mr-2" size={18} />}

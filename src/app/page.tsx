@@ -11,9 +11,9 @@ export default async function Home() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 lg:py-20">
-        <div className="grid grid-cols-2 gap-4 lg:gap-12 items-center">
+        <div className="grid grid-cols-[70%_30%] sm:grid-cols-2 gap-2 sm:gap-12 items-center">
           {/* Left: Hero Content */}
-          <div className="text-left w-full">
+          <div className="text-left w-full pr-2">
             <h1 className="text-xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-6 leading-tight">
               <BrushCreate text="Digital Solutions for" className="block" delay={0.2} />
               <span className="text-crimson-red block">Modern Brands</span>
@@ -33,7 +33,7 @@ export default async function Home() {
           </div>
 
           {/* Right: Hero Slider */}
-          <div className="w-full h-[200px] sm:h-auto">
+          <div className="w-full h-[120px] sm:h-auto">
             <HeroSlider slides={(profile?.heroSlides as any) || []} />
           </div>
         </div>

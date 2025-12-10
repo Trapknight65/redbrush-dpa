@@ -73,3 +73,38 @@ model Profile {
   
   updatedAt      DateTime @updatedAt
 }
+
+model Article {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  content       String   @db.Text // MDX content
+  excerpt       String?
+  tags          String[]
+  category      String   // e.g., 'Tutorial', 'Deep Dive', 'Quick Fix'
+  
+  techStack     Json?    // [{ name, icon, version }]
+  repositoryUrl String?
+  
+  isPublished   Boolean  @default(false)
+  views         Int      @default(0)
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model DevReport {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique // e.g., "dev-report-dec-2025"
+  period        String   // e.g., "December 2025"
+  
+  content       String   @db.Text
+  
+  metrics       Json?    // { commits: 120, PRs: 5, lighthouse: 98 }
+  highlights    String[] // Quick bullet points
+  
+  isPublished   Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

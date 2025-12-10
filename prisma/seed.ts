@@ -118,6 +118,77 @@ async function main() {
         })
         console.log(`Created project with id: ${project.id}`)
     }
+
+    // --- SEED ARTICLES ---
+    const article = await prisma.article.upsert({
+        where: { slug: "introducing-redbrush-dev-lab" },
+        update: {},
+        create: {
+            title: "Introducing the Redbrush Dev Lab",
+            slug: "introducing-redbrush-dev-lab",
+            category: "Devlog",
+            isPublished: true,
+            excerpt: "A new era of transparency. We are opening our codebase logic and development process to the world.",
+            tags: ["Announcement", "Transparency", "Next.js"],
+            content: `# Welcome to the Lab
+
+This is the start of the **Redbrush Developer Theme**. A dedicated space to showcase the raw engineering behind our cinematic experiences.
+
+## Why "Dev Lab"?
+
+We believe in "Show, Don't Just Tell". Clients and fellow developers should be able to see:
+- Our code quality
+- Our architectural decisions
+- Our tech stack in action
+
+## What to Expect
+
+1. **Deep Dives**: Technical breakdowns of complex animations.
+2. **Dev Reports**: Monthly summaries of our shipping velocity.
+3. **Experiments**: Raw playground components.
+
+Stay tuned.
+`,
+            techStack: [
+                { name: "Next.js 14", version: "14.2" },
+                { name: "Prisma", version: "5.x" },
+                { name: "Tailwind CSS", version: "3.4" }
+            ]
+        }
+    })
+    console.log(`Created article: ${article.title}`)
+
+    // --- SEED DEV REPORT ---
+    const report = await prisma.devReport.upsert({
+        where: { slug: "system-initialization-dec-2025" },
+        update: {},
+        create: {
+            title: "System Initialization: December 2025",
+            slug: "system-initialization-dec-2025",
+            period: "December 2025",
+            isPublished: true,
+            content: `The "Developers Theme" initiative has been successfully deployed. This report marks the beginning of our public engineering logs.
+
+We have established the core infrastructure for:
+- **Article Management**: MDX-ready content pipeline.
+- **Metric Tracking**: Automated KPI visualization (mocked for now).
+- **Component Playground**: A dedicated lab environment.
+
+Next steps include integrating real-time GitHub metrics and expanding the component library.`,
+            highlights: [
+                "Deployed Dev Lab Portal",
+                "Implemented Neon/Glassmorphism Design System",
+                "Integrated Admin Article Management"
+            ],
+            metrics: {
+                "Commits": 142,
+                "Deployments": 15,
+                "Uptime": "99.9%"
+            }
+        }
+    })
+    console.log(`Created report: ${report.title}`)
+
     console.log('Seeding finished.')
 }
 

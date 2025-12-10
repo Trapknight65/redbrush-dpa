@@ -1,9 +1,12 @@
+import Link from "next/link";
 import Image from "next/image";
 
 import { getProfile, Education, Experience, Certification, Language } from "@/actions/profile.actions";
 import { Card } from "@/components/ui/card";
 import ExperienceCarousel from "@/components/ExperienceCarousel";
 import FloatingActions from "@/components/FloatingActions";
+import AboutQuickNav from "@/components/AboutQuickNav";
+import { Briefcase, GraduationCap, Award, Globe } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -22,114 +25,150 @@ export default async function About() {
     const languages = (profile?.languages || []) as unknown as Language[];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-deep-sea to-ocean-blue">
-            {/* ... Hero Section omitted ... */}
+        <div className="min-h-screen bg-[#0a0505] text-white">
+            <AboutQuickNav />
             <FloatingActions />
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-                <div className="flex flex-row items-center text-left gap-4 mb-8 lg:block lg:text-center">
-                    <div className="relative w-24 h-24 sm:w-32 sm:h-32 shrink-0 rounded-full overflow-hidden border-4 border-crimson-red shadow-lg mb-0 lg:mx-auto lg:mb-6">
-                        <Image src={avatar} alt={profile?.name || "Profile"} fill className="object-cover" />
-                    </div>
-                    <div className="flex-1 lg:w-full">
-                        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-canvas-white mb-1 sm:mb-4">
-                            {name.split(" ")[0]} <span className="text-crimson-red">{name.split(" ").slice(1).join(" ")}</span>
-                        </h1>
-                        <p className="text-lg sm:text-2xl text-canvas-white/90">
-                            {headline}
-                        </p>
-                    </div>
-                </div>
 
-                {/* Three Row Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
-                    {/* ... About & Skills omitted ... */}
-                    <Card className="lg:col-span-2">
-                        <div className="h-full p-6">
-                            <h2 className="text-2xl font-bold mb-4 text-canvas-white">Biography</h2>
-                            <div className="w-16 h-1 bg-crimson-red mt-2 mb-6"></div>
-                            <div className="prose prose-invert max-w-none text-canvas-white/80 whitespace-pre-wrap">
-                                {bio || "No biography available."}
-                            </div>
-                        </div>
-                    </Card>
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 pb-24">
 
-                    <Card>
-                        <div className="h-full p-6">
-                            <h2 className="text-xl font-bold mb-4 text-canvas-white">Skills</h2>
-                            <div className="w-16 h-1 bg-crimson-red mt-2 mb-6"></div>
-                            <div className="flex flex-wrap gap-2">
-                                {skills.length > 0 ? skills.map((skill, index) => (
-                                    <span key={index} className="px-3 py-1 bg-amber-900/20 text-amber-100 rounded-full text-sm border border-amber-900/40">
-                                        {skill}
-                                    </span>
-                                )) : (
-                                    <p className="text-sm opacity-50">No skills listed.</p>
+                {/* Section A: Bio and Skills */}
+                <div id="bio-skills" className="scroll-mt-20 mb-16 sm:mb-24">
+                    <div className="flex flex-col md:flex-row gap-8 sm:gap-12 items-start">
+                        {/* Avatar - Left */}
+                        <div className="w-full md:w-1/3 flex-shrink-0">
+                            <div className="relative aspect-square w-full max-w-[280px] sm:max-w-md mx-auto md:mx-0 rounded-2xl overflow-hidden border-2 border-crimson-red/20 shadow-2xl">
+                                {profile?.avatar ? (
+                                    <Image
+                                        src={profile.avatar}
+                                        alt={profile.name}
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-[#1a1515] flex items-center justify-center text-gray-700">
+                                        No Image
+                                    </div>
                                 )}
                             </div>
                         </div>
-                    </Card>
 
-                    {/* ... ExperienceCarousel omitted ... */}
-                    <ExperienceCarousel experiences={experiences} />
-
-                    {/* Row 3: Education & Languages */}
-                    <Card className="lg:col-span-2">
-                        <div className="h-full p-6">
-                            <div className="mb-6">
-                                <h2 className="text-2xl font-bold mb-4 text-canvas-white">Education & Certifications</h2>
-                                <div className="w-16 h-1 bg-crimson-red mt-2"></div>
+                        {/* Content - Right */}
+                        <div className="w-full md:w-2/3 space-y-4 sm:space-y-6">
+                            <div>
+                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">
+                                    <span className="text-crimson-red">About</span> Me
+                                </h1>
+                                <h2 className="text-lg sm:text-xl text-gray-400 font-light mb-4">
+                                    {profile?.headline || "Digital Creator & Developer"}
+                                </h2>
+                                <div className="h-1 w-20 bg-crimson-red rounded-full"></div>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <h3 className="font-bold text-base text-canvas-white mb-3">Education</h3>
-                                    <div className="space-y-3">
-                                        {education.map((edu, index) => (
-                                            <div key={index}>
-                                                <h4 className="font-bold text-sm">{edu.title}</h4>
-                                                <p className="text-xs text-ocean-blue">{edu.institution}</p>
-                                                <p className="text-xs opacity-70">{edu.year}</p>
-                                            </div>
+
+                            <div className="space-y-4 text-sm sm:text-base text-gray-300 leading-relaxed">
+                                <p>
+                                    {profile?.bio || "Passionate about creating digital experiences that leave a lasting impression."}
+                                </p>
+                            </div>
+
+                            {/* Skills */}
+                            {profile?.skills && profile.skills.length > 0 && (
+                                <div className="pt-4">
+                                    <h3 className="text-sm font-semibold text-crimson-red uppercase tracking-wider mb-3">
+                                        Skills & Expertise
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {profile.skills.map((skill, index) => (
+                                            <span
+                                                key={index}
+                                                className="px-3 py-1 bg-[#1a1515] border border-gray-800 rounded-full text-xs sm:text-sm text-gray-300 hover:border-crimson-red/50 transition-colors cursor-default"
+                                            >
+                                                {skill}
+                                            </span>
                                         ))}
-                                        {education.length === 0 && <p className="text-xs opacity-50">No education listings available.</p>}
                                     </div>
                                 </div>
-                                <div>
-                                    <h3 className="font-bold text-base text-canvas-white mb-3">Certifications</h3>
-                                    <div className="space-y-3">
-                                        {certifications.map((cert, index) => (
-                                            <div key={index}>
-                                                <h4 className="font-bold text-sm">{cert.title}</h4>
-                                                <p className="text-xs text-ocean-blue">{cert.issuer}</p>
-                                                <p className="text-xs opacity-70">{cert.date}</p>
-                                            </div>
-                                        ))}
-                                        {certifications.length === 0 && <p className="text-xs opacity-50">No certifications listed.</p>}
-                                    </div>
-                                </div>
-                            </div>
+                            )}
                         </div>
-                    </Card>
+                    </div>
+                </div>
 
-                    {/* ... Languages omitted ... */}
-                    <Card>
-                        <div className="h-full p-6">
-                            <h2 className="text-xl font-bold mb-4 text-canvas-white">Languages</h2>
-                            <div className="w-16 h-1 bg-crimson-red mt-2 mb-6"></div>
-                            <div className="space-y-4">
-                                {languages.map((lang, index) => (
-                                    <div key={index} className="flex justify-between items-center border-b border-white/10 pb-2 last:border-0">
-                                        <span className="font-bold text-amber-100">{lang.language}</span>
-                                        <span className="text-sm text-ocean-blue bg-ocean-blue/10 px-2 py-1 rounded">{lang.proficiency}</span>
+                {/* Section B: Experience */}
+                {profile?.experiences && profile.experiences.length > 0 && (
+                    <div id="experience" className="scroll-mt-20 mb-16 sm:mb-24">
+                        <div className="flex items-center gap-4 mb-8">
+                            <Briefcase className="text-crimson-red" size={24} />
+                            <h2 className="text-xl sm:text-2xl font-bold">Experience</h2>
+                        </div>
+                        <div className="space-y-8 border-l-2 border-crimson-red/20 ml-3 pl-8 sm:pl-12 relative">
+                            {profile.experiences.map((exp: any, index: number) => (
+                                <div key={index} className="relative">
+                                    {/* Timeline Dot */}
+                                    <div className="absolute -left-[41px] sm:-left-[57px] top-1 w-5 h-5 rounded-full bg-[#0a0505] border-4 border-crimson-red"></div>
+
+                                    <div className="space-y-2">
+                                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
+                                            <h3 className="text-base sm:text-lg font-bold text-white">{exp.title}</h3>
+                                            <span className="text-xs sm:text-sm text-crimson-red font-mono bg-crimson-red/5 px-2 py-0.5 rounded w-fit">
+                                                {exp.period}
+                                            </span>
+                                        </div>
+                                        <div className="text-sm text-gray-400 font-medium">{exp.company}</div>
+                                        <p className="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-3xl">
+                                            {exp.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Section C: Certifications & Languages */}
+                <div id="cert-lang" className="scroll-mt-20 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+                    {/* Certifications */}
+                    {profile?.certifications && profile.certifications.length > 0 && (
+                        <div>
+                            <div className="flex items-center gap-4 mb-6">
+                                <Award className="text-crimson-red" size={24} />
+                                <h2 className="text-xl sm:text-2xl font-bold">Certifications</h2>
+                            </div>
+                            <div className="grid gap-4">
+                                {profile.certifications.map((cert: any, index: number) => (
+                                    <div key={index} className="bg-[#1a1515] p-4 rounded-xl border border-gray-800 hover:border-crimson-red/30 transition-colors group">
+                                        <h3 className="font-bold text-sm sm:text-base text-white group-hover:text-crimson-red transition-colors">{cert.title}</h3>
+                                        <div className="flex justify-between mt-2 text-xs sm:text-sm text-gray-500">
+                                            <span>{cert.issuer}</span>
+                                            <span>{cert.date}</span>
+                                        </div>
                                     </div>
                                 ))}
-                                {languages.length === 0 && (
-                                    <p className="text-sm opacity-50">No languages listed.</p>
-                                )}
                             </div>
                         </div>
-                    </Card>
+                    )}
+
+                    {/* Languages */}
+                    {profile?.languages && profile.languages.length > 0 && (
+                        <div>
+                            <div className="flex items-center gap-4 mb-6">
+                                <Globe className="text-crimson-red" size={24} />
+                                <h2 className="text-xl sm:text-2xl font-bold">Languages</h2>
+                            </div>
+                            <div className="bg-[#1a1515] p-6 rounded-2xl border border-gray-800">
+                                <div className="space-y-4">
+                                    {profile.languages.map((lang: any, index: number) => (
+                                        <div key={index} className="flex items-center justify-between border-b last:border-0 border-gray-800 pb-3 last:pb-0">
+                                            <span className="font-medium text-sm sm:text-base text-gray-200">{lang.language}</span>
+                                            <span className="text-xs sm:text-sm text-crimson-red font-mono">{lang.proficiency}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
-            </section>
+
+            </main>
         </div>
     );
 }
