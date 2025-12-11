@@ -4,7 +4,7 @@ import { toggleArchiveArticle } from "@/actions/content.actions";
 import { Archive, ArchiveRestore } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
+
 
 interface ArchiveButtonProps {
     id: string;
@@ -27,8 +27,8 @@ export default function ArchiveButton({ id, isArchived }: ArchiveButtonProps) {
             onClick={handleToggle}
             disabled={loading}
             className={`p-2 rounded border transition-colors flex items-center gap-2 ${isArchived
-                    ? "bg-purple-900/20 text-purple-400 border-purple-900/50 hover:bg-purple-900/40"
-                    : "bg-gray-800/50 text-gray-500 border-gray-700 hover:bg-gray-700 hover:text-gray-300"
+                ? "bg-purple-900/20 text-purple-400 border-purple-900/50 hover:bg-purple-900/40"
+                : "bg-gray-800/50 text-gray-500 border-gray-700 hover:bg-gray-700 hover:text-gray-300"
                 }`}
             title={isArchived ? "Restore from Archive" : "Archive"}
         >

@@ -17,9 +17,7 @@ export const metadata: Metadata = {
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import SplashingParticles from "@/components/SplashingParticles";
-import LogPose from "@/components/ui/LogPose";
-import CustomCursor from "@/components/ui/CustomCursor";
+import EffectsWrapper from "@/components/EffectsWrapper";
 
 export default function RootLayout({
   children,
@@ -31,9 +29,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased flex flex-col min-h-screen cursor-none`}
       >
-        <CustomCursor />
-        <SplashingParticles />
-        <LogPose />
+        <EffectsWrapper />
         <Header />
         <main className="flex-grow">
           {children}

@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && npm run copy-assets",
-    "copy-assets": "cp -r public .next/standalone/public && cp -r .next/static .next/standalone/.next/static",
-    "start": "node .next/standalone/server.js",
+    "copy-assets": "xcopy public .next\\standalone\\Redbrush-dpa\\public /E /I /Y && xcopy .next\\static .next\\standalone\\Redbrush-dpa\\.next\\static /E /I /Y",
+    "start": "node .next/standalone/Redbrush-dpa/server.js",
     "lint": "eslint",
     "postinstall": "prisma generate"
   },

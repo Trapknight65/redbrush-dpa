@@ -38,29 +38,17 @@ export interface DevReportInput {
 
 export async function getArticles(publishedOnly = true) {
     try {
-        const where = publishedOnly
-            ? { isPublished: true, isArchived: false }
-            : { isArchived: false }
-
-        // If we want to see everything including archived (e.g. for Admin), we might need a flag.
-        // For now, let's assume getArticles(false) returns everything EXCEPT archived, 
-        // and we make a new param or separate call if we want archived.
-        // ACTUALLY: The Admin dashboard uses getArticles(false). If we hide archived there, 
-        // the user can't see them to unarchive.
-        // Let's change the signature: getArticles(publishedOnly = true, includeArchived = false)
-
         const articles = await prisma.article.findMany({
             where: publishedOnly
                 ? { isPublished: true, isArchived: false }
                 : {}, // Return all if not publishedOnly (Admin view)
             orderBy: { createdAt: 'desc' }
         })
-    })
-    return { success: true, data: articles }
-} catch (error) {
-    console.error("Error fetching articles:", error)
-    return { success: false, error: "Failed to fetch articles" }
-}
+        return { success: true, data: articles }
+    } catch (error) {
+        console.error("Error fetching articles:", error)
+        return { success: false, error: "Failed to fetch articles" }
+    }
 }
 
 export async function getArticleBySlug(slug: string) {

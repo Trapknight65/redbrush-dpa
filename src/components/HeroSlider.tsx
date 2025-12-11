@@ -3,8 +3,13 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { HeroSlide } from '@/actions/profile.actions';
-import FrogViewer from './FrogViewer';
+import dynamic from 'next/dynamic';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+const FrogViewer = dynamic(() => import('./FrogViewer'), {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-black/20 animate-pulse rounded-2xl" />
+});
 
 interface HeroSliderProps {
     slides: HeroSlide[];
@@ -60,6 +65,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                             alt={currentSlide.alt || "Hero Slide"}
                             fill
                             className="object-cover"
+                            priority={currentIndex === 0}
                         />
                     </div>
                 )}
