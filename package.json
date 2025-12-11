@@ -87,6 +87,6 @@
     "vite": "^6.4.1"
   },
   "prisma": {
-    "seed": "node --loader ts-node/esm prisma\\seed.ts"
+    "seed": "tsx prisma/seed.ts"
   }
 }

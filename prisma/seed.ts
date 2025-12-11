@@ -46,9 +46,6 @@ const bambiPortfolioCaseStudy = {
     roadmap: { status: "Stable", performance: [], security: [], features: [] }
 };
 
-// ... (In a real scenario I would copy all checks, but for efficiency I will perform a simplified seed for the major items)
-// I will seed just a few key items to verify connectivity.
-
 const projects = [
     {
         id: "ecommerce-platform",
@@ -66,7 +63,7 @@ const projects = [
         caseStudies: {
             create: {
                 meta: { title: "E-commerce Scale", date: "2025-11-15", agency: "Redbrush" },
-                overview: {},
+                overview: { mission: { statement: "Scale e-commerce.", stats: [] } },
                 architecture: {},
                 features: {},
                 roadmap: {}
@@ -91,12 +88,139 @@ const projects = [
                 ...bambiPortfolioCaseStudy
             }
         }
+    },
+    {
+        id: "neon-dash",
+        slug: "neon-dash",
+        title: "Neon Dash Dashboard",
+        category: "App Development",
+        tags: ["Dashboard", "SaaS", "Dark Mode"],
+        description: "High-contrast analytics dashboard for crypto traders.",
+        tech: ["React", "D3.js", "WebSockets"],
+        image: "📊",
+        challenge: "Real-time data visualization.",
+        solution: "WebSocket integration with D3 charts.",
+        results: ["<100ms Latency", "User retention up 40%"],
+        gallery: ["📈", "📉"],
+        caseStudies: {
+            create: {
+                meta: { title: "Real-time Data Vis", date: "2025-10-01", agency: "Redbrush" },
+                overview: { mission: { statement: "Visualize crypto data.", stats: [] } },
+                architecture: {},
+                features: {},
+                roadmap: {}
+            }
+        }
+    },
+    {
+        id: "zen-wellness",
+        slug: "zen-wellness",
+        title: "Zen Wellness App",
+        category: "Mobile Apps",
+        tags: ["Mobile", "React Native", "Health"],
+        description: "Cross-platform meditation and wellness tracker.",
+        tech: ["React Native", "Expo", "Node.js"],
+        image: "🧘",
+        challenge: "Offline capabilities.",
+        solution: "Local-first architecture with sync.",
+        results: ["5 Star Rating", "10k Downloads"],
+        gallery: ["📱", "🧠"],
+        caseStudies: {
+            create: {
+                meta: { title: "Offline First", date: "2025-09-20", agency: "Redbrush" },
+                overview: { mission: { statement: "Bring peace offline.", stats: [] } },
+                architecture: {},
+                features: {},
+                roadmap: {}
+            }
+        }
     }
 ]
+
+// Services categorized as Articles for Admin visibility
+const services = [
+    {
+        title: "Custom Web Development",
+        slug: "service-web-development",
+        category: "Service",
+        excerpt: "High-performance websites and web applications tailored to your brand.",
+        content: `---
+# Custom Web Development
+
+We build fast, secure, and scalable web solutions.
+
+- **Next.js & React**: Modern frameworks for interactive UIs.
+- **Performance Optimization**: Core Web Vitals focus.
+- **SEO Ready**: Built for visibility.
+
+---
+
+# Our Process
+
+1. **Discovery**: Understanding your needs.
+2. **Design**: Prototyping and UI/UX.
+3. **Develop**: agile coding sprints.
+4. **Deploy**: CI/CD and hosting setup.
+`,
+        tags: ["Web", "Frontend", "Backend"],
+        techStack: [{ name: "Next.js", version: "14" }, { name: "PostgreSQL", version: "16" }]
+    },
+    {
+        title: "Mobile App Development",
+        slug: "service-mobile-apps",
+        category: "Service",
+        excerpt: "Native and cross-platform mobile applications for iOS and Android.",
+        content: `---
+# Mobile App Development
+
+Reach your users on any device.
+
+- **React Native / Expo**: Cross-platform efficiency.
+- **Native Performance**: Optimized code.
+- **App Store Ops**: Submission and management.
+
+---
+
+# Features
+
+- Offline Support
+- Push Notifications
+- Biometric Auth
+`,
+        tags: ["Mobile", "iOS", "Android"],
+        techStack: [{ name: "React Native", version: "0.74" }, { name: "Expo", version: "50" }]
+    },
+    {
+        title: "Brand Identity Design",
+        slug: "service-brand-identity",
+        category: "Service",
+        excerpt: "Creating memorable visual identities that resonate with your audience.",
+        content: `---
+# Brand Identity
+
+More than just a logo. We craft full visual systems.
+
+- **Logo Design**: Minimalist and memorable.
+- **Color Systems**: Psychology-backed palettes.
+- **Typography**: Readable and distinctive.
+
+---
+
+# Deliverables
+
+- Brand Guidelines (PDF)
+- Asset Library (SVG, PNG)
+- Social Media Kit
+`,
+        tags: ["Design", "Branding", "Creative"],
+        techStack: [{ name: "Figma", version: "Latest" }, { name: "Adobe CC", version: "2025" }]
+    }
+];
 
 async function main() {
     console.log('Start seeding ...')
 
+    // Seed Projects
     for (const p of projects) {
         const project = await prisma.project.upsert({
             where: { slug: p.slug },
@@ -116,10 +240,29 @@ async function main() {
                 caseStudies: p.caseStudies
             },
         })
-        console.log(`Created project with id: ${project.id}`)
+        console.log(`Created project: ${project.title}`)
     }
 
-    // --- SEED ARTICLES ---
+    // Seed Services (as Articles)
+    for (const s of services) {
+        await prisma.article.upsert({
+            where: { slug: s.slug },
+            update: {},
+            create: {
+                title: s.title,
+                slug: s.slug,
+                category: s.category,
+                excerpt: s.excerpt,
+                content: s.content,
+                tags: s.tags,
+                isPublished: true,
+                techStack: s.techStack
+            }
+        });
+        console.log(`Created service: ${s.title}`);
+    }
+
+    // --- SEED EXISTING ARTICLES ---
     const article = await prisma.article.upsert({
         where: { slug: "introducing-redbrush-dev-lab" },
         update: {},
@@ -130,18 +273,23 @@ async function main() {
             isPublished: true,
             excerpt: "A new era of transparency. We are opening our codebase logic and development process to the world.",
             tags: ["Announcement", "Transparency", "Next.js"],
-            content: `# Welcome to the Lab
+            content: `---
+# Welcome to the Lab
 
 This is the start of the **Redbrush Developer Theme**. A dedicated space to showcase the raw engineering behind our cinematic experiences.
 
-## Why "Dev Lab"?
+---
+
+# Why "Dev Lab"?
 
 We believe in "Show, Don't Just Tell". Clients and fellow developers should be able to see:
 - Our code quality
 - Our architectural decisions
 - Our tech stack in action
 
-## What to Expect
+---
+
+# What to Expect
 
 1. **Deep Dives**: Technical breakdowns of complex animations.
 2. **Dev Reports**: Monthly summaries of our shipping velocity.
@@ -160,162 +308,86 @@ Stay tuned.
 
     // --- SEED BAMBI VISUALS ARTICLE ---
     const bambiArticle = await prisma.article.upsert({
-        where: { slug: "bambi-portfolio" },
+        where: { slug: "bambi-portfolio-case" },
         update: {},
         create: {
             title: "Bambi Visuals — Complete Project Summary",
-            slug: "bambi-portfolio",
+            slug: "bambi-portfolio-case",
             category: "Case Study",
             isPublished: true,
-            excerpt: "How Redbrush transformed Bambi Visuals into a cinematic, culturally-rooted digital brand with a glassmorphic system.",
+            excerpt: "How Redbrush transformed Bambi Visuals into a cinematic, culturally-rooted digital brand using a slide-based narrative.",
             tags: ["Case Study", "Branding", "UI/UX", "Glassmorphism"],
             techStack: [
                 { name: "Next.js", version: "14" },
                 { name: "Glassmorphism", version: "Custom" },
                 { name: "CMS", version: "Integrated" }
             ],
-            content: `# Bambi Visuals — Complete Project Summary
+            content: `---
+# Bambi Visuals — Complete Project Summary
 
 Redbrush developed the full brand identity, UI system, and website experience for Bambi Visuals, transforming it into a cinematic, culturally-rooted digital brand.
 
-## 1. Brand Identity Creation
+---
 
-### 1.1 Visual Direction
+# 1. Brand Identity Creation
+
+**Visual Direction**:
 Redbrush built a unique aesthetic blending:
 - **Cinematic atmosphere**
 - **Angola-inspired colors & light**
-- **Elegance of the Palanca Negra Gigante** (the Angolan giant sable antelope)
-- **Soft cosmic glow** and dreaminess from Bambi’s personality
+- **Elegance of the Palanca Negra Gigante**
+- **Soft cosmic glow**
 
-**The result:** A warm, expressive, premium identity with cultural depth and modern flair.
+**The result:** A warm, expressive, premium identity.
 
-### 1.2 New Logo
-Redbrush designed a new Bambi logo that is:
-- Minimal
-- Elegant
+**New Logo**:
+- Minimal & Elegant
 - Expressive
 - Optimized for mobile
-- Inspired by the shapes, curves, and contrast of the Angolan antelope
 
-The logo fits perfectly with the cinematic brand world.
+---
 
-## 2. Color Palette (Final)
+# 2. Color Palette & UI
 
-Redbrush defined the official Bambi palette:
+**Official Palette**:
+- 🔴 **Crimson Red**: Passion, expression, energy.
+- 🌑 **Black**: Cinematic contrast, depth.
+- 🌅 **Sunset Gold**: Warmth, African sunset glow.
 
-- 🔴 **Crimson Red**: Passion, expression, energy — used for highlights, accents, logo details.
-- 🌑 **Black**: Depth, elegance, cinematic contrast — used for backgrounds, typography, strong zones.
-- 🌅 **Sunset Gold**: Warmth, light, African sunset glow — used for UI illumination and subtle accents.
+**Glassmorphism System**:
+- Frosted translucent layers
+- Soft glow and blur (12–16px)
+- Floating cards with depth
 
-This palette roots Bambi in:
-- Angola’s natural beauty
-- Cinematic contrast
-- Emotional vividness
+---
 
-## 3. UI/UX & Website Development
+# 3. Infrastructure & CMS
 
-### 3.1 Mobile-Friendly UI
-Redbrush delivered a full responsive UI, ensuring:
+**Mobile-First UI**:
 - Thumb-friendly navigation
 - Scalable typography
 - Smooth transitions
-- High readability on dark backgrounds
-- Component layout optimized for small screens
 
-The mobile version preserves the cinematic look while staying practical.
+**CMS Integration**:
+- Full control for Bambi team
+- Manage portfolio, projects, text, images
+- Scalable storytelling platform
 
-### 3.2 Glassmorphism System
-A signature feature of Bambi’s UI:
-- Frosted translucent layers
-- Soft glow and blur (12–16px)
-- Floating cards
-- Light diffusion
-- Depth and layering
+---
 
-Glassmorphism became the core visual foundation of the site.
+# 4. Cinematic Brand Energy
 
-### 3.3 Component & Navigation Design
-Redbrush designed:
-- A glass fixed header
-- Crimson hover labels
-- Sunset gold active indicators
-- Modern buttons with gold-glow on hover
-- Smooth transitions for all interactions
-- Floating cards and cinematic section breaks
-
-## 4. Website Infrastructure
-
-### 4.1 CMS Integration
-Redbrush added a full CMS so the Bambi team can:
-- Update portfolio items
-- Add projects
-- Manage text & images
-- Add blog / insights content
-- Control visuals without coding
-
-This transformed the site into a scalable storytelling platform.
-
-## 5. Content Work
-Redbrush also delivered:
-- Structured client feedback content
-- English translations
-- Organized copy for the CMS
-- A consistent narrative voice for Bambi
-
-## 6. Cinematic Brand Energy
-Redbrush gave Bambi:
-- A film-inspired tone
+**Brand Tone**:
+- Film-inspired
 - Deep blacks for contrast
 - Golden-hour highlights
-- Crimson emotional points
-- Movement inspired by African cinema and natural light
-- Identity anchored in the sable antelope’s silhouette
 
-**The final experience feels:** Bold, Warm, Cultural, Magical, Premium, Emotional.
-
-> **One-Liner:** Redbrush built a cinematic, mobile-first, Angola-inspired brand and website for Bambi Visuals—complete with a new logo, crimson–black–gold color system, glassmorphic UI, and a scalable CMS-driven platform.
+**One-Liner**:
+Redbrush built a cinematic, mobile-first, Angola-inspired brand and website for Bambi Visuals—complete with a new logo, crimson–black–gold color system, glassmorphic UI, and a scalable CMS-driven platform.
 `
         }
     })
     console.log(`Created article: ${bambiArticle.title}`)
-    // --- SEED PROJECT ALPHA ARTICLE ---
-    const alphaArticle = await prisma.article.upsert({
-        where: { slug: "project-alpha-case-study" },
-        update: {},
-        create: {
-            title: "Project Alpha — Complete Case Study",
-            slug: "project-alpha-case-study",
-            category: "Deep Dive",
-            isPublished: true,
-            excerpt: "A comprehensive look at how we built Project Alpha from scratch using Next.js and Tailwind.",
-            tags: ["Case Study", "Next.js", "Redesign"],
-            techStack: [
-                { name: "Next.js", version: "13" },
-                { name: "TailwindCSS", version: "3.0" },
-                { name: "Supabase", version: "2.0" }
-            ],
-            content: `# Project Alpha — Complete Case Study
-
-## 1. Brand Identity Creation
-- **Visual Direction**: Modern, sleek, dark mode first.
-- **Core Values**: Speed, Reliability, Innovation.
-
-## 2. Color Palette
-- **Primary**: #0070f3 (Electric Blue)
-- **Secondary**: #000000 (Void Black)
-
-## 3. UI/UX Strategy
-- **Key Features**: Real-time dashboard, AI analytics, Dark mode toggle.
-- **User Flow**: Optimized for conversion with less than 3 clicks to purchase.
-
-## 4. Technical Infrastructure
-- **Stack**: Next.js App Router for SEO and performance.
-- **Performance**: 98/100 Lighthouse score on mobile.
-
-> **Summary**: Project Alpha redefined the industry standard for dashboard performance and aesthetics.`
-        }
-    })
-    console.log(`Created article: ${alphaArticle.title}`)
 
     // --- SEED DEV REPORT ---
     const report = await prisma.devReport.upsert({
