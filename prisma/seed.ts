@@ -278,6 +278,44 @@ Redbrush gave Bambi:
         }
     })
     console.log(`Created article: ${bambiArticle.title}`)
+    // --- SEED PROJECT ALPHA ARTICLE ---
+    const alphaArticle = await prisma.article.upsert({
+        where: { slug: "project-alpha-case-study" },
+        update: {},
+        create: {
+            title: "Project Alpha — Complete Case Study",
+            slug: "project-alpha-case-study",
+            category: "Deep Dive",
+            isPublished: true,
+            excerpt: "A comprehensive look at how we built Project Alpha from scratch using Next.js and Tailwind.",
+            tags: ["Case Study", "Next.js", "Redesign"],
+            techStack: [
+                { name: "Next.js", version: "13" },
+                { name: "TailwindCSS", version: "3.0" },
+                { name: "Supabase", version: "2.0" }
+            ],
+            content: `# Project Alpha — Complete Case Study
+
+## 1. Brand Identity Creation
+- **Visual Direction**: Modern, sleek, dark mode first.
+- **Core Values**: Speed, Reliability, Innovation.
+
+## 2. Color Palette
+- **Primary**: #0070f3 (Electric Blue)
+- **Secondary**: #000000 (Void Black)
+
+## 3. UI/UX Strategy
+- **Key Features**: Real-time dashboard, AI analytics, Dark mode toggle.
+- **User Flow**: Optimized for conversion with less than 3 clicks to purchase.
+
+## 4. Technical Infrastructure
+- **Stack**: Next.js App Router for SEO and performance.
+- **Performance**: 98/100 Lighthouse score on mobile.
+
+> **Summary**: Project Alpha redefined the industry standard for dashboard performance and aesthetics.`
+        }
+    })
+    console.log(`Created article: ${alphaArticle.title}`)
 
     // --- SEED DEV REPORT ---
     const report = await prisma.devReport.upsert({
