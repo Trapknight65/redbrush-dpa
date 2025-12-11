@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && npm run copy-assets",
-    "copy-assets": "xcopy public .next\\standalone\\Redbrush-dpa\\public /E /I /Y && xcopy .next\\static .next\\standalone\\Redbrush-dpa\\.next\\static /E /I /Y",
+    "copy-assets": "node scripts/copy-assets.js",
     "start": "node .next/standalone/Redbrush-dpa/server.js",
     "lint": "eslint",
     "postinstall": "prisma generate"
