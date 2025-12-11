@@ -13,7 +13,7 @@ export default async function DevLabPage() {
     const { data: reports } = await getDevReports(false);
 
     return (
-        <div className="min-h-screen bg-[var(--dev-bg)] text-white p-6 sm:p-8 pt-24 relative overflow-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-black to-blue-900 text-white p-6 sm:p-8 pt-24 relative overflow-hidden">
             <DevGridBackground />
             <div className="max-w-6xl mx-auto space-y-16 relative z-10">
 
