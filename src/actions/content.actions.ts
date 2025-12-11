@@ -38,16 +38,29 @@ export interface DevReportInput {
 
 export async function getArticles(publishedOnly = true) {
     try {
-        const where = publishedOnly ? { isPublished: true } : {}
+        const where = publishedOnly
+            ? { isPublished: true, isArchived: false }
+            : { isArchived: false }
+
+        // If we want to see everything including archived (e.g. for Admin), we might need a flag.
+        // For now, let's assume getArticles(false) returns everything EXCEPT archived, 
+        // and we make a new param or separate call if we want archived.
+        // ACTUALLY: The Admin dashboard uses getArticles(false). If we hide archived there, 
+        // the user can't see them to unarchive.
+        // Let's change the signature: getArticles(publishedOnly = true, includeArchived = false)
+
         const articles = await prisma.article.findMany({
-            where,
+            where: publishedOnly
+                ? { isPublished: true, isArchived: false }
+                : {}, // Return all if not publishedOnly (Admin view)
             orderBy: { createdAt: 'desc' }
         })
-        return { success: true, data: articles }
-    } catch (error) {
-        console.error("Error fetching articles:", error)
-        return { success: false, error: "Failed to fetch articles" }
-    }
+    })
+    return { success: true, data: articles }
+} catch (error) {
+    console.error("Error fetching articles:", error)
+    return { success: false, error: "Failed to fetch articles" }
+}
 }
 
 export async function getArticleBySlug(slug: string) {
@@ -116,6 +129,21 @@ export async function updateArticle(id: string, data: Partial<ArticleInput>) {
     } catch (error) {
         console.error("Error updating article:", error)
         return { success: false, error: "Failed to update article" }
+    }
+}
+
+export async function toggleArchiveArticle(id: string, isArchived: boolean) {
+    try {
+        const article = await prisma.article.update({
+            where: { id },
+            data: { isArchived }
+        })
+        revalidatePath('/dev-lab')
+        revalidatePath('/admin/articles')
+        return { success: true, data: article }
+    } catch (error) {
+        console.error("Error archiving article:", error)
+        return { success: false, error: "Failed to update archive status" }
     }
 }
 

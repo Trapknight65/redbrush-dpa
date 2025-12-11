@@ -26,39 +26,55 @@ export default async function ArticlesAdminPage() {
 
             <div className="grid gap-4">
                 {articles && articles.length > 0 ? (
-                    articles.map((article) => (
-                        <div
-                            key={article.id}
-                            className="bg-[#120c0c] border border-amber-900/20 rounded-lg p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-amber-900/40 transition-colors"
-                        >
-                            <div className="space-y-2">
-                                <div className="flex items-center gap-3">
-                                    <h2 className="text-xl font-bold text-amber-100">{article.title}</h2>
-                                    <Badge variant={article.isPublished ? "default" : "secondary"} className={article.isPublished ? "bg-green-900/50 text-green-400 border-green-900" : "bg-gray-800 text-gray-400"}>
-                                        {article.isPublished ? "PUBLISHED" : "DRAFT"}
-                                    </Badge>
-                                </div>
-                                <div className="flex items-center gap-4 text-sm text-amber-700/60 font-mono">
-                                    <span>{article.category}</span>
-                                    <span>•</span>
-                                    <span>{formatDate(article.createdAt)}</span>
-                                    <span>•</span>
-                                    <span>{article.views} Views</span>
-                                </div>
-                            </div>
+import ArchiveButton from "@/components/admin/ArchiveButton";
 
-                            <Link
-                                href={`/admin/articles/edit/${article.id}`}
-                                className="px-4 py-2 border border-amber-900/30 rounded text-amber-500 hover:bg-amber-900/20 hover:text-amber-300 transition-colors flex items-center gap-2 text-sm"
-                            >
-                                <Edit size={14} /> Edit
-                            </Link>
+// ... inside map ...
+                    articles.map((article) => (
+                <div
+                    key={article.id}
+                    className={`border rounded-lg p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-colors ${article.isArchived
+                            ? "bg-[#0a0505] border-purple-900/20 opacity-60"
+                            : "bg-[#120c0c] border-amber-900/20 hover:border-amber-900/40"
+                        }`}
+                >
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-3">
+                            <h2 className={`text-xl font-bold ${article.isArchived ? "text-gray-500 line-through" : "text-amber-100"}`}>
+                                {article.title}
+                            </h2>
+                            <Badge variant={article.isPublished ? "default" : "secondary"} className={article.isPublished ? "bg-green-900/50 text-green-400 border-green-900" : "bg-gray-800 text-gray-400"}>
+                                {article.isPublished ? "PUBLISHED" : "DRAFT"}
+                            </Badge>
+                            {article.isArchived && (
+                                <Badge variant="outline" className="text-purple-500 border-purple-900 bg-purple-900/10">
+                                    ARCHIVED
+                                </Badge>
+                            )}
                         </div>
-                    ))
-                ) : (
-                    <div className="text-center py-12 border border-dashed border-amber-900/20 rounded-lg text-amber-700/50 font-mono">
-                        No articles found. Start writing transmission...
+                        <div className="flex items-center gap-4 text-sm text-amber-700/60 font-mono">
+                            <span>{article.category}</span>
+                            <span>•</span>
+                            <span>{formatDate(article.createdAt)}</span>
+                            <span>•</span>
+                            <span>{article.views} Views</span>
+                        </div>
                     </div>
+
+                    <div className="flex items-center gap-2">
+                        <ArchiveButton id={article.id} isArchived={article.isArchived} />
+                        <Link
+                            href={`/admin/articles/edit/${article.id}`}
+                            className="px-4 py-2 border border-amber-900/30 rounded text-amber-500 hover:bg-amber-900/20 hover:text-amber-300 transition-colors flex items-center gap-2 text-sm"
+                        >
+                            <Edit size={14} /> Edit
+                        </Link>
+                    </div>
+                </div>
+                ))
+                ) : (
+                <div className="text-center py-12 border border-dashed border-amber-900/20 rounded-lg text-amber-700/50 font-mono">
+                    No articles found. Start writing transmission...
+                </div>
                 )}
             </div>
         </div>
