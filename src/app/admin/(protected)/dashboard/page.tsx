@@ -3,7 +3,7 @@ import { getProjects } from "@/actions/project.actions";
 import { getArticles } from "@/actions/content.actions";
 import { Users, FileText, AlertCircle, BarChart3, Plus, ArrowRight, LayoutDashboard, Terminal } from "lucide-react";
 import Link from 'next/link';
-import { Button } from "@/components/ui/Button";
+import Button from "@/components/ui/Button";
 
 export default async function AdminDashboardPage() {
     const { data: projects, error: projectsError } = await getProjects();
