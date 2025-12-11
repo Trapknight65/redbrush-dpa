@@ -4,8 +4,9 @@ import ArticleForm from "@/components/admin/ArticleForm";
 import { getArticleById } from "@/actions/content.actions";
 import { redirect } from "next/navigation";
 
-export default async function EditArticlePage({ params }: { params: { id: string } }) {
-    const { data: article } = await getArticleById(params.id);
+export default async function EditArticlePage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const { data: article } = await getArticleById(id);
 
     if (!article) {
         redirect("/admin/articles");

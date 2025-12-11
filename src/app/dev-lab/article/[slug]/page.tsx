@@ -10,8 +10,8 @@ import ReactMarkdown from "react-markdown";
 
 export const dynamic = 'force-dynamic';
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
-    const slug = params.slug;
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const { data: article } = await getArticleBySlug(slug);
 
     if (!article) {

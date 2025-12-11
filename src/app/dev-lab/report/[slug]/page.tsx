@@ -7,8 +7,8 @@ import { formatDate } from "@/lib/utils";
 
 export const dynamic = 'force-dynamic';
 
-export default async function ReportPage({ params }: { params: { slug: string } }) {
-    const slug = params.slug;
+export default async function ReportPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const { data: report } = await getDevReportBySlug(slug);
 
     if (!report) {
