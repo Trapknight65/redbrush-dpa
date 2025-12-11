@@ -85,6 +85,7 @@ model Article {
   
   techStack     Json?    // [{ name, icon, version }]
   repositoryUrl String?
+  demoUrl       String?
   
   isPublished   Boolean  @default(false)
   views         Int      @default(0)

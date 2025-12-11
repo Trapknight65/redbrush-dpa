@@ -6,6 +6,7 @@ import { useState } from "react";
 import { createArticle, updateArticle, ArticleInput } from "@/actions/content.actions";
 import { Loader2, Plus, X, Laptop, FileText, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import SlideEditor from "./SlideEditor";
 
 interface ArticleFormProps {
     article?: any; // Using any for simplicity with Prisma types for now, essentially Article
@@ -208,18 +209,28 @@ export default function ArticleForm({ article }: ArticleFormProps) {
                 />
             </div>
 
-            {/* Markdown Content Editor */}
-            <div className="space-y-2">
-                <label className="text-sm font-medium text-amber-200 flex justify-between">
-                    Content (Markdown)
-                    <span className="text-xs text-amber-500/50">Supports MDX-like structure</span>
-                </label>
-                <textarea
-                    {...register("content", { required: true })}
-                    className="w-full bg-[#0a0a0a] border border-amber-900/30 rounded p-4 text-gray-300 font-mono text-sm leading-relaxed focus:border-amber-500 outline-none transition-colors min-h-[400px]"
-                    placeholder="# Heading&#10;&#10;Write your technical masterpiece here..."
-                />
+            {/* URL Inputs */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-amber-200">Repository URL</label>
+                    <input
+                        {...register("repositoryUrl")}
+                        className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-white focus:border-amber-500 outline-none transition-colors font-mono text-xs"
+                        placeholder="https://github.com/..."
+                    />
+                </div>
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-amber-200">Live Demo URL (Preview)</label>
+                    <input
+                        {...register("demoUrl")}
+                        className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-white focus:border-amber-500 outline-none transition-colors font-mono text-xs"
+                        placeholder="https://..."
+                    />
+                </div>
             </div>
+
+            {/* Slide Editor */}
+            <SlideEditor control={control} setValue={setValue} initialContent={article?.content || ""} />
 
             {/* Tech Stack Section */}
             <div className="space-y-4 border border-amber-900/20 rounded-lg p-4 bg-black/20">

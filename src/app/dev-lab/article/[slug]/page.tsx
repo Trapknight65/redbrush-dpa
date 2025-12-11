@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { formatDate } from "@/lib/utils";
 import { TechStackGrid } from "@/components/dev/TechStackGrid";
 import { CodeBlock } from "@/components/dev/CodeBlock";
+import SlideDeck from "@/components/dev/SlideDeck";
 import ReactMarkdown from "react-markdown";
 
 export const dynamic = 'force-dynamic';
@@ -21,7 +22,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     const techStack = article.techStack as any[] || [];
 
     return (
-        <div className="min-h-screen bg-[var(--dev-bg)] text-white flex flex-col relative overflow-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-black to-crimson-red text-white flex flex-col relative overflow-hidden">
 
             {/* Background Decor */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-black to-black pointer-events-none" />
@@ -43,43 +44,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             {/* Main Slide Content */}
             <div className="flex-1 relative z-10 overflow-hidden flex flex-col md:flex-row">
 
-                {/* Left Panel: Content (Report) */}
-                <div className="flex-1 overflow-y-auto p-6 md:p-12 scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent">
-                    <div className="max-w-3xl mx-auto space-y-8">
-
-                        {/* Title Header */}
-                        <div className="space-y-4">
-                            <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500">
-                                {article.title}
-                            </h1>
-                            <div className="flex flex-wrap gap-2">
-                                {article.tags.map(tag => (
-                                    <Badge key={tag} variant="secondary" className="bg-white/5 text-gray-400 font-mono text-xs border border-white/10">
-                                        #{tag}
-                                    </Badge>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Markdown Body */}
-                        <article className="prose prose-sm md:prose-base prose-invert max-w-none 
-                            prose-headings:font-bold prose-headings:text-white prose-headings:tracking-tight
-                            prose-p:text-gray-400 prose-p:leading-relaxed
-                            prose-strong:text-[var(--dev-neon-blue)]
-                            prose-ul:list-disc prose-ul:pl-4
-                            prose-li:text-gray-400 prose-li:marker:text-[var(--dev-neon-pink)]
-                            prose-blockquote:border-l-2 prose-blockquote:border-[var(--dev-neon-green)] prose-blockquote:bg-[var(--dev-neon-green)]/5 prose-blockquote:text-gray-300
-                            ">
-                            <ReactMarkdown>
-                                {article.content}
-                            </ReactMarkdown>
-                        </article>
-                    </div>
-                </div>
+                {/* Left Panel: Slide Deck (Content) */}
+                <SlideDeck
+                    content={article.content}
+                    repoUrl={article.repositoryUrl}
+                    demoUrl={article.demoUrl}
+                />
 
                 {/* Right Panel: Tech & Stats (Sidebar on Desktop) */}
                 {techStack.length > 0 && (
-                    <div className="w-full md:w-80 border-t md:border-t-0 md:border-l border-white/5 bg-black/20 backdrop-blur-sm p-6 overflow-y-auto">
+                    <div className="hidden md:block w-80 border-l border-white/5 bg-black/20 backdrop-blur-sm p-6 overflow-y-auto">
                         <div className="space-y-8">
                             <div>
                                 <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 flex items-center gap-2">

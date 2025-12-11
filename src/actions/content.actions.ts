@@ -19,7 +19,9 @@ export interface ArticleInput {
     tags: string[]
     category: string
     techStack?: TechStackItem[]
+    techStack?: TechStackItem[]
     repositoryUrl?: string
+    demoUrl?: string
     isPublished?: boolean
 }
 
