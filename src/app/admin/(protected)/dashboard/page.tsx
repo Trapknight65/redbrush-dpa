@@ -40,9 +40,13 @@ export default async function AdminDashboardPage() {
                     <p className="text-gray-500">System functional. Welcome back, Captain Redbrush.</p>
                 </div>
                 <div className="flex gap-2">
-                    <Button asChild className="bg-[var(--dev-neon-blue)] hover:bg-[var(--dev-neon-blue)]/80 text-white border-0">
-                        <Link href="/dev-lab" target="_blank">View Dev Lab</Link>
-                    </Button>
+                    <Link
+                        href="/dev-lab"
+                        target="_blank"
+                        className="bg-[var(--dev-neon-blue)] hover:bg-[var(--dev-neon-blue)]/80 text-white border-0 px-4 py-2 rounded-md font-medium flex items-center justify-center transition-colors"
+                    >
+                        View Dev Lab
+                    </Link>
                 </div>
             </header>
 
