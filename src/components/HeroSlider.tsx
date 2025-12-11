@@ -33,7 +33,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
     const currentSlide = slides[currentIndex];
 
     return (
-        <div className="relative w-full h-[400px] sm:h-[500px] lg:h-[600px] group">
+        <div className="relative w-full h-full group">
             <div className="w-full h-full relative rounded-2xl overflow-hidden brush-mask">
                 {currentSlide.type === '3d' && (
                     <div className="w-full h-full">
@@ -49,7 +49,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                         loop
                         muted
                         playsInline
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                     />
                 )}
 

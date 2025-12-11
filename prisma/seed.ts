@@ -160,11 +160,11 @@ Stay tuned.
 
     // --- SEED BAMBI VISUALS ARTICLE ---
     const bambiArticle = await prisma.article.upsert({
-        where: { slug: "bambi-visuals-project-summary" },
+        where: { slug: "bambi-portfolio" },
         update: {},
         create: {
             title: "Bambi Visuals — Complete Project Summary",
-            slug: "bambi-visuals-project-summary",
+            slug: "bambi-portfolio",
             category: "Case Study",
             isPublished: true,
             excerpt: "How Redbrush transformed Bambi Visuals into a cinematic, culturally-rooted digital brand with a glassmorphic system.",

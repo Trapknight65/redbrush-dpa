@@ -26,7 +26,7 @@ function Loader() {
 
 export default function FrogViewer() {
     return (
-        <div className="w-full h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-deep-sea/20 to-ocean-blue/20">
+        <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-deep-sea/20 to-ocean-blue/20">
             <Canvas>
                 <PerspectiveCamera makeDefault position={[0, 0, 5]} />
 
