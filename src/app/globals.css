@@ -105,6 +105,32 @@ h6 {
   transform: rotateY(180deg);
 }
 
+/* Dark Neumorphism Utilities */
+.neu-flat {
+  background: var(--dev-surface);
+  box-shadow: 5px 5px 10px #050505,
+    -5px -5px 10px #191919;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.neu-pressed {
+  background: var(--dev-surface);
+  box-shadow: inset 5px 5px 10px #050505,
+    inset -5px -5px 10px #191919;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.neu-concave {
+  background: linear-gradient(145deg, #0e0e0e, #101010);
+  box-shadow: 5px 5px 10px #050505,
+    -5px -5px 10px #191919;
+}
+
+.neu-icon-embossed {
+  color: var(--dev-surface);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), -2px -2px 4px rgba(255, 255, 255, 0.05);
+}
+
 /* Cinematic Effects from Interactive Report */
 .film-grain {
   pointer-events: none;
