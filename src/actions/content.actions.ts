@@ -58,6 +58,11 @@ export async function getArticleBySlug(slug: string) {
         })
 
         if (article) {
+            // Check if archived (prevent view)
+            if (article.isArchived) {
+                return { success: true, data: null }
+            }
+
             // Increment views
             await prisma.article.update({
                 where: { slug },
