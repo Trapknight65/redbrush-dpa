@@ -37,18 +37,22 @@ export default function SlideDeck({ content, repoUrl, demoUrl }: SlideDeckProps)
             {/* Slide Content */}
             <div className="flex-1 overflow-y-auto p-6 md:p-12 scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent flex items-center justify-center relative z-10">
                 <div className="max-w-4xl w-full space-y-8 animate-in fade-in duration-500 key={currentSlide}">
-                    <div className="neu-flat p-8 md:p-12 rounded-2xl relative overflow-hidden">
+                    <div className="neu-flat p-8 md:p-16 rounded-2xl relative overflow-hidden min-h-[60vh] flex flex-col justify-center">
                         {/* Inner Bevel Highlight */}
                         <div className="absolute inset-0 border border-white/5 rounded-2xl pointer-events-none" />
 
                         <article className="prose prose-sm md:prose-xl prose-invert max-w-none 
-                            prose-headings:font-black prose-headings:text-white prose-headings:tracking-tighter prose-headings:leading-none
+                            prose-headings:font-black prose-headings:text-white prose-headings:tracking-tighter prose-headings:leading-none prose-headings:mb-8 prose-headings:drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]
                             prose-h1:text-4xl md:prose-h1:text-6xl
                             prose-h2:text-2xl md:prose-h2:text-4xl prose-h2:text-[var(--dev-neon-blue)]
-                            prose-p:text-gray-300 prose-p:leading-relaxed prose-p:text-lg
+                            prose-p:text-gray-300 prose-p:leading-relaxed prose-p:text-lg prose-p:mb-8
                             prose-strong:text-[var(--dev-neon-pink)]
-                            prose-ul:list-disc prose-ul:pl-6 prose-li:text-gray-300
-                            prose-blockquote:border-l-4 prose-blockquote:border-[var(--dev-neon-green)] prose-blockquote:bg-[var(--dev-neon-green)]/10 prose-blockquote:p-4 prose-blockquote:rounded-r
+                            prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-8 prose-li:text-gray-300 prose-li:mb-2
+                            prose-blockquote:border-l-4 prose-blockquote:border-[var(--dev-neon-green)] prose-blockquote:bg-[var(--dev-neon-green)]/10 prose-blockquote:p-6 prose-blockquote:rounded-r prose-blockquote:mb-8
+                            prose-a:text-[var(--dev-neon-green)] prose-a:no-underline hover:prose-a:underline hover:prose-a:text-[var(--dev-neon-yellow)] prose-a:transition-colors
+                            prose-pre:bg-[#121212] prose-pre:border prose-pre:border-white/10 prose-pre:shadow-2xl prose-pre:backdrop-blur-md prose-pre:rounded-xl prose-pre:mb-8
+                            prose-code:text-[var(--dev-neon-yellow)] prose-code:font-mono prose-code:bg-white/5 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                            prose-img:rounded-xl prose-img:border prose-img:border-white/10 prose-img:shadow-2xl prose-img:mb-8
                             ">
                             <ReactMarkdown>
                                 {slides[currentSlide]}
