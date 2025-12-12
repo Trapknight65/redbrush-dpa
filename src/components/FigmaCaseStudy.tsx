@@ -96,11 +96,6 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
 
     return (
         <div className="w-full bg-gradient-to-br from-ocean-blue to-black text-white p-2 sm:p-4 md:p-8 overflow-hidden relative rounded-xl my-4 sm:my-8 min-h-[400px] sm:min-h-[600px] flex items-center justify-center">
-            {/* Film grain effect */}
-            <div className="film-grain absolute inset-0 w-full h-full" />
-
-            {/* Spotlight effect */}
-            <div className="spotlight absolute inset-0 w-full h-full" />
 
             {/* Main content card */}
             <motion.div
@@ -164,7 +159,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 * index }}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`tab-button whitespace-nowrap px-3 py-2 text-sm flex items-center gap-2 rounded-lg transition-colors border border-transparent ${activeTab === tab.id ? "bg-gold/10 text-gold border-gold/30" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
+                                    className={`tab-button whitespace-nowrap px-3 py-2 text-sm flex items-center gap-2 rounded-lg transition-colors border border-transparent ${activeTab === tab.id ? "bg-deep-sea text-gold border-ocean-blue/30" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
                                 >
                                     <Icon className="w-4 h-4" />
                                     <span>{tab.label}</span>
@@ -238,7 +233,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                <h3 className="text-sunset-gold text-2xl font-bold mb-6">
                                     Technical Architecture
                                 </h3>
                                 <div className="space-y-4">
@@ -293,7 +288,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                <h3 className="text-sunset-gold text-2xl font-bold mb-6">
                                     Key Features & Modules
                                 </h3>
                                 <div className="space-y-4">
@@ -330,7 +325,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                <h3 className="text-sunset-gold text-2xl font-bold mb-6">
                                     Future Development Roadmap
                                 </h3>
                                 <div className="space-y-4">
@@ -344,7 +339,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                         <ul className="space-y-2 text-fog ml-7 text-sm">
                                             {data?.roadmap?.performance?.map((item, i) => (
                                                 <li key={i} className="flex items-start gap-2">
-                                                    <span className="text-gold">□</span>
+                                                    <span className="text-sunset-gold">□</span>
                                                     <span>
                                                         <strong className="text-white">{item.title}:</strong>{" "}
                                                         {item.description}
@@ -394,9 +389,9 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                         </ul>
                                     </div>
 
-                                    <div className="content-card bg-gold/5 border border-gold/20">
+                                    <div className="content-card bg-deep-sea/5 border border-deep-sea/20">
                                         <p className="text-fog text-sm">
-                                            <strong className="text-gold">
+                                            <strong className="text-sunset-gold">
                                                 Current Status:
                                             </strong>{" "}
                                             {data?.roadmap?.status}
@@ -414,7 +409,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                <h3 className="text-sunset-gold text-2xl font-bold mb-6">
                                     Next Steps: Launching Your Custom Domain
                                 </h3>
                                 <div className="space-y-4">
@@ -465,7 +460,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                <h3 className="text-sunset-gold text-2xl font-bold mb-6">
                                     {data?.visuals?.title}
                                 </h3>
                                 <div className="grid grid-cols-1 gap-8">
