@@ -53,8 +53,11 @@ export default function AdminServices() {
 
     const handleSave = async () => {
         if (isCreating) {
+            const title = editForm.title || 'New Service';
+            const slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
             const res = await createService({
-                title: editForm.title || 'New Service',
+                title,
+                slug,
                 description: editForm.description || '',
                 icon: editForm.icon || 'Box',
                 features: editForm.features || [],
