@@ -68,7 +68,7 @@ export default async function Projects() {
                                 </div>
 
                                 <Link href={`/projects/${project.slug}`} className="mt-auto">
-                                    <Button variant="outline" className="w-full border-crimson-red text-crimson-red hover:bg-crimson-red hover:text-white">
+                                    <Button variant="secondary" className="w-full bg-transparent border border-crimson-red text-crimson-red hover:bg-crimson-red hover:text-white">
                                         View Case Study
                                     </Button>
                                 </Link>
