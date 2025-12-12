@@ -7,7 +7,7 @@ import * as LucideIcons from "lucide-react";
 // Helper to render icon dynamically
 const IconRenderer = ({ name, className }: { name: string, className?: string }) => {
     // @ts-ignore - Dynamic access
-    const Icon = LucideIcons[name as keyof typeof LucideIcons];
+    const Icon = LucideIcons[name as keyof typeof LucideIcons] as any;
     return Icon ? <Icon className={className} /> : <span className={className}>{name}</span>;
 }
 
