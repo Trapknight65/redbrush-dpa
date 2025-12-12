@@ -77,9 +77,21 @@ export async function createProject(data: ProjectFormInput) {
         revalidatePath('/admin/projects')
         revalidatePath('/portfolio')
         return { success: true, data: project }
-    } catch (error) {
-        console.error('createProject error:', error)
-        return { success: false, error: 'Failed to create project' }
+    } catch (error: any) {
+        console.error('createProject CRITICAL FAILURE:', error);
+        console.error('Input Data:', JSON.stringify(data, null, 2)); // Log the input data for debugging
+
+        if (error.code === 'P2002' && error.meta?.target?.includes('slug')) {
+            return { success: false, error: 'A project with this slug already exists. Please choose a different title or slug.' };
+        }
+        if (error instanceof SyntaxError) {
+            return { success: false, error: 'Invalid JSON in Case Study Data.' };
+        }
+        // Return more detail
+        return {
+            success: false,
+            error: `Failed to create project: ${error.message} (Code: ${error.code})`
+        };
     }
 }
 
