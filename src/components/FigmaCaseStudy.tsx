@@ -13,6 +13,10 @@ import {
     CheckCircle,
     Layout,
     Lock,
+    Rocket,
+    Shield,
+    TrendingUp,
+    Globe,
     LucideIcon,
 } from "lucide-react";
 
