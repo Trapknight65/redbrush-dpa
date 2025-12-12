@@ -47,7 +47,7 @@ export default async function Projects() {
                             </div>
 
                             {/* Content */}
-                            <div className="p-6 flex flex-col flex-grow">
+                            <div className="bg-gradient-to-br from-deep-sea via-sunset-gold to-ocean-blue p-6 flex flex-col flex-grow">
                                 <h3 className="text-xl font-bold text-dark-gray mb-2 group-hover:text-crimson-red transition-colors">
                                     {project.title}
                                 </h3>
