@@ -14,9 +14,9 @@ export default async function About() {
     const { data: profile } = await getProfile();
     const avatar = profile?.avatar || "/logo.png";
 
-    const name = profile?.name || "Aparicio Bambi";
-    const headline = profile?.headline || "Videographer | Creative Director";
-    const bio = profile?.bio || "";
+    const name = profile?.name || "Redbrush";
+    const headline = profile?.headline || "Crew Captain";
+    const bio = profile?.bio || "I ate the Fude Fude No Mi, since I just be manifesting anything that's on my mind when I paint";
     const skills = profile?.skills || [];
     // Cast JSON arrays to strict types
     const experiences = (profile?.experiences || []) as unknown as Experience[];
