@@ -76,6 +76,7 @@ export async function createProject(data: ProjectFormInput) {
         })
         revalidatePath('/admin/projects')
         revalidatePath('/portfolio')
+        revalidatePath('/projects')
         return { success: true, data: project }
     } catch (error: any) {
         console.error('createProject CRITICAL FAILURE:', error);
@@ -110,6 +111,7 @@ export async function updateProject(id: string, data: Partial<ProjectFormInput>)
         })
         revalidatePath('/admin/projects')
         revalidatePath('/portfolio')
+        revalidatePath('/projects')
         return { success: true, data: project }
     } catch (error) {
         console.error('updateProject error:', error)
@@ -124,6 +126,7 @@ export async function deleteProject(id: string) {
         })
         revalidatePath('/admin/projects')
         revalidatePath('/portfolio')
+        revalidatePath('/projects')
         return { success: true }
     } catch (error) {
         console.error('deleteProject error:', error)

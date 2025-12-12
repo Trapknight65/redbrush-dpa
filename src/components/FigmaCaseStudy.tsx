@@ -95,12 +95,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
     ];
 
     return (
-        <div className="w-full bg-black text-white p-2 sm:p-4 md:p-8 overflow-hidden relative rounded-xl my-4 sm:my-8 min-h-[400px] sm:min-h-[600px] flex items-center justify-center">
-            {/* Film grain effect */}
-            <div className="film-grain absolute inset-0 w-full h-full" />
-
-            {/* Spotlight effect */}
-            <div className="spotlight absolute inset-0 w-full h-full" />
+        <div className="w-full bg-gradient-to-br from-ocean-blue to-black text-white p-2 sm:p-4 md:p-8 overflow-hidden relative rounded-xl my-4 sm:my-8 min-h-[400px] sm:min-h-[600px] flex items-center justify-center">
 
             {/* Main content card */}
             <motion.div
@@ -109,7 +104,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                 className="relative z-10 w-full max-w-6xl"
             >
                 {/* Header */}
-                <div className="glass-card border border-gold/20 rounded-t-2xl p-4 sm:p-6 md:p-8">
+                <div className="glass-card border border-ocean-blue rounded-t-2xl p-4 sm:p-6 md:p-8">
                     <div className="flex flex-col md:flex-row items-start justify-between mb-4 gap-4">
                         <div>
                             <motion.div
@@ -117,8 +112,8 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="flex items-center gap-3 mb-2"
                             >
-                                <Film className="w-8 h-8 text-gold" />
-                                <h1 className="text-gold uppercase tracking-wider text-lg font-bold">
+                                <Film className="w-8 h-8 text-gradient-to-br from-deep-sea to-ocean-blue" />
+                                <h1 className="text-gradient-to-br from-deep-sea to-ocean-blue uppercase tracking-wider text-lg font-bold">
                                     {data?.header?.reportTitle || "Development Process Report"}
                                 </h1>
                             </motion.div>
@@ -164,7 +159,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 * index }}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`tab-button whitespace-nowrap px-3 py-2 text-sm flex items-center gap-2 rounded-lg transition-colors border border-transparent ${activeTab === tab.id ? "bg-gold/10 text-gold border-gold/30" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
+                                    className={`tab-button whitespace-nowrap px-3 py-2 text-sm flex items-center gap-2 rounded-lg transition-colors border border-transparent ${activeTab === tab.id ? "bg-deep-sea text-gold border-ocean-blue/30" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
                                 >
                                     <Icon className="w-4 h-4" />
                                     <span>{tab.label}</span>
@@ -175,7 +170,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                 </div>
 
                 {/* Content area */}
-                <div className="glass-card border-x border-b border-gold/20 rounded-b-2xl p-4 sm:p-6 md:p-8 min-h-[300px] sm:min-h-[500px]">
+                <div className="glass-card border-x border-b border-ocean-blue rounded-b-2xl p-4 sm:p-6 md:p-8 min-h-[300px] sm:min-h-[500px]">
                     <AnimatePresence mode="wait">
                         {activeTab === "overview" && (
                             <motion.div
@@ -238,7 +233,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                <h3 className="text-sunset-gold text-2xl font-bold mb-6">
                                     Technical Architecture
                                 </h3>
                                 <div className="space-y-4">
@@ -293,7 +288,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                <h3 className="text-sunset-gold text-2xl font-bold mb-6">
                                     Key Features & Modules
                                 </h3>
                                 <div className="space-y-4">
@@ -330,7 +325,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                <h3 className="text-sunset-gold text-2xl font-bold mb-6">
                                     Future Development Roadmap
                                 </h3>
                                 <div className="space-y-4">
@@ -344,7 +339,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                         <ul className="space-y-2 text-fog ml-7 text-sm">
                                             {data?.roadmap?.performance?.map((item, i) => (
                                                 <li key={i} className="flex items-start gap-2">
-                                                    <span className="text-gold">□</span>
+                                                    <span className="text-sunset-gold">□</span>
                                                     <span>
                                                         <strong className="text-white">{item.title}:</strong>{" "}
                                                         {item.description}
@@ -394,9 +389,9 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                         </ul>
                                     </div>
 
-                                    <div className="content-card bg-gold/5 border border-gold/20">
+                                    <div className="content-card bg-deep-sea/5 border border-deep-sea/20">
                                         <p className="text-fog text-sm">
-                                            <strong className="text-gold">
+                                            <strong className="text-sunset-gold">
                                                 Current Status:
                                             </strong>{" "}
                                             {data?.roadmap?.status}
@@ -414,7 +409,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                <h3 className="text-sunset-gold text-2xl font-bold mb-6">
                                     Next Steps: Launching Your Custom Domain
                                 </h3>
                                 <div className="space-y-4">
@@ -465,7 +460,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <h3 className="text-gold text-2xl font-bold mb-6">
+                                <h3 className="text-sunset-gold text-2xl font-bold mb-6">
                                     {data?.visuals?.title}
                                 </h3>
                                 <div className="grid grid-cols-1 gap-8">

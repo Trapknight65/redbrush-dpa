@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getProjects, deleteProject } from "@/actions/project.actions";
 import { Plus, Pencil, Trash2, ArrowLeft } from "lucide-react";
 import { revalidatePath } from "next/cache";
@@ -42,8 +43,17 @@ export default async function AdminProjectsPage() {
                             className="flex items-center justify-between p-6 bg-[#1a1515] border border-amber-900/30 rounded-lg group hover:border-amber-600/50 transition-colors"
                         >
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-amber-900/20 rounded flex items-center justify-center text-2xl">
-                                    {project.image || "📁"}
+                                <div className="w-12 h-12 bg-amber-900/20 rounded flex items-center justify-center text-2xl relative overflow-hidden">
+                                    {project.image ? (
+                                        <Image
+                                            src={project.image}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover rounded"
+                                        />
+                                    ) : (
+                                        "📁"
+                                    )}
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg text-amber-100 group-hover:text-amber-400 transition-colors">

@@ -1,16 +1,11 @@
 import { getProjectBySlug } from "@/actions/project.actions";
 import Link from "next/link";
 import Image from "next/image";
-import Button from "@/components/ui/Button";
 import { notFound } from "next/navigation";
-import * as LucideIcons from "lucide-react";
+import { ArrowLeft, Rocket } from "lucide-react"; // Default icon for logo fallback
+import FigmaCaseStudy, { CaseStudyData } from "@/components/FigmaCaseStudy";
 
-// Helper to render icon dynamically
-const IconRenderer = ({ name, className }: { name: string, className?: string }) => {
-    // @ts-ignore - Dynamic access
-    const Icon = LucideIcons[name as keyof typeof LucideIcons] as any;
-    return Icon ? <Icon className={className} /> : <span className={className}>{name}</span>;
-}
+export const dynamic = 'force-dynamic';
 
 export default async function ProjectDetails({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -20,155 +15,103 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
         notFound();
     }
 
+    // Cast Prisma JSON to CaseStudyData or default to null
+    const caseStudyData = project.caseStudyData as unknown as CaseStudyData;
+
+    // Helper to safely access thumbnail
+    const thumbnail = project.figmaDesign && typeof project.figmaDesign === 'object' && 'thumbnail' in project.figmaDesign
+        ? (project.figmaDesign as any).thumbnail
+        : null;
+
     return (
-        <div className="min-h-screen bg-pure-white text-dark-gray">
-            {/* Hero Section */}
-            <div className="relative h-[50vh] sm:h-[60vh] w-full">
-                {project.image ? (
-                    <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover brightness-50"
-                        priority
-                    />
+        <div className="min-h-screen bg-black text-white selection:bg-crimson-red selection:text-white">
+
+            {/* 1. Hero Section */}
+            <section className="relative h-[60vh] w-full flex items-center justify-center overflow-hidden">
+
+                {/* Background Preview (Opacity 30%) */}
+                <div className="absolute inset-0 z-0">
+                    {project.image ? (
+                        <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover opacity-30 blur-sm scale-105"
+                            priority
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black opacity-30" />
+                    )}
+                    {/* Gradient Overlay for smooth transition */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black" />
+                </div>
+
+                {/* Navbar / Back Link */}
+                <div className="absolute top-6 left-6 z-20">
+                    <Link
+                        href="/projects"
+                        className="flex items-center gap-2 text-white/70 hover:text-white transition-colors bg-black/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/10"
+                    >
+                        <ArrowLeft size={16} />
+                        <span className="text-sm font-mono tracking-wider">PROJECTS</span>
+                    </Link>
+                </div>
+
+                {/* Center Logo / Title */}
+                <div className="relative z-10 flex flex-col items-center justify-center text-center p-4">
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl border border-white/20 flex items-center justify-center mb-6 shadow-2xl shadow-crimson-red/20 transform hover:scale-105 transition-transform duration-500">
+                        {/* 
+                           Using thumbnail from figmaDesign if available, else generic icon.
+                        */}
+                        {thumbnail ? (
+                            <div className="relative w-16 h-16 sm:w-20 sm:h-20 overflow-hidden rounded-xl">
+                                <Image
+                                    src={thumbnail}
+                                    alt="Logo"
+                                    fill
+                                    className="object-contain"
+                                />
+                            </div>
+                        ) : (
+                            <Rocket className="w-12 h-12 text-white/80" />
+                        )}
+                    </div>
+
+                    <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white mb-2 uppercase">
+                        {project.title}
+                    </h1>
+                    <p className="text-lg text-white/60 font-mono tracking-widest uppercase">
+                        {project.category}
+                    </p>
+                </div>
+            </section>
+
+            {/* 2. Content Section (Tab Navigation) */}
+            <section className="relative z-10 -mt-20 pb-20 px-2 sm:px-4 md:px-8 max-w-7xl mx-auto">
+                {caseStudyData ? (
+                    <FigmaCaseStudy data={caseStudyData} />
                 ) : (
-                    <div className="w-full h-full bg-charcoal flex items-center justify-center text-gray-500">
-                        No Image Available
+                    // Fallback for projects without specific Deep Dive Data
+                    <div className="glass-card bg-zinc-900/50 border border-white/10 p-8 rounded-xl text-center min-h-[300px] flex flex-col items-center justify-center backdrop-blur-md">
+                        <div className="max-w-xl mx-auto space-y-4">
+                            <h2 className="text-2xl font-bold text-white">Project Case Study</h2>
+                            <p className="text-gray-400">
+                                Detailed case study data (Overview, Architecture, Roadmap) has not been added for this project yet.
+                            </p>
+                            <p className="text-sm text-gray-500 font-mono">
+                                Use the Admin Panel to populate the "Content Section" JSON.
+                            </p>
+
+                            {/* Display basic description as fallback */}
+                            <div className="mt-8 pt-8 border-t border-white/10 text-left">
+                                <h3 className="text-lg font-bold text-white mb-2">Description</h3>
+                                <p className="text-gray-300 leading-relaxed">{project.description}</p>
+                            </div>
+                        </div>
                     </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 w-full">
-                        <Link href="/projects" className="text-white/80 hover:text-white mb-4 inline-block text-sm uppercase tracking-widest font-semibold flex items-center gap-2">
-                            <LucideIcons.ArrowLeft className="w-4 h-4" /> Back to Projects
-                        </Link>
-                        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-4">
-                            {project.title}
-                        </h1>
-                        <div className="flex flex-wrap gap-3 mb-6">
-                            <span className="px-3 py-1 bg-crimson-red text-white text-sm font-bold rounded">
-                                {project.category}
-                            </span>
-                            {project.tags.map((tag: string) => (
-                                <span key={tag} className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm rounded border border-white/20">
-                                    {tag}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </section>
 
-            {/* Content Section */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-20">
-
-                    {/* Main Content */}
-                    <div className="lg:col-span-2 space-y-12">
-                        {/* Description */}
-                        <section>
-                            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                                <LucideIcons.FileText className="w-6 h-6 text-crimson-red" />
-                                Overview
-                            </h2>
-                            <p className="text-lg text-charcoal leading-relaxed whitespace-pre-line">
-                                {project.description}
-                            </p>
-                        </section>
-
-                        {/* Challenge & Solution */}
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <section className="bg-gray-50 p-6 rounded-xl border-l-4 border-crimson-red">
-                                <h3 className="text-xl font-bold mb-3">The Challenge</h3>
-                                <p className="text-charcoal">{project.challenge}</p>
-                            </section>
-                            <section className="bg-gray-50 p-6 rounded-xl border-l-4 border-sunset-gold">
-                                <h3 className="text-xl font-bold mb-3">The Solution</h3>
-                                <p className="text-charcoal">{project.solution}</p>
-                            </section>
-                        </div>
-
-                        {/* Results */}
-                        <section>
-                            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                                <LucideIcons.BarChart className="w-6 h-6 text-crimson-red" />
-                                Key Results
-                            </h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                                {project.results.map((result: string, idx: number) => (
-                                    <div key={idx} className="p-4 bg-white border border-gray-100 shadow-sm rounded-lg flex items-start gap-3">
-                                        <LucideIcons.CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                                        <span className="text-dark-gray font-medium">{result}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-
-                        {/* Gallery */}
-                        {project.gallery && project.gallery.length > 0 && (
-                            <section>
-                                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                                    <LucideIcons.Image className="w-6 h-6 text-crimson-red" />
-                                    Gallery
-                                </h2>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {project.gallery.map((img: string, idx: number) => (
-                                        <div key={idx} className="relative aspect-video rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-                                            <Image
-                                                src={img}
-                                                alt={`Gallery image ${idx + 1}`}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-                        )}
-                    </div>
-
-                    {/* Sidebar */}
-                    <aside className="lg:col-span-1 space-y-8">
-                        {/* Tech Stack */}
-                        <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-                            <h3 className="text-xl font-bold mb-6 border-b border-gray-100 pb-2">Tech Stack</h3>
-                            <div className="flex flex-wrap gap-2">
-                                {project.tech.map((tech: string) => (
-                                    <span key={tech} className="px-3 py-1 bg-gray-100 text-charcoal font-medium text-sm rounded-full">
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Case Study Callout */}
-                        {project.caseStudies && project.caseStudies.length > 0 && (
-                            <div className="bg-deep-sea text-white p-6 rounded-xl shadow-lg">
-                                <h3 className="text-xl font-bold mb-2">Detailed Case Study</h3>
-                                <p className="text-white/80 text-sm mb-6">
-                                    Read the in-depth breakdown of how we built this project.
-                                </p>
-                                <Link href={`/case-studies/${project.caseStudies[0].id}`}>
-                                    <Button className="w-full bg-crimson-red hover:bg-crimson-red/90 text-white">
-                                        Read Full Case Study
-                                    </Button>
-                                </Link>
-                            </div>
-                        )}
-
-                        {/* Contact CTA */}
-                        <div className="bg-gradient-to-br from-crimson-red to-orange-600 p-6 rounded-xl text-white shadow-lg">
-                            <h3 className="text-xl font-bold mb-2">Have a similar idea?</h3>
-                            <p className="text-white/90 text-sm mb-6">Let's bring your vision to life.</p>
-                            <Link href="/contact">
-                                <Button variant="secondary" className="w-full bg-white text-crimson-red hover:bg-gray-100 border-none">
-                                    Start a Project
-                                </Button>
-                            </Link>
-                        </div>
-                    </aside>
-                </div>
-            </div>
         </div>
     );
 }
