@@ -36,7 +36,7 @@ export default async function About() {
                     <div className="flex flex-col md:flex-row gap-8 sm:gap-12 items-start">
                         {/* Avatar - Left */}
                         <div className="w-full md:w-1/3 flex-shrink-0">
-                            <div className="relative aspect-square w-full max-w-[180px] sm:max-w-xs mx-auto md:mx-0 rounded-2xl overflow-hidden border-2 border-crimson-red/20 shadow-2xl">
+                            <div className="relative aspect-rounded w-full max-w-[150px] sm:max-w-xs mx-auto md:mx-0 rounded-2xl overflow-hidden border-2 border-crimson-red/20 shadow-2xl">
                                 {profile?.avatar ? (
                                     <Image
                                         src={profile.avatar}
