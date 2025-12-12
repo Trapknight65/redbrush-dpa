@@ -33,7 +33,7 @@ export default async function Services() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {services?.map((service: any) => (
-                        <Card key={service.id} className="flex flex-col h-full border border-gray-100 hover:border-crimson-red/20 transition-colors bg-white shadow-sm hover:shadow-md">
+                        <Card key={service.id} className="flex flex-col h-full border border-gray-100 hover:border-crimson-red/20 transition-colors shadow-sm hover:shadow-md">
                             <div className="text-crimson-red mb-4 flex justify-center">
                                 <IconRenderer name={service.icon} className="w-12 h-12" />
                             </div>
@@ -85,7 +85,7 @@ export default async function Services() {
                         { step: "03", title: "Execution", description: "We bring your vision to life with precision and creativity" },
                         { step: "04", title: "Launch & Support", description: "We deploy your solution and provide ongoing support" }
                     ].map((phase, index) => (
-                        <div key={index} className="text-center p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div key={index} className="text-center p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                             <div className="text-5xl font-bold text-crimson-red/10 mb-2">{phase.step}</div>
                             <h3 className="text-xl font-bold text-dark-gray mb-2">{phase.title}</h3>
                             <p className="text-sm text-charcoal">{phase.description}</p>

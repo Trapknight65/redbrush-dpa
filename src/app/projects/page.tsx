@@ -26,7 +26,11 @@ export default async function Projects() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {projects?.map((project: Project) => (
+<<<<<<< HEAD
                         <Card key={project.id} className="flex flex-col h-full bg-gradient-to-br from-deep-sea to-ocean-blue group hover:shadow-2xl transition-all duration-300 border-none overflow-hidden p-0">
+=======
+                        <Card key={project.id} className="flex flex-col h-full group hover:shadow-2xl transition-all duration-300 border-none overflow-hidden p-0">
+>>>>>>> 6c6d57b (style: remove backgrounds from project and service cards)
                             {/* Image */}
                             <div className="relative h-48 w-full overflow-hidden">
                                 {project.image ? (
@@ -47,11 +51,11 @@ export default async function Projects() {
                             </div>
 
                             {/* Content */}
-                            <div className="bg-gradient-to-br from-deep-sea via-sunset-gold to-ocean-blue p-6 flex flex-col flex-grow">
-                                <h3 className="text-xl font-bold text-dark-gray mb-2 group-hover:text-crimson-red transition-colors">
+                            <div className="p-6 flex flex-col flex-grow">
+                                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-crimson-red transition-colors">
                                     {project.title}
                                 </h3>
-                                <p className="text-charcoal mb-4 line-clamp-3 text-sm flex-grow">
+                                <p className="text-white mb-4 line-clamp-3 text-sm flex-grow">
                                     {project.description}
                                 </p>
 
