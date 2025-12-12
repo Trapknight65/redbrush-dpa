@@ -71,6 +71,17 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
         setError("");
 
         try {
+            // Validate JSON if present
+            if (data.caseStudyData) {
+                try {
+                    JSON.parse(data.caseStudyData);
+                } catch (e) {
+                    setError("Invalid JSON in Case Study Data fields");
+                    setLoading(false);
+                    return;
+                }
+            }
+
             // Transform strings to arrays
             const formattedData = {
                 ...data,
@@ -80,7 +91,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                 // Add defaults for arrays not in form if needed
                 results: initialData?.results || [],
                 gallery: initialData?.gallery || [],
-                figmaDesign: initialData?.figmaDesign ?? Prisma.JsonNull,
+                figmaDesign: initialData?.figmaDesign ?? null,
             };
 
             let result;

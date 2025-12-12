@@ -14,9 +14,9 @@ export default async function About() {
     const { data: profile } = await getProfile();
     const avatar = profile?.avatar || "/logo.png";
 
-    const name = profile?.name || "Aparicio Bambi";
-    const headline = profile?.headline || "Videographer | Creative Director";
-    const bio = profile?.bio || "";
+    const name = profile?.name || "Redbrush";
+    const headline = profile?.headline || "Crew Captain";
+    const bio = profile?.bio || "I ate the Fude Fude No Mi, since I just be manifesting anything that's on my mind when I paint";
     const skills = profile?.skills || [];
     // Cast JSON arrays to strict types
     const experiences = (profile?.experiences || []) as unknown as Experience[];
@@ -36,7 +36,7 @@ export default async function About() {
                     <div className="flex flex-col md:flex-row gap-8 sm:gap-12 items-start">
                         {/* Avatar - Left */}
                         <div className="w-full md:w-1/3 flex-shrink-0">
-                            <div className="relative aspect-square w-full max-w-[180px] sm:max-w-xs mx-auto md:mx-0 rounded-2xl overflow-hidden border-2 border-crimson-red/20 shadow-2xl">
+                            <div className="relative aspect-rounded w-full max-w-[150px] sm:max-w-xs mx-auto md:mx-0 rounded-2xl overflow-hidden border-2 border-crimson-red/20 shadow-2xl">
                                 {profile?.avatar ? (
                                     <Image
                                         src={profile.avatar}
@@ -57,11 +57,12 @@ export default async function About() {
                         <div className="w-full md:w-2/3 space-y-4 sm:space-y-6">
                             <div>
                                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">
-                                    <span className="text-crimson-red">About</span> Me
+                                    {profile?.name || "Digital Creator & Developer"}
                                 </h1>
                                 <h2 className="text-lg sm:text-xl text-gray-400 font-light mb-4">
                                     {profile?.headline || "Digital Creator & Developer"}
                                 </h2>
+
                                 <div className="h-1 w-20 bg-crimson-red rounded-full"></div>
                             </div>
 
