@@ -1,19 +1,23 @@
 import { notFound } from 'next/navigation';
-import { getProjectById, portfolioProjects } from '@/data/portfolio';
+import { getProjects, getProjectBySlug } from '@/actions/project.actions';
 import Button from "@/components/ui/Button";
 import Card from '@/components/Card';
 import Link from 'next/link';
 import ProjectCaseStudies from '@/components/ProjectCaseStudies';
+import FigmaCaseStudy from '@/components/FigmaCaseStudy';
 
 export async function generateStaticParams() {
-    return portfolioProjects.map((project) => ({
-        id: project.id,
+    const { data: projects } = await getProjects();
+    if (!projects) return [];
+
+    return projects.map((project) => ({
+        id: project.slug, // Map slug to [id] param
     }));
 }
 
 export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const project = getProjectById(id);
+    const { data: project } = await getProjectBySlug(id); // Treat id as slug
 
     if (!project) {
         notFound();
