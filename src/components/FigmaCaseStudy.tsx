@@ -187,13 +187,13 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="content-card">
                                         <h4 className="text-white font-bold mb-3">
-                                            {data.overview.heritage.title}
+                                            {data?.overview?.heritage?.title}
                                         </h4>
                                         <p className="text-fog mb-3 text-sm leading-relaxed">
-                                            {data.overview.heritage.description}
+                                            {data?.overview?.heritage?.description}
                                         </p>
                                         <ul className="space-y-2 text-fog text-sm">
-                                            {data.overview.heritage.items.map((item, i) => (
+                                            {data?.overview?.heritage?.items?.map((item, i) => (
                                                 <li key={i} className="flex items-start gap-2">
                                                     <span className="text-gold">•</span>
                                                     <span>
@@ -209,10 +209,10 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                             Mission Statement
                                         </h4>
                                         <p className="text-fog mb-4 text-sm leading-relaxed">
-                                            {data.overview.mission.statement}
+                                            {data?.overview?.mission?.statement}
                                         </p>
                                         <div className="grid grid-cols-2 gap-3">
-                                            {data.overview.mission.stats.map((stat, i) => (
+                                            {data?.overview?.mission?.stats?.map((stat, i) => (
                                                 <div key={i} className="stat-box">
                                                     <div className="text-gold mb-1 font-bold">
                                                         {stat.label}
@@ -243,7 +243,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                             Core Stack
                                         </h4>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-fog text-sm">
-                                            {data.architecture.coreStack.map((stack, i) => (
+                                            {data?.architecture?.coreStack?.map((stack, i) => (
                                                 <div key={i} className="flex items-start gap-3">
                                                     <Code className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
                                                     <div>
@@ -264,7 +264,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                             Key Architectural Decisions
                                         </h4>
                                         <ul className="space-y-3 text-fog text-sm">
-                                            {data.architecture.decisions.map((decision, i) => (
+                                            {data?.architecture?.decisions?.map((decision, i) => (
                                                 <li key={i} className="flex items-start gap-2">
                                                     <span className="text-gold">→</span>
                                                     <span>
@@ -293,7 +293,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                     Key Features & Modules
                                 </h3>
                                 <div className="space-y-4">
-                                    {data.features.items.map((feature, i) => {
+                                    {data?.features?.items?.map((feature, i) => {
                                         const FeatureIcon = icons[feature.icon] || Code;
                                         return (
                                             <div key={i} className="content-card">
@@ -304,7 +304,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                                     </h4>
                                                 </div>
                                                 <ul className="space-y-2 text-fog ml-7 text-sm">
-                                                    {feature.points.map((point, j) => (
+                                                    {feature.points?.map((point, j) => (
                                                         <li key={j}>
                                                             {point.label && <strong className="text-white">{point.label}:</strong>}{" "}
                                                             {point.text}
@@ -338,7 +338,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                             </h4>
                                         </div>
                                         <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            {data.roadmap.performance.map((item, i) => (
+                                            {data?.roadmap?.performance?.map((item, i) => (
                                                 <li key={i} className="flex items-start gap-2">
                                                     <span className="text-gold">□</span>
                                                     <span>
@@ -358,7 +358,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                             </h4>
                                         </div>
                                         <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            {data.roadmap.security.map((item, i) => (
+                                            {data?.roadmap?.security?.map((item, i) => (
                                                 <li key={i} className="flex items-start gap-2">
                                                     <span className="text-gold">□</span>
                                                     <span>
@@ -378,7 +378,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                             </h4>
                                         </div>
                                         <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            {data.roadmap.features.map((item, i) => (
+                                            {data?.roadmap?.features?.map((item, i) => (
                                                 <li key={i} className="flex items-start gap-2">
                                                     <span className="text-gold">□</span>
                                                     <span>
@@ -395,14 +395,14 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                             <strong className="text-gold">
                                                 Current Status:
                                             </strong>{" "}
-                                            {data.roadmap.status}
+                                            {data?.roadmap?.status}
                                         </p>
                                     </div>
                                 </div>
                             </motion.div>
                         )}
 
-                        {activeTab === "deployment" && data.deployment && (
+                        {activeTab === "deployment" && data?.deployment && (
                             <motion.div
                                 key="deployment"
                                 initial={{ opacity: 0, x: -20 }}
@@ -414,7 +414,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                     Next Steps: Launching Your Custom Domain
                                 </h3>
                                 <div className="space-y-4">
-                                    {data.deployment.steps.map((step, i) => (
+                                    {data?.deployment?.steps?.map((step, i) => (
                                         <div key={i} className="content-card">
                                             <div className="flex items-center gap-2 mb-3">
                                                 <Shield className="w-5 h-5 text-gold" />
@@ -453,7 +453,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                             </motion.div>
                         )}
 
-                        {activeTab === "visuals" && data.visuals && (
+                        {activeTab === "visuals" && data?.visuals && (
                             <motion.div
                                 key="visuals"
                                 initial={{ opacity: 0, x: -20 }}
@@ -462,10 +462,10 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 transition={{ duration: 0.3 }}
                             >
                                 <h3 className="text-gold text-2xl font-bold mb-6">
-                                    {data.visuals.title}
+                                    {data?.visuals?.title}
                                 </h3>
                                 <div className="grid grid-cols-1 gap-8">
-                                    {data.visuals.items.map((item, i) => (
+                                    {data?.visuals?.items?.map((item, i) => (
                                         <div key={i} className="glass-card border border-gold/10 overflow-hidden rounded-lg">
                                             {item.type === 'image' ? (
                                                 <img
