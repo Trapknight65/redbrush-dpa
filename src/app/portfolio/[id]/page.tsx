@@ -85,7 +85,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
                         {/* Existing Case Studies (Text) */}
                         {project.caseStudies && (
                             <div className="prose prose-invert max-w-none">
-                                <ProjectCaseStudies studies={project.caseStudies} />
+                                <ProjectCaseStudies studies={project.caseStudies as any} />
                             </div>
                         )}
 
