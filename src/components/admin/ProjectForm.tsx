@@ -17,6 +17,7 @@ type ProjectFormData = {
     tech: string; // Comma separated in UI
     challenge: string;
     solution: string;
+    caseStudyData?: string;
 };
 
 import { Prisma } from "@prisma/client";
@@ -48,6 +49,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
             tech: initialData?.tech?.join(", ") || "",
             challenge: initialData?.challenge || "",
             solution: initialData?.solution || "",
+            caseStudyData: initialData?.caseStudyData ? JSON.stringify(initialData.caseStudyData, null, 2) : "",
         },
     });
 
@@ -196,6 +198,42 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                         className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-amber-100 focus:border-amber-600 focus:outline-none transition-colors"
                     />
                 </div>
+            </div>
+
+            {/* Figma Case Study JSON Editor */}
+            <div className="space-y-4 border border-amber-900/20 rounded-lg p-4 bg-black/20">
+                <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium text-amber-200 block">Figma Case Study Data (JSON)</label>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            const template = {
+                                overview: {
+                                    heritage: { title: "Project Heritage", description: "Background...", items: [{ text: "Item 1" }] },
+                                    mission: { statement: "Mission...", stats: [{ label: "100%", subLabel: "Uptime" }] }
+                                },
+                                architecture: {
+                                    coreStack: [{ label: "Frontend", value: "React" }],
+                                    decisions: [{ title: "Why React?", description: "Speed." }]
+                                },
+                                features: { items: [] },
+                                roadmap: { performance: [], security: [], features: [], status: "In Progress" },
+                                meta: { title: "New Project", date: "2025", agency: "Redbrush" }
+                            };
+                            setValue("caseStudyData", JSON.stringify(template, null, 2));
+                        }}
+                        className="text-xs text-amber-500 hover:text-amber-400 flex items-center gap-1 border border-amber-900/30 px-2 py-1 rounded bg-[#1a1515]"
+                    >
+                        Load Template
+                    </button>
+                </div>
+
+                <p className="text-xs text-gray-400">Paste the JSON structure for the Figma Case Study component here.</p>
+                <textarea
+                    {...register("caseStudyData")}
+                    className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-white font-mono text-xs h-64 focus:border-amber-500 outline-none transition-colors"
+                    placeholder='{ "overview": { ... } }'
+                />
             </div>
 
             <div className="pt-6">

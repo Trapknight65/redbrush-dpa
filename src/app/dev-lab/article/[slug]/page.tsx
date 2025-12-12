@@ -7,6 +7,7 @@ import { formatDate } from "@/lib/utils";
 import { TechStackGrid } from "@/components/dev/TechStackGrid";
 import { CodeBlock } from "@/components/dev/CodeBlock";
 import SlideDeck from "@/components/dev/SlideDeck";
+import FigmaCaseStudy, { CaseStudyData } from "@/components/FigmaCaseStudy";
 import ReactMarkdown from "react-markdown";
 
 export const dynamic = 'force-dynamic';
@@ -41,52 +42,59 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </div>
             </div>
 
-            {/* Main Slide Content */}
+            {/* Main Content Switcher */}
             <div className="flex-1 relative z-10 overflow-hidden flex flex-col md:flex-row">
-
-                {/* Left Panel: Slide Deck (Content) */}
-                <SlideDeck
-                    content={article.content}
-                    repoUrl={article.repositoryUrl}
-                    demoUrl={article.demoUrl}
-                />
-
-                {/* Right Panel: Tech & Stats (Sidebar on Desktop) */}
-                {techStack.length > 0 && (
-                    <div className="hidden md:block w-80 border-l border-white/5 bg-black/20 backdrop-blur-sm p-6 overflow-y-auto">
-                        <div className="space-y-8">
-                            <div>
-                                <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 bg-[var(--dev-neon-blue)] rounded-full animate-pulse" />
-                                    Tech Stack
-                                </h3>
-                                <div className="space-y-3">
-                                    {techStack.map((tech: any, idx: number) => (
-                                        <div key={idx} className="flex items-center justify-between group p-2 rounded hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
-                                            <span className="font-mono text-sm text-gray-300 group-hover:text-white">{tech.name}</span>
-                                            {tech.version && (
-                                                <span className="text-[10px] text-gray-600 bg-black/50 px-1.5 py-0.5 rounded border border-white/5">
-                                                    v{tech.version}
-                                                </span>
-                                            )}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Metadata Box */}
-                            <div className="p-4 rounded-lg bg-white/5 border border-white/5 space-y-3">
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-gray-500">Views</span>
-                                    <span className="font-mono text-white">{article.views}</span>
-                                </div>
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-gray-500">Status</span>
-                                    <span className="font-mono text-[var(--dev-neon-green)]">Published</span>
-                                </div>
-                            </div>
-                        </div>
+                {article.caseStudyData ? (
+                    <div className="w-full h-full overflow-y-auto bg-black">
+                        <FigmaCaseStudy data={article.caseStudyData as unknown as CaseStudyData} />
                     </div>
+                ) : (
+                    <>
+                        {/* Slide Deck (Content) */}
+                        <SlideDeck
+                            content={article.content}
+                            repoUrl={article.repositoryUrl}
+                            demoUrl={article.demoUrl}
+                        />
+
+                        {/* Right Panel: Tech & Stats (Sidebar on Desktop) - Only show for SlideDeck mode as FigmaCaseStudy has its own */}
+                        {techStack.length > 0 && (
+                            <div className="hidden md:block w-80 border-l border-white/5 bg-black/20 backdrop-blur-sm p-6 overflow-y-auto">
+                                <div className="space-y-8">
+                                    <div>
+                                        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 bg-[var(--dev-neon-blue)] rounded-full animate-pulse" />
+                                            Tech Stack
+                                        </h3>
+                                        <div className="space-y-3">
+                                            {techStack.map((tech: any, idx: number) => (
+                                                <div key={idx} className="flex items-center justify-between group p-2 rounded hover:bg-white/5 transition-colors border border-transparent hover:border-white/5">
+                                                    <span className="font-mono text-sm text-gray-300 group-hover:text-white">{tech.name}</span>
+                                                    {tech.version && (
+                                                        <span className="text-[10px] text-gray-600 bg-black/50 px-1.5 py-0.5 rounded border border-white/5">
+                                                            v{tech.version}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Metadata Box */}
+                                    <div className="p-4 rounded-lg bg-white/5 border border-white/5 space-y-3">
+                                        <div className="flex justify-between text-xs">
+                                            <span className="text-gray-500">Views</span>
+                                            <span className="font-mono text-white">{article.views}</span>
+                                        </div>
+                                        <div className="flex justify-between text-xs">
+                                            <span className="text-gray-500">Status</span>
+                                            <span className="font-mono text-[var(--dev-neon-green)]">Published</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
         </div>

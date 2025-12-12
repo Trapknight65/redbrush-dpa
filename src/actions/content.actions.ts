@@ -21,6 +21,7 @@ export interface ArticleInput {
     techStack?: TechStackItem[]
     repositoryUrl?: string
     demoUrl?: string
+    caseStudyData?: string
     isPublished?: boolean
 }
 
@@ -94,7 +95,8 @@ export async function createArticle(data: ArticleInput) {
         const article = await prisma.article.create({
             data: {
                 ...data,
-                techStack: data.techStack as any // JSON casting
+                techStack: data.techStack as any, // JSON casting
+                caseStudyData: data.caseStudyData ? JSON.parse(data.caseStudyData) : undefined
             }
         })
         revalidatePath('/dev-lab')
@@ -112,7 +114,8 @@ export async function updateArticle(id: string, data: Partial<ArticleInput>) {
             where: { id },
             data: {
                 ...data,
-                techStack: data.techStack as any
+                techStack: data.techStack as any,
+                caseStudyData: data.caseStudyData ? JSON.parse(data.caseStudyData) : undefined
             }
         })
         revalidatePath('/dev-lab')

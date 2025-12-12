@@ -4,7 +4,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createArticle, updateArticle, ArticleInput } from "@/actions/content.actions";
-import { Loader2, Plus, X, Laptop, FileText, Wand2 } from "lucide-react";
+import { Loader2, Plus, X, Laptop, FileText, Wand2, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SlideEditor from "./SlideEditor";
 
@@ -229,8 +229,50 @@ export default function ArticleForm({ article }: ArticleFormProps) {
                 </div>
             </div>
 
-            {/* Slide Editor */}
-            <SlideEditor control={control} setValue={setValue} initialContent={article?.content || ""} />
+            {/* Slide Editor or Figma Case Study Selector */}
+            <div className="space-y-4 border border-amber-900/20 rounded-lg p-4 bg-black/20">
+                <h3 className="text-amber-200 font-medium flex items-center gap-2">
+                    <Laptop size={16} /> Content Format
+                </h3>
+
+                <div className="space-y-4">
+                    <div>
+                        <label className="text-sm font-medium text-amber-200 block mb-2">Figma Case Study Data (JSON)</label>
+                        <p className="text-xs text-gray-400 mb-2">Paste the JSON structure for the Figma Case Study component here. Leave empty to use standard Slide functionality.</p>
+                        <textarea
+                            {...register("caseStudyData")}
+                            className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-white font-mono text-xs h-64 focus:border-amber-500 outline-none transition-colors"
+                            placeholder='{ "overview": { ... } }'
+                        />
+                        <button
+                            type="button"
+                            onClick={() => {
+                                const template = {
+                                    overview: {
+                                        heritage: { title: "Project Heritage", description: "Background...", items: [{ text: "Item 1" }] },
+                                        mission: { statement: "Mission...", stats: [{ label: "100%", subLabel: "Uptime" }] }
+                                    },
+                                    architecture: {
+                                        coreStack: [{ label: "Frontend", value: "React" }],
+                                        decisions: [{ title: "Why React?", description: "Speed." }]
+                                    },
+                                    features: { items: [] },
+                                    roadmap: { performance: [], security: [], features: [], status: "In Progress" },
+                                    meta: { title: "New Project", date: "2025", agency: "Redbrush" }
+                                };
+                                setValue("caseStudyData", JSON.stringify(template, null, 2));
+                            }}
+                            className="mt-2 text-xs text-amber-500 hover:text-amber-400 flex items-center gap-1"
+                        >
+                            <Copy size={12} /> Load Template
+                        </button>
+                    </div>
+
+                    <div className="text-center text-gray-500 text-xs my-4">- OR -</div>
+
+                    <SlideEditor control={control} setValue={setValue} initialContent={article?.content || ""} />
+                </div>
+            </div>
 
             {/* Tech Stack Section */}
             <div className="space-y-4 border border-amber-900/20 rounded-lg p-4 bg-black/20">

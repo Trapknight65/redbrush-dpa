@@ -7,6 +7,22 @@ import { Prisma } from '@prisma/client'
 export type ProjectCreateInput = Prisma.ProjectCreateInput
 export type ProjectUpdateInput = Prisma.ProjectUpdateInput
 
+export interface ProjectFormInput {
+    title: string;
+    slug: string;
+    category: string;
+    description: string;
+    image: string;
+    tags: string[];
+    tech: string[];
+    challenge: string;
+    solution: string;
+    results: string[];
+    gallery: string[];
+    figmaDesign?: any;
+    caseStudyData?: string; // Passed as JSON string
+}
+
 export async function getProjects() {
     try {
         const projects = await prisma.project.findMany({
@@ -46,10 +62,17 @@ export async function getProjectById(id: string) {
     }
 }
 
-export async function createProject(data: ProjectCreateInput) {
+export async function createProject(data: ProjectFormInput) {
     try {
+        const projectData: any = { ...data };
+        if (typeof data.caseStudyData === 'string' && data.caseStudyData) {
+            projectData.caseStudyData = JSON.parse(data.caseStudyData);
+        } else if (!data.caseStudyData) {
+            projectData.caseStudyData = Prisma.JsonNull;
+        }
+
         const project = await prisma.project.create({
-            data
+            data: projectData
         })
         revalidatePath('/admin/projects')
         revalidatePath('/portfolio')
@@ -60,11 +83,18 @@ export async function createProject(data: ProjectCreateInput) {
     }
 }
 
-export async function updateProject(id: string, data: ProjectUpdateInput) {
+export async function updateProject(id: string, data: Partial<ProjectFormInput>) {
     try {
+        const projectData: any = { ...data };
+        if (typeof data.caseStudyData === 'string' && data.caseStudyData) {
+            projectData.caseStudyData = JSON.parse(data.caseStudyData);
+        } else if (data.caseStudyData === "") { // Handle clearing
+            projectData.caseStudyData = Prisma.JsonNull;
+        }
+
         const project = await prisma.project.update({
             where: { id },
-            data
+            data: projectData
         })
         revalidatePath('/admin/projects')
         revalidatePath('/portfolio')

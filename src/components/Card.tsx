@@ -16,7 +16,7 @@ export default function Card({ children, title, className = '' }: CardProps) {
                 </div>
             )}
 
-            <div className="text-ink-black">
+            <div className="">
                 {children}
             </div>
         </div>

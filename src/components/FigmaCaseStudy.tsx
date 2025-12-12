@@ -6,10 +6,13 @@ import {
     Film,
     Code,
     Layers,
-    Rocket,
-    Shield,
-    TrendingUp,
-    Globe,
+    Zap,
+    Database,
+    Server,
+    Smartphone,
+    CheckCircle,
+    Layout,
+    Lock,
     LucideIcon,
 } from "lucide-react";
 
@@ -60,6 +63,13 @@ const icons: Record<string, LucideIcon> = {
     Shield,
     TrendingUp,
     Globe,
+    Zap,
+    Database,
+    Server,
+    Smartphone,
+    CheckCircle,
+    Layout,
+    Lock,
 };
 
 export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {

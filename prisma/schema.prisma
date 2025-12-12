@@ -35,7 +35,9 @@ model Project {
   gallery     String[]
   figmaDesign Json?    // { thumbnail, title, url }
   
+  caseStudyData Json? // Stores the FigmaCaseStudy data structure
   caseStudies CaseStudy[]
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -86,6 +88,8 @@ model Article {
   techStack     Json?    // [{ name, icon, version }]
   repositoryUrl String?
   demoUrl       String?
+  
+  caseStudyData Json?    // Stores the FigmaCaseStudy data structure when used as a Case Study
   
   isPublished   Boolean  @default(false)
   isArchived    Boolean  @default(false)
