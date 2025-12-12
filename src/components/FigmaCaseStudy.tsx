@@ -52,6 +52,10 @@ export interface CaseStudyData {
         title: string;
         items: { type: 'image' | 'video'; url: string; caption: string }[];
     };
+    header?: {
+        reportTitle?: string;
+        statusBadge?: string;
+    };
     meta: {
         title: string;
         date: string;
@@ -115,7 +119,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                             >
                                 <Film className="w-8 h-8 text-gold" />
                                 <h1 className="text-gold uppercase tracking-wider text-lg font-bold">
-                                    Development Process Report
+                                    {data?.header?.reportTitle || "Development Process Report"}
                                 </h1>
                             </motion.div>
                             <motion.h2
@@ -144,7 +148,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                         >
                             <div className="stat-badge">
                                 <TrendingUp className="w-4 h-4" />
-                                <span>Production Ready</span>
+                                <span>{data?.header?.statusBadge || "Production Ready"}</span>
                             </div>
                         </motion.div>
                     </div>

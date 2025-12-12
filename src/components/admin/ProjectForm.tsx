@@ -208,17 +208,71 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                         type="button"
                         onClick={() => {
                             const template = {
+                                header: {
+                                    reportTitle: "Development Process Report",
+                                    statusBadge: "Production Ready"
+                                },
+                                meta: {
+                                    title: "Project Name",
+                                    date: "2025",
+                                    agency: "Redbrush DPA"
+                                },
                                 overview: {
-                                    heritage: { title: "Project Heritage", description: "Background...", items: [{ text: "Item 1" }] },
-                                    mission: { statement: "Mission...", stats: [{ label: "100%", subLabel: "Uptime" }] }
+                                    heritage: {
+                                        title: "Project Heritage",
+                                        description: "Describe the background and evolution of the project...",
+                                        items: [{ label: "Version", text: "1.0" }]
+                                    },
+                                    mission: {
+                                        statement: "To simplify digital workflows.",
+                                        stats: [{ label: "100%", subLabel: "Uptime" }, { label: "50k+", subLabel: "Users" }]
+                                    }
                                 },
                                 architecture: {
-                                    coreStack: [{ label: "Frontend", value: "React" }],
-                                    decisions: [{ title: "Why React?", description: "Speed." }]
+                                    coreStack: [
+                                        { label: "Frontend", value: "Next.js 14, React, Tailwind" },
+                                        { label: "Backend", value: "Node.js, Prisma, PostgreSQL" }
+                                    ],
+                                    decisions: [
+                                        { title: "Why Next.js?", description: "For superior SSR performance and SEO." },
+                                        { title: "Database Choice", description: "PostgreSQL for relational integrity." }
+                                    ]
                                 },
-                                features: { items: [] },
-                                roadmap: { performance: [], security: [], features: [], status: "In Progress" },
-                                meta: { title: "New Project", date: "2025", agency: "Redbrush" }
+                                features: {
+                                    items: [
+                                        {
+                                            title: "Real-time Analytics",
+                                            icon: "TrendingUp",
+                                            points: [{ label: "Latency", text: "< 50ms" }]
+                                        },
+                                        {
+                                            title: "Secure Auth",
+                                            icon: "Lock",
+                                            points: [{ label: "Provider", text: "NextAuth" }]
+                                        }
+                                    ]
+                                },
+                                roadmap: {
+                                    performance: [{ title: "Caching", description: "Implement Redis caching layer." }],
+                                    security: [{ title: "Audit", description: "External security audit Q3." }],
+                                    features: [{ title: "Mobile App", description: "Native iOS/Android wrappers." }],
+                                    status: "Active Development"
+                                },
+                                deployment: {
+                                    steps: [
+                                        {
+                                            title: "Phase 1: Alpha",
+                                            description: "Internal testing.",
+                                            points: [{ label: "Target", text: "Core Team" }]
+                                        }
+                                    ]
+                                },
+                                visuals: {
+                                    title: "Project Gallery",
+                                    items: [
+                                        { type: "image", url: "/path/to/image.jpg", caption: "Dashboard View" }
+                                    ]
+                                }
                             };
                             setValue("caseStudyData", JSON.stringify(template, null, 2));
                         }}

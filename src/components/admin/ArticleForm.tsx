@@ -248,17 +248,57 @@ export default function ArticleForm({ article }: ArticleFormProps) {
                             type="button"
                             onClick={() => {
                                 const template = {
+                                    header: {
+                                        reportTitle: "Development Process Report",
+                                        statusBadge: "Production Ready"
+                                    },
+                                    meta: {
+                                        title: "Article Name",
+                                        date: "2025",
+                                        agency: "Redbrush DPA"
+                                    },
                                     overview: {
-                                        heritage: { title: "Project Heritage", description: "Background...", items: [{ text: "Item 1" }] },
-                                        mission: { statement: "Mission...", stats: [{ label: "100%", subLabel: "Uptime" }] }
+                                        heritage: {
+                                            title: "Context",
+                                            description: "Describe the background...",
+                                            items: [{ label: "Type", text: "Case Study" }]
+                                        },
+                                        mission: {
+                                            statement: "To explain the implementation.",
+                                            stats: [{ label: "Rank", subLabel: "Top 10" }]
+                                        }
                                     },
                                     architecture: {
-                                        coreStack: [{ label: "Frontend", value: "React" }],
-                                        decisions: [{ title: "Why React?", description: "Speed." }]
+                                        coreStack: [
+                                            { label: "Frontend", value: "Next.js" },
+                                            { label: "State", value: "Zustand" }
+                                        ],
+                                        decisions: [
+                                            { title: "Why Component Based?", description: "Reusability." }
+                                        ]
                                     },
-                                    features: { items: [] },
-                                    roadmap: { performance: [], security: [], features: [], status: "In Progress" },
-                                    meta: { title: "New Project", date: "2025", agency: "Redbrush" }
+                                    features: {
+                                        items: [
+                                            {
+                                                title: "Core Feature",
+                                                icon: "Code",
+                                                points: [{ label: "Impact", text: "High" }]
+                                            }
+                                        ]
+                                    },
+                                    roadmap: {
+                                        performance: [],
+                                        security: [],
+                                        features: [],
+                                        status: "Published"
+                                    },
+                                    deployment: {
+                                        steps: []
+                                    },
+                                    visuals: {
+                                        title: "Visual Gallery",
+                                        items: []
+                                    }
                                 };
                                 setValue("caseStudyData", JSON.stringify(template, null, 2));
                             }}
@@ -371,6 +411,6 @@ export default function ArticleForm({ article }: ArticleFormProps) {
                 {article ? "Update Article" : "Create Article"}
             </button>
 
-        </form>
+        </form >
     );
 }
