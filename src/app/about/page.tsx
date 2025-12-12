@@ -57,11 +57,9 @@ export default async function About() {
                         <div className="w-full md:w-2/3 space-y-4 sm:space-y-6">
                             <div>
                                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">
-                                    <span className="text-crimson-red">About</span> Me
-                                </h1>
-                                <h2 className="text-lg sm:text-xl text-gray-400 font-light mb-4">
                                     {profile?.headline || "Digital Creator & Developer"}
-                                </h2>
+                                </h1>
+
                                 <div className="h-1 w-20 bg-crimson-red rounded-full"></div>
                             </div>
 
