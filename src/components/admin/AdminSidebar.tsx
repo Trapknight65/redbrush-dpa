@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, FileText, Users, Anchor, Settings } from "lucide-react";
+import { BarChart3, FileText, Users, Anchor, Settings, Package } from "lucide-react";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -14,6 +14,7 @@ export default function AdminSidebar() {
         { href: "/admin/dashboard", label: "Dashboard", icon: BarChart3 },
         { href: "/admin/projects", label: "Projects", icon: FileText },
         { href: "/admin/articles", label: "Articles", icon: FileText },
+        { href: "/admin/services", label: "Services", icon: Package },
         { href: "/admin/about", label: "About / Profile", icon: Users },
     ];
 

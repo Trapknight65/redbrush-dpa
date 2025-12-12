@@ -1,46 +1,18 @@
 import Card from "@/components/Card";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
+import { getServices } from "@/actions/service.actions";
+import * as LucideIcons from "lucide-react";
 
-export default function Services() {
-    const services = [
-        {
-            icon: "🎨",
-            title: "Web Design & Development",
-            description: "Custom websites and web applications built with modern technologies. Responsive, fast, and optimized for conversions.",
-            features: ["Responsive Design", "Performance Optimization", "SEO-Friendly", "Custom CMS"]
-        },
-        {
-            icon: "📱",
-            title: "Digital Marketing",
-            description: "Data-driven marketing strategies to grow your online presence and reach your target audience effectively.",
-            features: ["Social Media Marketing", "Content Strategy", "Email Campaigns", "Analytics & Reporting"]
-        },
-        {
-            icon: "✨",
-            title: "UX/UI Design",
-            description: "User-centered design that creates intuitive and engaging experiences for your customers.",
-            features: ["User Research", "Wireframing", "Prototyping", "Usability Testing"]
-        },
-        {
-            icon: "🚀",
-            title: "Branding & Identity",
-            description: "Build a memorable brand that resonates with your audience and stands out from the competition.",
-            features: ["Logo Design", "Brand Guidelines", "Visual Identity", "Brand Strategy"]
-        },
-        {
-            icon: "💼",
-            title: "E-Commerce Solutions",
-            description: "Complete e-commerce platforms that drive sales and provide seamless shopping experiences.",
-            features: ["Online Stores", "Payment Integration", "Inventory Management", "Order Tracking"]
-        },
-        {
-            icon: "🔧",
-            title: "Consulting & Strategy",
-            description: "Expert guidance to help you navigate the digital landscape and achieve your business goals.",
-            features: ["Digital Strategy", "Tech Consulting", "Growth Planning", "Performance Audits"]
-        }
-    ];
+// Helper to render icon dynamically
+const IconRenderer = ({ name, className }: { name: string, className?: string }) => {
+    // @ts-ignore - Dynamic access
+    const Icon = LucideIcons[name as keyof typeof LucideIcons];
+    return Icon ? <Icon className={className} /> : <span className={className}>{name}</span>;
+}
+
+export default async function Services() {
+    const { data: services } = await getServices();
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-off-white via-pure-white to-off-white">
@@ -60,24 +32,26 @@ export default function Services() {
             {/* Services Grid */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                    {services.map((service, index) => (
-                        <Card key={index} className="flex flex-col h-full">
-                            <div className="text-5xl sm:text-6xl mb-4 text-center">{service.icon}</div>
+                    {services?.map((service: any) => (
+                        <Card key={service.id} className="flex flex-col h-full border border-gray-100 hover:border-crimson-red/20 transition-colors bg-white shadow-sm hover:shadow-md">
+                            <div className="text-crimson-red mb-4 flex justify-center">
+                                <IconRenderer name={service.icon} className="w-12 h-12" />
+                            </div>
                             <h3 className="text-xl sm:text-2xl font-bold text-dark-gray mb-3 text-center">
                                 {service.title}
                             </h3>
-                            <p className="text-charcoal mb-4 flex-grow text-sm sm:text-base">
+                            <p className="text-charcoal mb-4 flex-grow text-sm sm:text-base text-center">
                                 {service.description}
                             </p>
 
                             <div className="mt-auto">
-                                <h4 className="text-xs font-semibold text-charcoal mb-2 uppercase tracking-wide">
-                                    Key Features:
+                                <h4 className="text-xs font-semibold text-charcoal mb-2 uppercase tracking-wide border-b border-gray-100 pb-2">
+                                    Includes:
                                 </h4>
-                                <ul className="space-y-1.5">
-                                    {service.features.map((feature, idx) => (
-                                        <li key={idx} className="text-sm text-charcoal flex items-start">
-                                            <span className="text-crimson-red mr-2">✓</span>
+                                <ul className="space-y-2">
+                                    {service.features.map((feature: string, idx: number) => (
+                                        <li key={idx} className="text-sm text-charcoal flex items-start bg-gray-50 p-2 rounded">
+                                            <span className="text-crimson-red mr-2 font-bold">✓</span>
                                             {feature}
                                         </li>
                                     ))}
@@ -85,6 +59,11 @@ export default function Services() {
                             </div>
                         </Card>
                     ))}
+                    {!services?.length && (
+                        <div className="col-span-full text-center py-10 text-gray-500">
+                            No services found. Please add some in the Admin Panel.
+                        </div>
+                    )}
                 </div>
             </section>
 
@@ -106,8 +85,8 @@ export default function Services() {
                         { step: "03", title: "Execution", description: "We bring your vision to life with precision and creativity" },
                         { step: "04", title: "Launch & Support", description: "We deploy your solution and provide ongoing support" }
                     ].map((phase, index) => (
-                        <div key={index} className="text-center">
-                            <div className="text-5xl font-bold text-crimson-red/20 mb-2">{phase.step}</div>
+                        <div key={index} className="text-center p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div className="text-5xl font-bold text-crimson-red/10 mb-2">{phase.step}</div>
                             <h3 className="text-xl font-bold text-dark-gray mb-2">{phase.title}</h3>
                             <p className="text-sm text-charcoal">{phase.description}</p>
                         </div>
@@ -117,13 +96,13 @@ export default function Services() {
 
             {/* CTA Section */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-                <div className="bg-crimson-red rounded-2xl p-8 sm:p-12 text-center text-white">
+                <div className="bg-crimson-red rounded-2xl p-8 sm:p-12 text-center text-white shadow-xl shadow-crimson-red/20">
                     <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Get Started?</h2>
-                    <p className="text-lg sm:text-xl mb-6 sm:mb-8 opacity-90">
+                    <p className="text-lg sm:text-xl mb-6 sm:mb-8 opacity-90 max-w-2xl mx-auto">
                         Let's discuss how we can help transform your digital presence.
                     </p>
                     <Link href="/contact">
-                        <Button variant="secondary" size="lg" className="bg-white text-crimson-red hover:bg-off-white border-white">
+                        <Button variant="secondary" className="bg-white text-crimson-red hover:bg-off-white border-white px-8 py-3 text-lg font-bold">
                             Contact Us Today
                         </Button>
                     </Link>
