@@ -26,7 +26,7 @@ export default async function Projects() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {projects?.map((project: Project) => (
-                        <Card key={project.id} className="flex flex-col h-full bg-white group hover:shadow-2xl transition-all duration-300 border-none overflow-hidden p-0">
+                        <Card key={project.id} className="flex flex-col h-full bg-gradient-to-br from-deep-sea to-ocean-blue group hover:shadow-2xl transition-all duration-300 border-none overflow-hidden p-0">
                             {/* Image */}
                             <div className="relative h-48 w-full overflow-hidden">
                                 {project.image ? (
