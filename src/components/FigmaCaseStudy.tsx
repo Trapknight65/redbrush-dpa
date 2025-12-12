@@ -79,13 +79,15 @@ const icons: Record<string, LucideIcon> = {
 export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
     const [activeTab, setActiveTab] = useState("overview");
 
+    if (!data) return null;
+
     const tabs = [
         { id: "overview", label: "Executive Summary", icon: Film },
         { id: "architecture", label: "Architecture", icon: Layers },
         { id: "features", label: "Key Features", icon: Code },
         { id: "roadmap", label: "Future Vision", icon: Rocket },
-        ...(data.deployment ? [{ id: "deployment", label: "Next Steps", icon: Globe }] : []),
-        ...(data.visuals ? [{ id: "visuals", label: "Gallery", icon: Film }] : []),
+        ...(data?.deployment ? [{ id: "deployment", label: "Next Steps", icon: Globe }] : []),
+        ...(data?.visuals ? [{ id: "visuals", label: "Gallery", icon: Film }] : []),
     ];
 
     return (
@@ -122,7 +124,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 transition={{ delay: 0.1 }}
                                 className="text-white text-3xl font-bold mb-2"
                             >
-                                {data.meta.title}
+                                {data?.meta?.title || "Case Study"}
                             </motion.h2>
                             <motion.div
                                 initial={{ opacity: 0 }}
@@ -130,8 +132,8 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 transition={{ delay: 0.2 }}
                                 className="flex flex-wrap gap-4 sm:gap-6 text-fog text-sm"
                             >
-                                <span>Agency: {data.meta.agency}</span>
-                                <span>Date: {data.meta.date}</span>
+                                <span>Agency: {data?.meta?.agency || "Redbrush"}</span>
+                                <span>Date: {data?.meta?.date || new Date().getFullYear().toString()}</span>
                             </motion.div>
                         </div>
                         <motion.div
