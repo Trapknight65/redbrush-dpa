@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { createProject, updateProject } from "@/actions/project.actions";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Loader2, Save } from "lucide-react";
 import ImageUpload from "./ImageUpload";
 
@@ -42,6 +42,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
         defaultValues: {
             title: initialData?.title || "",
             slug: initialData?.slug || "",
+            // ... (rest of defaults)
             category: initialData?.category || "",
             description: initialData?.description || "",
             image: initialData?.image || "",
@@ -52,6 +53,18 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
             caseStudyData: initialData?.caseStudyData ? JSON.stringify(initialData.caseStudyData, null, 2) : "",
         },
     });
+
+    const titleValue = watch("title");
+
+    useEffect(() => {
+        if (!initialData && titleValue) {
+            const slug = titleValue
+                .toLowerCase()
+                .replace(/ /g, "-")
+                .replace(/[^\w-]+/g, "");
+            setValue("slug", slug, { shouldValidate: true });
+        }
+    }, [titleValue, initialData, setValue]);
 
     const onSubmit = async (data: ProjectFormData) => {
         setLoading(true);
