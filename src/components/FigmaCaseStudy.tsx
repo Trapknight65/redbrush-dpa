@@ -95,7 +95,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
     ];
 
     return (
-        <div className="w-full bg-black text-white p-4 sm:p-8 overflow-hidden relative rounded-xl my-8 min-h-[600px] flex items-center justify-center">
+        <div className="w-full bg-black text-white p-2 sm:p-4 md:p-8 overflow-hidden relative rounded-xl my-4 sm:my-8 min-h-[400px] sm:min-h-[600px] flex items-center justify-center">
             {/* Film grain effect */}
             <div className="film-grain absolute inset-0 w-full h-full" />
 
@@ -109,7 +109,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                 className="relative z-10 w-full max-w-6xl"
             >
                 {/* Header */}
-                <div className="glass-card border border-gold/20 rounded-t-2xl p-6 sm:p-8">
+                <div className="glass-card border border-gold/20 rounded-t-2xl p-4 sm:p-6 md:p-8">
                     <div className="flex flex-col md:flex-row items-start justify-between mb-4 gap-4">
                         <div>
                             <motion.div
@@ -126,7 +126,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="text-white text-3xl font-bold mb-2"
+                                className="text-white text-2xl sm:text-3xl font-bold mb-2"
                             >
                                 {data?.meta?.title || "Case Study"}
                             </motion.h2>
@@ -154,7 +154,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                     </div>
 
                     {/* Tab navigation */}
-                    <div className="flex gap-2 mt-6 flex-wrap">
+                    <div className="flex gap-2 mt-6 overflow-x-auto pb-2 sm:pb-0 scrollbar-hide sm:flex-wrap">
                         {tabs.map((tab, index) => {
                             const Icon = tab.icon;
                             return (
@@ -164,7 +164,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 * index }}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`tab-button ${activeTab === tab.id ? "active" : ""}`}
+                                    className={`tab-button whitespace-nowrap px-3 py-2 text-sm flex items-center gap-2 rounded-lg transition-colors border border-transparent ${activeTab === tab.id ? "bg-gold/10 text-gold border-gold/30" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
                                 >
                                     <Icon className="w-4 h-4" />
                                     <span>{tab.label}</span>
@@ -175,7 +175,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                 </div>
 
                 {/* Content area */}
-                <div className="glass-card border-x border-b border-gold/20 rounded-b-2xl p-6 sm:p-8 min-h-[500px]">
+                <div className="glass-card border-x border-b border-gold/20 rounded-b-2xl p-4 sm:p-6 md:p-8 min-h-[300px] sm:min-h-[500px]">
                     <AnimatePresence mode="wait">
                         {activeTab === "overview" && (
                             <motion.div
