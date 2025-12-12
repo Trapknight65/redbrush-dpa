@@ -66,6 +66,17 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
         }
     }, [titleValue, initialData, setValue]);
 
+    const [logo, setLogo] = useState<string>("");
+
+    useEffect(() => {
+        if (initialData?.figmaDesign && typeof initialData.figmaDesign === 'object') {
+            const design = initialData.figmaDesign as any;
+            if (design.thumbnail) {
+                setLogo(design.thumbnail);
+            }
+        }
+    }, [initialData]);
+
     const onSubmit = async (data: ProjectFormData) => {
         setLoading(true);
         setError("");
@@ -82,16 +93,19 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                 }
             }
 
-            // Transform strings to arrays
+            // Transform strings to arrays and prepare figmaDesign
+            const currentFigmaDesign = initialData?.figmaDesign as any || {};
+
             const formattedData = {
                 ...data,
                 tags: data.tags.split(",").map((t) => t.trim()).filter(Boolean),
                 tech: data.tech.split(",").map((t) => t.trim()).filter(Boolean),
-                // Add defaults for arrays not in form if needed
-                // Add defaults for arrays not in form if needed
                 results: initialData?.results || [],
                 gallery: initialData?.gallery || [],
-                figmaDesign: initialData?.figmaDesign ?? null,
+                figmaDesign: {
+                    ...currentFigmaDesign,
+                    thumbnail: logo || currentFigmaDesign.thumbnail
+                },
             };
 
             let result;
@@ -103,7 +117,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
 
             if (result.success) {
                 router.push("/admin/projects");
-                router.refresh(); // Refresh server components
+                router.refresh();
             } else {
                 setError(result.error as string);
             }
@@ -160,13 +174,30 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
 
                 {/* Image */}
                 <div className="space-y-2">
-                    <label className="text-amber-700 text-sm font-bold uppercase">Image</label>
+                    <label className="text-amber-700 text-sm font-bold uppercase">Main Image</label>
                     <ImageUpload
                         value={watch("image")}
                         onChange={(url) => setValue("image", url)}
                         onRemove={() => setValue("image", "")}
                     />
                     {errors.image && <span className="text-red-500 text-xs">{errors.image.message}</span>}
+                </div>
+
+                {/* Logo (Mapped to figmaDesign.thumbnail) */}
+                <div className="space-y-2">
+                    <label className="text-amber-700 text-sm font-bold uppercase">Project Logo</label>
+                    <div className="flex items-center gap-4">
+                        <div className="flex-1">
+                            <ImageUpload
+                                value={logo}
+                                onChange={(url) => setLogo(url)}
+                                onRemove={() => setLogo("")}
+                            />
+                        </div>
+                        <div className="text-xs text-gray-500 max-w-[200px]">
+                            Upload a transparent PNG/SVG logo. This will be displayed in the detailed project view.
+                        </div>
+                    </div>
                 </div>
             </div>
 
