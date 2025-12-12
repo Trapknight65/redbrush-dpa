@@ -50,7 +50,7 @@ export default async function Services() {
                                 </h4>
                                 <ul className="space-y-2">
                                     {service.features.map((feature: string, idx: number) => (
-                                        <li key={idx} className="text-sm text-charcoal flex items-start bg-gray-50 p-2 rounded">
+                                        <li key={idx} className="text-sm text-charcoal flex items-start p-2 rounded">
                                             <span className="text-crimson-red mr-2 font-bold">✓</span>
                                             {feature}
                                         </li>
