@@ -9,8 +9,8 @@ import { DevGridBackground } from "@/components/dev/DevGridBackground";
 export const dynamic = 'force-dynamic';
 
 export default async function DevLabPage() {
-    const { data: articles } = await getArticles(false); // Fetch all for now for visibility
-    const { data: reports } = await getDevReports(false);
+    const { data: articles } = await getArticles(true); // Filter out archived/drafts
+    const { data: reports } = await getDevReports(true);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-black to-blue-900 text-white p-6 sm:p-8 pt-24 relative overflow-hidden">
