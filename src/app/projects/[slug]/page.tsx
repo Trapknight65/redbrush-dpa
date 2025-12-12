@@ -78,11 +78,11 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
 
                         {/* Challenge & Solution */}
                         <div className="grid md:grid-cols-2 gap-8">
-                            <section className="bg-gray-50 p-6 rounded-xl border-l-4 border-crimson-red">
+                            <section className="bg-ocean-blue/[0.4] p-6 rounded-xl border-l-4 border-crimson-red">
                                 <h3 className="text-xl font-bold mb-3">The Challenge</h3>
                                 <p className="text-charcoal">{project.challenge}</p>
                             </section>
-                            <section className="bg-gray-50 p-6 rounded-xl border-l-4 border-sunset-gold">
+                            <section className="bg-ocean-blue/[0.4] p-6 rounded-xl border-l-4 border-sunset-gold">
                                 <h3 className="text-xl font-bold mb-3">The Solution</h3>
                                 <p className="text-charcoal">{project.solution}</p>
                             </section>
@@ -96,7 +96,7 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                 {project.results.map((result: string, idx: number) => (
-                                    <div key={idx} className="p-4 bg-white border border-gray-100 shadow-sm rounded-lg flex items-start gap-3">
+                                    <div key={idx} className="p-4 bg-ocean-blue/[0.4] border border-gray-100 shadow-sm rounded-lg flex items-start gap-3">
                                         <LucideIcons.CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                                         <span className="text-dark-gray font-medium">{result}</span>
                                     </div>
@@ -157,11 +157,11 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
                         )}
 
                         {/* Contact CTA */}
-                        <div className="bg-gradient-to-br from-crimson-red to-orange-600 p-6 rounded-xl text-white shadow-lg">
+                        <div className="bg-gradient-to-br from-crimson-red to-black p-6 rounded-xl text-white shadow-lg">
                             <h3 className="text-xl font-bold mb-2">Have a similar idea?</h3>
                             <p className="text-white/90 text-sm mb-6">Let's bring your vision to life.</p>
                             <Link href="/contact">
-                                <Button variant="secondary" className="w-full bg-white text-crimson-red hover:bg-gray-100 border-none">
+                                <Button variant="secondary" className="w-full bg-ocean-blue/[0.4] text-crimson-red hover:bg-gray-100 border-none">
                                     Start a Project
                                 </Button>
                             </Link>
