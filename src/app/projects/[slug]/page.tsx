@@ -1,6 +1,7 @@
 import { getProjectBySlug } from "@/actions/project.actions";
 import Link from "next/link";
 import Image from "next/image";
+import Button from "@/components/ui/Button";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Rocket } from "lucide-react"; // Default icon for logo fallback
 import FigmaCaseStudy, { CaseStudyData } from "@/components/FigmaCaseStudy";
@@ -24,7 +25,7 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
         : null;
 
     return (
-        <div className="min-h-screen bg-black text-white selection:bg-crimson-red selection:text-white">
+        <div className="min-h-screen bg-gradient-to-br from-deep-sea to-ocean-blue text-white selection:bg-crimson-red selection:text-white">
 
             {/* 1. Hero Section */}
             <section className="relative h-[60vh] w-full flex items-center justify-center overflow-hidden">
