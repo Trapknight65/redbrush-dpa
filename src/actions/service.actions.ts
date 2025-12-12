@@ -15,8 +15,21 @@ export async function getServices() {
     }
 }
 
+export async function getServiceBySlug(slug: string) {
+    try {
+        const service = await prisma.service.findUnique({
+            where: { slug },
+        });
+        return { success: true, data: service };
+    } catch (error) {
+        console.error('Failed to fetch service by slug:', error);
+        return { success: false, error: 'Failed to fetch service' };
+    }
+}
+
 export async function createService(data: {
     title: string;
+    slug: string;
     description: string;
     icon: string;
     price?: string;
@@ -41,6 +54,7 @@ export async function createService(data: {
 
 export async function updateService(id: string, data: {
     title?: string;
+    slug?: string;
     description?: string;
     icon?: string;
     price?: string;
@@ -80,18 +94,21 @@ export async function seedInitialServices() {
     const initialServices = [
         {
             title: "Custom Web Development",
+            slug: "custom-web-development",
             description: "Tailored websites built with modern technologies like React, Next.js, and Node.js.",
             icon: "Code",
             features: ["Responsive Design", "SEO Optimized", "CMS Integration", "Performance Tuning"],
         },
         {
             title: "UI/UX Design",
+            slug: "ui-ux-design",
             description: "User-centric design solutions that enhance engagement and usability.",
             icon: "Palette",
             features: ["Wireframing", "Prototyping", "User Research", "Brand Identity"],
         },
         {
             title: "Mobile App Development",
+            slug: "mobile-app-development",
             description: "Native and cross-platform mobile applications for iOS and Android.",
             icon: "Smartphone",
             features: ["React Native", "Flutter", "App Store Deployment", "Push Notifications"],
@@ -99,6 +116,9 @@ export async function seedInitialServices() {
     ];
 
     try {
+        // Delete existing to avoid slug conflicts during re-seed
+        await prisma.service.deleteMany();
+
         for (const service of initialServices) {
             await prisma.service.create({ data: service });
         }
