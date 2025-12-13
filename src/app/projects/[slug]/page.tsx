@@ -133,81 +133,79 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
             </section>
 
             {/* 2. Content Layout (Split View) */}
-            <section className="relative z-10 -mt-10 pb-20 px-2 sm:px-4 md:px-8 max-w-[1400px] mx-auto">
-                {/* 2. Content Layout (Split View) */}
-                <section className="relative z-10 -mt-10 pb-20 px-2 sm:px-4 md:px-8 max-w-[1500px] mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-8 items-start">
+            <section className="relative z-10 -mt-10 pb-20 px-2 sm:px-4 md:px-8 max-w-[1500px] mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-8 items-start">
 
-                        {/* Left Column: Figma Case Study */}
-                        <div className="w-full min-h-[500px]">
-                            {caseStudyData ? (
-                                <FigmaCaseStudy data={caseStudyData} />
-                            ) : (
-                                /* Fallback Content */
-                                <div className="glass-card bg-black/40 border border-white/10 p-10 rounded-2xl text-center min-h-[400px] flex flex-col items-center justify-center backdrop-blur-xl">
-                                    <Rocket className="w-12 h-12 text-white/20 mb-4" />
-                                    <h2 className="text-2xl font-bold text-white mb-2">Project Overview</h2>
-                                    <p className="text-gray-400 leading-relaxed mb-8 max-w-2xl">{project.description}</p>
-                                    <p className="text-xs text-gray-600 font-mono uppercase tracking-widest border border-white/5 px-3 py-1 rounded">Detailed case study coming soon</p>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Right Column: Tech Stack & CTA (Sticky) */}
-                        <div className="space-y-6 lg:sticky lg:top-24 w-full">
-
-                            {/* Tech Stack */}
-                            <div className="glass-card bg-black/20 border border-white/10 p-6 rounded-2xl backdrop-blur-xl">
-                                <div className="flex items-center gap-2 mb-4 border-b border-white/5 pb-3">
-                                    <Code className="w-4 h-4 text-crimson-red" />
-                                    <h3 className="text-sm font-bold text-white uppercase tracking-wider">Tech Stack</h3>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                    {project.tech.map((tech: string) => (
-                                        <span key={tech} className="px-3 py-1.5 bg-white/5 text-gray-300 border border-white/5 font-mono text-xs rounded-lg hover:bg-crimson-red/10 hover:text-crimson-red hover:border-crimson-red/20 transition-all duration-300 cursor-default">
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
+                    {/* Left Column: Figma Case Study */}
+                    <div className="w-full min-h-[500px]">
+                        {caseStudyData ? (
+                            <FigmaCaseStudy data={caseStudyData} />
+                        ) : (
+                            /* Fallback Content */
+                            <div className="glass-card bg-black/40 border border-white/10 p-10 rounded-2xl text-center min-h-[400px] flex flex-col items-center justify-center backdrop-blur-xl">
+                                <Rocket className="w-12 h-12 text-white/20 mb-4" />
+                                <h2 className="text-2xl font-bold text-white mb-2">Project Overview</h2>
+                                <p className="text-gray-400 leading-relaxed mb-8 max-w-2xl">{project.description}</p>
+                                <p className="text-xs text-gray-600 font-mono uppercase tracking-widest border border-white/5 px-3 py-1 rounded">Detailed case study coming soon</p>
                             </div>
-
-                            {/* Similar Projects / CTA */}
-                            <div className="relative overflow-hidden rounded-2xl group border border-crimson-red/20">
-                                <div className="absolute inset-0 bg-gradient-to-br from-crimson-red/10 to-black transition-opacity duration-500" />
-                                <div className="absolute -right-10 -top-10 w-32 h-32 bg-crimson-red/20 blur-[60px]" />
-
-                                <div className="relative z-10 p-6">
-                                    <h3 className="text-xl font-black text-white mb-2 uppercase italic">Build With Us</h3>
-                                    <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                                        Need a similar solution? Let's turn your vision into reality.
-                                    </p>
-                                    <Link href="/contact" className="block">
-                                        <Button variant="secondary" className="w-full bg-crimson-red hover:bg-crimson-red/80 text-white border-none shadow-lg shadow-crimson-red/20 py-6 text-lg font-bold">
-                                            Start a Project
-                                        </Button>
-                                    </Link>
-                                </div>
-                            </div>
-
-                            {/* Gallery Mini-Grid (Optional - Only if not in Case Study) */}
-                            {(!caseStudyData?.visuals && project.gallery && project.gallery.length > 0) && (
-                                <div className="grid grid-cols-2 gap-2">
-                                    {project.gallery.slice(0, 4).map((img: string, idx: number) => (
-                                        <div key={idx} className="relative aspect-square rounded-xl overflow-hidden border border-white/10 hover:border-white/30 transition-colors group">
-                                            <Image
-                                                src={img}
-                                                alt={`Gallery ${idx}`}
-                                                fill
-                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-
-                        </div>
+                        )}
                     </div>
-                </section>
+
+                    {/* Right Column: Tech Stack & CTA (Sticky) */}
+                    <div className="space-y-6 lg:sticky lg:top-24 w-full">
+
+                        {/* Tech Stack */}
+                        <div className="glass-card bg-black/20 border border-white/10 p-6 rounded-2xl backdrop-blur-xl">
+                            <div className="flex items-center gap-2 mb-4 border-b border-white/5 pb-3">
+                                <Code className="w-4 h-4 text-crimson-red" />
+                                <h3 className="text-sm font-bold text-white uppercase tracking-wider">Tech Stack</h3>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                                {project.tech.map((tech: string) => (
+                                    <span key={tech} className="px-3 py-1.5 bg-white/5 text-gray-300 border border-white/5 font-mono text-xs rounded-lg hover:bg-crimson-red/10 hover:text-crimson-red hover:border-crimson-red/20 transition-all duration-300 cursor-default">
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Similar Projects / CTA */}
+                        <div className="relative overflow-hidden rounded-2xl group border border-crimson-red/20">
+                            <div className="absolute inset-0 bg-gradient-to-br from-crimson-red/10 to-black transition-opacity duration-500" />
+                            <div className="absolute -right-10 -top-10 w-32 h-32 bg-crimson-red/20 blur-[60px]" />
+
+                            <div className="relative z-10 p-6">
+                                <h3 className="text-xl font-black text-white mb-2 uppercase italic">Build With Us</h3>
+                                <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                                    Need a similar solution? Let's turn your vision into reality.
+                                </p>
+                                <Link href="/contact" className="block">
+                                    <Button variant="secondary" className="w-full bg-crimson-red hover:bg-crimson-red/80 text-white border-none shadow-lg shadow-crimson-red/20 py-6 text-lg font-bold">
+                                        Start a Project
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Gallery Mini-Grid (Optional - Only if not in Case Study) */}
+                        {(!caseStudyData?.visuals && project.gallery && project.gallery.length > 0) && (
+                            <div className="grid grid-cols-2 gap-2">
+                                {project.gallery.slice(0, 4).map((img: string, idx: number) => (
+                                    <div key={idx} className="relative aspect-square rounded-xl overflow-hidden border border-white/10 hover:border-white/30 transition-colors group">
+                                        <Image
+                                            src={img}
+                                            alt={`Gallery ${idx}`}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }
