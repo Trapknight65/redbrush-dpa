@@ -1,99 +1,106 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useState, useCallback, useEffect } from 'react';
 import { HeroSlide } from '@/actions/profile.actions';
-import dynamic from 'next/dynamic';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const FrogViewer = dynamic(() => import('./FrogViewer'), {
-    ssr: false,
-    loading: () => <div className="w-full h-full bg-black/20 animate-pulse rounded-2xl" />
-});
+import { ChevronUp, ChevronDown } from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 interface HeroSliderProps {
     slides: HeroSlide[];
 }
 
 export default function HeroSlider({ slides }: HeroSliderProps) {
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const videoSlides = slides?.filter(s => s.type === 'video') || [];
 
-    const nextSlide = () => {
-        setCurrentIndex((prev) => (prev + 1) % slides.length);
-    };
+    const [emblaRef, emblaApi] = useEmblaCarousel({ axis: 'y', loop: true });
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
-    const prevSlide = () => {
-        setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
-    };
+    const onInit = useCallback((emblaApi: any) => {
+        setScrollSnaps(emblaApi.scrollSnapList());
+    }, []);
 
-    if (!slides || slides.length === 0) {
-        // Fallback default content if no slides
+    const onSelect = useCallback((emblaApi: any) => {
+        setSelectedIndex(emblaApi.selectedScrollSnap());
+    }, []);
+
+    useEffect(() => {
+        if (!emblaApi) return;
+
+        onInit(emblaApi);
+        onSelect(emblaApi);
+        emblaApi.on('reInit', onInit);
+        emblaApi.on('reInit', onSelect);
+        emblaApi.on('select', onSelect);
+    }, [emblaApi, onInit, onSelect]);
+
+    const scrollPrev = useCallback(() => {
+        if (emblaApi) emblaApi.scrollPrev();
+    }, [emblaApi]);
+
+    const scrollNext = useCallback(() => {
+        if (emblaApi) emblaApi.scrollNext();
+    }, [emblaApi]);
+
+    const scrollTo = useCallback(
+        (index: number) => {
+            if (emblaApi) emblaApi.scrollTo(index);
+        },
+        [emblaApi]
+    );
+
+    if (videoSlides.length === 0) {
         return (
-            <div className="relative brush-mask w-full h-[400px] sm:h-[500px] lg:h-[600px] bg-black/20 rounded-2xl flex items-center justify-center">
-                <FrogViewer />
+            <div className="w-full h-full bg-black/20 rounded-2xl flex items-center justify-center text-white/50 text-sm">
+                No videos available
             </div>
         );
     }
 
-    const currentSlide = slides[currentIndex];
-
     return (
         <div className="relative w-full h-full group">
-            <div className="w-full h-full relative rounded-2xl overflow-hidden brush-mask">
-                {currentSlide.type === '3d' && (
-                    <div className="w-full h-full">
-                        <FrogViewer />
-                        {/* Note: generic GLB support would involve passing currentSlide.url to a generic viewer */}
-                    </div>
-                )}
-
-                {currentSlide.type === 'video' && currentSlide.url && (
-                    <video
-                        src={currentSlide.url}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="w-full h-full object-contain"
-                    />
-                )}
-
-                {currentSlide.type === 'image' && currentSlide.url && (
-                    <div className="relative w-full h-full">
-                        <Image
-                            src={currentSlide.url}
-                            alt={currentSlide.alt || "Hero Slide"}
-                            fill
-                            className="object-cover"
-                            priority={currentIndex === 0}
-                        />
-                    </div>
-                )}
+            <div className="w-full h-full overflow-hidden rounded-2xl brush-mask" ref={emblaRef}>
+                <div className="flex flex-col w-full h-full touch-pan-x">
+                    {videoSlides.map((slide, index) => (
+                        <div className="flex-[0_0_100%] min-h-0 relative w-full h-full" key={index}>
+                            {slide.url && (
+                                <video
+                                    src={slide.url}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-full object-cover"
+                                />
+                            )}
+                        </div>
+                    ))}
+                </div>
             </div>
 
             {/* Navigation (Only show if > 1 slide) */}
-            {slides.length > 1 && (
+            {videoSlides.length > 1 && (
                 <>
                     <button
-                        onClick={prevSlide}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                        onClick={scrollPrev}
+                        className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
                     >
-                        <ChevronLeft size={24} />
+                        <ChevronUp size={24} />
                     </button>
                     <button
-                        onClick={nextSlide}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                        onClick={scrollNext}
+                        className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
                     >
-                        <ChevronRight size={24} />
+                        <ChevronDown size={24} />
                     </button>
 
-                    {/* Dots */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                        {slides.map((_, index) => (
+                    {/* Dots (Vertical on right) */}
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-10">
+                        {scrollSnaps.map((_, index) => (
                             <button
                                 key={index}
-                                onClick={() => setCurrentIndex(index)}
-                                className={`w-2 h-2 rounded-full transition-all ${index === currentIndex ? 'bg-crimson-red w-6' : 'bg-white/50'
+                                onClick={() => scrollTo(index)}
+                                className={`w-2 h-2 rounded-full transition-all ${index === selectedIndex ? 'bg-crimson-red h-6' : 'bg-white/50'
                                     }`}
                             />
                         ))}

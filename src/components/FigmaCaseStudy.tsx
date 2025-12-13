@@ -95,7 +95,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
     ];
 
     return (
-        <div className="w-full bg-gradient-to-br from-ocean-blue to-black text-white p-2 sm:p-4 md:p-8 overflow-hidden relative rounded-xl my-4 sm:my-8 min-h-[400px] sm:min-h-[600px] flex items-center justify-center">
+        <div className="w-full bg-gradient-to-br from-black to-ocean-blue text-white p-2 sm:p-4 md:p-8 overflow-hidden relative rounded-xl my-4 sm:my-8 min-h-[400px] sm:min-h-[600px] flex items-center justify-center">
 
             {/* Main content card */}
             <motion.div
@@ -104,7 +104,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                 className="relative z-10 w-full max-w-6xl"
             >
                 {/* Header */}
-                <div className="glass-card border border-ocean-blue rounded-t-2xl p-4 sm:p-6 md:p-8">
+                <div className="glass-card border border-deep-sea/50 rounded-t-2xl p-4 sm:p-6 md:p-8">
                     <div className="flex flex-col md:flex-row items-start justify-between mb-4 gap-4">
                         <div>
                             <motion.div
@@ -112,8 +112,8 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="flex items-center gap-3 mb-2"
                             >
-                                <Film className="w-8 h-8 text-gradient-to-br from-deep-sea to-ocean-blue" />
-                                <h1 className="text-gradient-to-br from-deep-sea to-ocean-blue uppercase tracking-wider text-lg font-bold">
+                                <Film className="w-8 h-8 text-deep-sea" />
+                                <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-deep-sea to-ocean-blue uppercase tracking-wider text-lg font-bold">
                                     {data?.header?.reportTitle || "Development Process Report"}
                                 </h1>
                             </motion.div>
@@ -141,7 +141,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                             transition={{ delay: 0.3 }}
                             className="flex gap-2"
                         >
-                            <div className="stat-badge">
+                            <div className="stat-badge border-deep-sea/30 text-deep-sea">
                                 <TrendingUp className="w-4 h-4" />
                                 <span>{data?.header?.statusBadge || "Production Ready"}</span>
                             </div>
@@ -152,6 +152,7 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                     <div className="flex gap-2 mt-6 overflow-x-auto pb-2 sm:pb-0 scrollbar-hide sm:flex-wrap">
                         {tabs.map((tab, index) => {
                             const Icon = tab.icon;
+                            const isActive = activeTab === tab.id;
                             return (
                                 <motion.button
                                     key={tab.id}
@@ -159,10 +160,21 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 * index }}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`tab-button whitespace-nowrap px-3 py-2 text-sm flex items-center gap-2 rounded-lg transition-colors border border-transparent ${activeTab === tab.id ? "bg-deep-sea text-gold border-ocean-blue/30" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
+                                    // Make button relative to contain absolute label if needed, or flex for side-by-side
+                                    className={`relative group flex items-center gap-2 px-3 py-2 rounded-lg border transition-all duration-300
+                                                ${isActive
+                                            ? "bg-deep-sea/20 border-deep-sea text-white w-auto"
+                                            : "bg-transparent border-transparent text-gray-400 hover:text-deep-sea hover:border-deep-sea/30 w-10 hover:w-auto"
+                                        }`}
+                                    style={{ overflow: 'hidden' }} // Ensure text doesn't spill during transition
                                 >
-                                    <Icon className="w-4 h-4" />
-                                    <span>{tab.label}</span>
+                                    <Icon className={`w-5 h-5 flex-shrink-0 transition-colors ${isActive ? "text-deep-sea" : "group-hover:text-deep-sea"}`} />
+
+                                    {/* Text Label - Expands on Hover or Active */}
+                                    <span className={`whitespace-nowrap overflow-hidden transition-all duration-300 text-sm font-medium
+                                                      ${isActive ? "max-w-[200px] opacity-100 ml-1" : "max-w-0 opacity-0 group-hover:max-w-[200px] group-hover:opacity-100 group-hover:ml-1"}`}>
+                                        {tab.label}
+                                    </span>
                                 </motion.button>
                             );
                         })}

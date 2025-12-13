@@ -30,7 +30,7 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
         <div className="min-h-screen bg-gradient-to-br from-deep-sea to-ocean-blue text-white selection:bg-crimson-red selection:text-white">
 
             {/* 1. Hero Section */}
-            <section className="relative h-[60vh] w-full flex items-center justify-center overflow-hidden">
+            <section className="relative h-[40vh] min-h-[400px] w-full flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     {heroVideo ? (
                         <video
@@ -65,10 +65,10 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
                     </Link>
                 </div>
 
-                <div className="relative z-10 flex flex-col items-center justify-center text-center p-4">
-                    <div className="w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl border border-white/20 flex items-center justify-center mb-6 shadow-2xl shadow-crimson-red/20 transform hover:scale-105 transition-transform duration-500">
+                <div className="relative z-10 flex flex-col items-center justify-center text-center p-4 pt-10">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl border border-white/20 flex items-center justify-center mb-4 shadow-2xl shadow-crimson-red/20 transform hover:scale-105 transition-transform duration-500">
                         {thumbnail ? (
-                            <div className="relative w-16 h-16 sm:w-20 sm:h-20 overflow-hidden rounded-xl">
+                            <div className="relative w-12 h-12 sm:w-16 sm:h-16 overflow-hidden rounded-xl">
                                 <Image
                                     src={thumbnail}
                                     alt="Logo"
@@ -77,21 +77,21 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
                                 />
                             </div>
                         ) : (
-                            <Rocket className="w-12 h-12 text-white/80" />
+                            <Rocket className="w-10 h-10 text-white/80" />
                         )}
                     </div>
 
-                    <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white mb-2 uppercase">
+                    <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white mb-2 uppercase">
                         {project.title}
                     </h1>
-                    <p className="text-lg text-white/60 font-mono tracking-widest uppercase">
+                    <p className="text-base text-white/60 font-mono tracking-widest uppercase">
                         {project.category}
                     </p>
                 </div>
             </section>
 
             {/* 2. Content Layout (Split View) */}
-            <section className="relative z-10 -mt-20 pb-20 px-2 sm:px-4 md:px-8 max-w-[1400px] mx-auto">
+            <section className="relative z-10 -mt-10 pb-20 px-2 sm:px-4 md:px-8 max-w-[1400px] mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8">
 
                     {/* Left Column: Figma Case Study */}

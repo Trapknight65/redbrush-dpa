@@ -19,17 +19,8 @@ export default async function Home() {
               <span className="text-crimson-red block">Modern Brands</span>
             </h1>
             <p className="text-xs sm:text-lg lg:text-xl text-canvas-white max-w-2xl lg:max-w-none mb-4 sm:mb-10">
-              We craft stunning digital experiences that drive results. From web development to branding, we&apos;ve got you covered.
+              Crafting stunning digital experiences.
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-start justify-start flex-wrap">
-              <Button variant="primary" size="lg" className="w-full sm:w-auto text-xs sm:text-base py-2 sm:py-3 px-4 sm:px-8">
-                Start Project
-              </Button>
-              <Button variant="secondary" size="lg" className="w-full sm:w-auto text-xs sm:text-base py-2 sm:py-3 px-4 sm:px-8">
-                View Work
-              </Button>
-            </div>
           </div>
 
           {/* Right: Hero Slider */}
