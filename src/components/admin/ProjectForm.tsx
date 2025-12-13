@@ -9,6 +9,8 @@ import { generateProjectContent } from "@/actions/ai.actions";
 import { toast } from "sonner";
 import ImageUpload from "./ImageUpload";
 import VideoUpload from "./VideoUpload";
+import CaseStudyBuilder from "./CaseStudyBuilder";
+import { CaseStudyData } from "@/components/FigmaCaseStudy";
 
 type ProjectFormData = {
     title: string;
@@ -373,10 +375,14 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                 </div>
             </div>
 
-            {/* Figma Case Study JSON Editor */}
-            <div className="space-y-4 border border-amber-900/20 rounded-lg p-4 bg-black/20">
+            {/* Figma Case Study Builder */}
+            <div className="space-y-4 pt-6 border-t border-amber-900/20">
                 <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium text-amber-200 block">Figma Case Study Data (JSON)</label>
+                    <h3 className="text-lg font-bold text-amber-500 flex items-center gap-2">
+                        <Sparkles className="w-5 h-5" />
+                        Case Study Builder
+                    </h3>
+
                     <button
                         type="button"
                         onClick={() => {
@@ -393,74 +399,57 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                                 overview: {
                                     heritage: {
                                         title: "Project Heritage",
-                                        description: "Describe the background and evolution of the project...",
+                                        description: "Describe the background...",
                                         items: [{ label: "Version", text: "1.0" }]
                                     },
                                     mission: {
                                         statement: "To simplify digital workflows.",
-                                        stats: [{ label: "100%", subLabel: "Uptime" }, { label: "50k+", subLabel: "Users" }]
+                                        stats: [{ label: "100%", subLabel: "Uptime" }]
                                     }
                                 },
                                 architecture: {
                                     coreStack: [
-                                        { label: "Frontend", value: "Next.js 14, React, Tailwind" },
-                                        { label: "Backend", value: "Node.js, Prisma, PostgreSQL" }
+                                        { label: "Frontend", value: "Next.js 14" }
                                     ],
-                                    decisions: [
-                                        { title: "Why Next.js?", description: "For superior SSR performance and SEO." },
-                                        { title: "Database Choice", description: "PostgreSQL for relational integrity." }
-                                    ]
+                                    decisions: []
                                 },
-                                features: {
-                                    items: [
-                                        {
-                                            title: "Real-time Analytics",
-                                            icon: "TrendingUp",
-                                            points: [{ label: "Latency", text: "< 50ms" }]
-                                        },
-                                        {
-                                            title: "Secure Auth",
-                                            icon: "Lock",
-                                            points: [{ label: "Provider", text: "NextAuth" }]
-                                        }
-                                    ]
-                                },
+                                features: { items: [] },
                                 roadmap: {
-                                    performance: [{ title: "Caching", description: "Implement Redis caching layer." }],
-                                    security: [{ title: "Audit", description: "External security audit Q3." }],
-                                    features: [{ title: "Mobile App", description: "Native iOS/Android wrappers." }],
+                                    performance: [],
+                                    security: [],
+                                    features: [],
                                     status: "Active Development"
-                                },
-                                deployment: {
-                                    steps: [
-                                        {
-                                            title: "Phase 1: Alpha",
-                                            description: "Internal testing.",
-                                            points: [{ label: "Target", text: "Core Team" }]
-                                        }
-                                    ]
-                                },
-                                visuals: {
-                                    title: "Project Gallery",
-                                    items: [
-                                        { type: "image", url: "/path/to/image.jpg", caption: "Dashboard View" }
-                                    ]
                                 }
                             };
                             setValue("caseStudyData", JSON.stringify(template, null, 2));
                         }}
-                        className="text-xs text-amber-500 hover:text-amber-400 flex items-center gap-1 border border-amber-900/30 px-2 py-1 rounded bg-[#1a1515]"
+                        className="text-xs text-amber-500 hover:text-amber-400 border border-amber-900/30 px-3 py-1 rounded hover:bg-amber-900/10"
                     >
-                        Load Template
+                        Reset / Load Template
                     </button>
                 </div>
 
-                <p className="text-xs text-gray-400">Paste the JSON structure for the Figma Case Study component here.</p>
-                <textarea
-                    {...register("caseStudyData")}
-                    className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-white font-mono text-xs h-64 focus:border-amber-500 outline-none transition-colors"
-                    placeholder='{ "overview": { ... } }'
+                <CaseStudyBuilder
+                    data={(() => {
+                        try {
+                            return watch("caseStudyData") ? JSON.parse(watch("caseStudyData")!) : null;
+                        } catch (e) {
+                            return null;
+                        }
+                    })()}
+                    onChange={(newData) => {
+                        setValue("caseStudyData", JSON.stringify(newData, null, 2));
+                    }}
                 />
+
+                {/* Fallback/Debug: Raw JSON Toggle (hidden by default or kept small) */}
+                <details className="text-xs text-gray-500">
+                    <summary className="cursor-pointer hover:text-amber-500">View Raw JSON</summary>
+                    <textarea
+                        {...register("caseStudyData")}
+                        className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-white font-mono text-xs h-32 mt-2"
+                    />
+                </details>
             </div>
 
             <div className="pt-6">
