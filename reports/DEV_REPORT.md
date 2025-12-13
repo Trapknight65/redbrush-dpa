@@ -1,5 +1,5 @@
 # Redbrush Development Report & Recap
-**Date:** 2025-12-12
+**Date:** 2025-12-13
 
 ## Executive Summary
 Recent development cycles have focused on two primary objectives: stabilizing the backend infrastructure and establishing a unique, high-fidelity visual identity ("Fude Fude no Mi"). The application has been upgraded with a cohesive dark-themed aesthetic, custom animations, and a polished administrative interface, while underlying database connection issues have been resolved.
@@ -40,8 +40,19 @@ Recent development cycles have focused on two primary objectives: stabilizing th
 - **Optimization:** Implemented dynamic imports for heavy components to improve LCP and TBT metrics.
 - **Admin Stability:** Fixed type errors in admin actions to ensure smooth deployment.
 
+### 6. AI Integration (Dec 13 Update)
+- **Generative AI:** Integrated Google Gemini AI (`@google/generative-ai`) to "AI Power" the admin panel.
+- **Magic Generate:** Added a feature to automatically generate project content (description, challenge, solution, tech stack, tags) based on title and category.
+- **Infrastructure:** Implemented secure server-side actions (`src/actions/ai.actions.ts`) to handle API requests and secret management.
+
+### 7. Hero Video Support
+- **Video Uploads:** Added ability to upload hero section videos via Cloudinary in the admin panel.
+- **Project Detail:** Updated project detail pages to render background videos in the hero section for a more immersive experience.
+- **Schema:** Updated data model to support `heroVideo` field within the `figmaDesign` object.
+
 ## Technical Snapshot
 - **Framework:** Next.js (App Router)
+- **AI Engine:** Google Gemini (Gemini 1.5 Flash)
 - **Styling:** Tailwind CSS v4, Framer Motion v12
 - **Database:** PostgreSQL (Supabase) via Prisma ORM
 - **Media:** Cloudinary
