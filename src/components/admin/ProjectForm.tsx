@@ -72,12 +72,18 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
 
     const [logo, setLogo] = useState<string>("");
     const [heroVideo, setHeroVideo] = useState<string>("");
+    const [heroSubtitle, setHeroSubtitle] = useState<string>("");
+    const [heroBaseline, setHeroBaseline] = useState<string>("");
+    const [heroReviewLink, setHeroReviewLink] = useState<string>("");
 
     useEffect(() => {
         if (initialData?.figmaDesign && typeof initialData.figmaDesign === 'object') {
             const design = initialData.figmaDesign as any;
             if (design.thumbnail) setLogo(design.thumbnail);
             if (design.heroVideo) setHeroVideo(design.heroVideo);
+            if (design.subtitle) setHeroSubtitle(design.subtitle);
+            if (design.baseline) setHeroBaseline(design.baseline);
+            if (design.reviewLink) setHeroReviewLink(design.reviewLink);
         }
     }, [initialData]);
 
@@ -109,7 +115,10 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                 figmaDesign: {
                     ...currentFigmaDesign,
                     thumbnail: logo || currentFigmaDesign.thumbnail,
-                    heroVideo: heroVideo || currentFigmaDesign.heroVideo
+                    heroVideo: heroVideo || currentFigmaDesign.heroVideo,
+                    subtitle: heroSubtitle || null,
+                    baseline: heroBaseline || null,
+                    reviewLink: heroReviewLink || null,
                 },
             };
 
@@ -281,6 +290,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                 {errors.description && <span className="text-red-500 text-xs">{errors.description.message}</span>}
             </div>
 
+            {/* Tags */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Tags */}
                 <div className="space-y-2">
@@ -303,8 +313,48 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                 </div>
             </div>
 
+            {/* Hero Configuration */}
+            <div className="space-y-4 pt-6 border-t border-amber-900/20">
+                <h3 className="text-lg font-bold text-amber-500 flex items-center gap-2">
+                    <Sparkles className="w-5 h-5" />
+                    Hero Configuration
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                        <label className="text-amber-700 text-sm font-bold uppercase">Subtitle (Left)</label>
+                        <input
+                            value={heroSubtitle}
+                            onChange={(e) => setHeroSubtitle(e.target.value)}
+                            className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-amber-100 focus:border-amber-600 focus:outline-none transition-colors"
+                            placeholder="e.g. A Revolutionary E-commerce Platform"
+                        />
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-amber-700 text-sm font-bold uppercase">Baseline (Left)</label>
+                        <input
+                            value={heroBaseline}
+                            onChange={(e) => setHeroBaseline(e.target.value)}
+                            className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-amber-100 focus:border-amber-600 focus:outline-none transition-colors"
+                            placeholder="e.g. Redefining online shopping experiences."
+                        />
+                    </div>
+
+                    <div className="space-y-2 md:col-span-2">
+                        <label className="text-amber-700 text-sm font-bold uppercase">Review Link (Right)</label>
+                        <input
+                            value={heroReviewLink}
+                            onChange={(e) => setHeroReviewLink(e.target.value)}
+                            className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-amber-100 focus:border-amber-600 focus:outline-none transition-colors"
+                            placeholder="e.g. https://example.com/project-review"
+                        />
+                    </div>
+                </div>
+            </div>
+
             {/* Detailed Fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-amber-900/20">
                 <div className="space-y-2">
                     <label className="text-amber-700 text-sm font-bold uppercase">Challenge</label>
                     <textarea
@@ -423,6 +473,6 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                     {initialData ? "Update Project" : "Create Project"}
                 </button>
             </div>
-        </form>
+        </form >
     );
 }

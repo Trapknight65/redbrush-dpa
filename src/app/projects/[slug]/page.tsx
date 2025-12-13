@@ -26,11 +26,24 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
         ? (project.figmaDesign as any).heroVideo
         : null;
 
+    const subtitle = project.figmaDesign && typeof project.figmaDesign === 'object' && 'subtitle' in project.figmaDesign
+        ? (project.figmaDesign as any).subtitle
+        : null;
+
+    const baseline = project.figmaDesign && typeof project.figmaDesign === 'object' && 'baseline' in project.figmaDesign
+        ? (project.figmaDesign as any).baseline
+        : null;
+
+    const reviewLink = project.figmaDesign && typeof project.figmaDesign === 'object' && 'reviewLink' in project.figmaDesign
+        ? (project.figmaDesign as any).reviewLink
+        : null;
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-deep-sea to-ocean-blue text-white selection:bg-crimson-red selection:text-white">
 
             {/* 1. Hero Section */}
-            <section className="relative h-[40vh] min-h-[400px] w-full flex items-center justify-center overflow-hidden">
+            {/* 1. Hero Section */}
+            <section className="relative h-[50vh] min-h-[500px] w-full flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     {heroVideo ? (
                         <video
@@ -52,7 +65,7 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black opacity-30" />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/90" />
                 </div>
 
                 <div className="absolute top-6 left-6 z-20">
@@ -65,28 +78,57 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
                     </Link>
                 </div>
 
-                <div className="relative z-10 flex flex-col items-center justify-center text-center p-4 pt-10">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl border border-white/20 flex items-center justify-center mb-4 shadow-2xl shadow-crimson-red/20 transform hover:scale-105 transition-transform duration-500">
-                        {thumbnail ? (
-                            <div className="relative w-12 h-12 sm:w-16 sm:h-16 overflow-hidden rounded-xl">
-                                <Image
-                                    src={thumbnail}
-                                    alt="Logo"
-                                    fill
-                                    className="object-contain"
-                                />
+                <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 items-end pb-12">
+                    {/* Left Column: Logo, Title, Subtitle, Baseline */}
+                    <div className="flex flex-col items-start text-left space-y-6">
+                        {thumbnail && (
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl border border-white/20 flex items-center justify-center shadow-2xl shadow-crimson-red/20">
+                                <div className="relative w-10 h-10 sm:w-12 sm:h-12 overflow-hidden rounded-xl">
+                                    <Image
+                                        src={thumbnail}
+                                        alt="Logo"
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
                             </div>
-                        ) : (
-                            <Rocket className="w-10 h-10 text-white/80" />
                         )}
+
+                        <div>
+                            <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white mb-2 uppercase leading-none">
+                                {project.title}
+                            </h1>
+                            {subtitle && (
+                                <h2 className="text-xl sm:text-2xl text-white/90 font-light tracking-wide mb-2">
+                                    {subtitle}
+                                </h2>
+                            )}
+                            {baseline && (
+                                <p className="text-sm sm:text-base text-crimson-red font-mono tracking-widest uppercase mt-4 border-l-2 border-crimson-red pl-4">
+                                    {baseline}
+                                </p>
+                            )}
+                            <p className="text-xs text-white/40 font-mono tracking-widest uppercase mt-2">
+                                {project.category}
+                            </p>
+                        </div>
                     </div>
 
-                    <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white mb-2 uppercase">
-                        {project.title}
-                    </h1>
-                    <p className="text-base text-white/60 font-mono tracking-widest uppercase">
-                        {project.category}
-                    </p>
+                    {/* Right Column: Review Link */}
+                    <div className="flex flex-col items-start lg:items-end justify-end space-y-4">
+                        {reviewLink && (
+                            <a
+                                href={reviewLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative overflow-hidden rounded-full bg-white text-black px-8 py-4 font-bold tracking-wide transition-all hover:bg-gray-200 hover:scale-105 active:scale-95"
+                            >
+                                <span className="relative z-10 flex items-center gap-2">
+                                    Read Review <Rocket className="w-4 h-4" />
+                                </span>
+                            </a>
+                        )}
+                    </div>
                 </div>
             </section>
 
