@@ -17,6 +17,31 @@ interface CaseStudyBuilderProps {
     onChange: (data: CaseStudyData) => void;
 }
 
+const Input = ({ label, value, onChange, placeholder = "" }: { label: string, value: any, onChange: (val: string) => void, placeholder?: string }) => (
+    <div className="space-y-1">
+        <label className="text-xs font-bold text-amber-700 uppercase">{label}</label>
+        <input
+            type="text"
+            value={value || ""}
+            onChange={(e) => onChange(e.target.value)}
+            className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-sm focus:border-amber-600 focus:outline-none"
+            placeholder={placeholder}
+        />
+    </div>
+);
+
+const TextArea = ({ label, value, onChange, rows = 3 }: { label: string, value: any, onChange: (val: string) => void, rows?: number }) => (
+    <div className="space-y-1">
+        <label className="text-xs font-bold text-amber-700 uppercase">{label}</label>
+        <textarea
+            value={value || ""}
+            onChange={(e) => onChange(e.target.value)}
+            rows={rows}
+            className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-sm focus:border-amber-600 focus:outline-none"
+        />
+    </div>
+);
+
 export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderProps) {
     const [activeTab, setActiveTab] = useState("meta");
 
@@ -54,31 +79,6 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
         { id: "roadmap", label: "Roadmap", icon: MapIcon },
     ];
 
-    const Input = ({ label, value, onChangePath, placeholder = "" }: any) => (
-        <div className="space-y-1">
-            <label className="text-xs font-bold text-amber-700 uppercase">{label}</label>
-            <input
-                type="text"
-                value={value || ""}
-                onChange={(e) => update(onChangePath, e.target.value)}
-                className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-sm focus:border-amber-600 focus:outline-none"
-                placeholder={placeholder}
-            />
-        </div>
-    );
-
-    const TextArea = ({ label, value, onChangePath, rows = 3 }: any) => (
-        <div className="space-y-1">
-            <label className="text-xs font-bold text-amber-700 uppercase">{label}</label>
-            <textarea
-                value={value || ""}
-                onChange={(e) => update(onChangePath, e.target.value)}
-                rows={rows}
-                className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-sm focus:border-amber-600 focus:outline-none"
-            />
-        </div>
-    );
-
     return (
         <div className="border border-amber-900/30 rounded-lg overflow-hidden bg-black/20">
             {/* Tabs */}
@@ -91,8 +91,8 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
                             type="button"
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${activeTab === tab.id
-                                    ? "bg-amber-900/20 text-amber-500 border-b-2 border-amber-500"
-                                    : "text-gray-400 hover:text-amber-200 hover:bg-amber-900/10"
+                                ? "bg-amber-900/20 text-amber-500 border-b-2 border-amber-500"
+                                : "text-gray-400 hover:text-amber-200 hover:bg-amber-900/10"
                                 }`}
                         >
                             <Icon className="w-4 h-4" />
@@ -107,13 +107,13 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
                 {activeTab === "meta" && (
                     <div className="space-y-6">
                         <div className="grid grid-cols-2 gap-4">
-                            <Input label="Report Title" value={currentData.header?.reportTitle} onChangePath={['header', 'reportTitle']} placeholder="Development Process Report" />
-                            <Input label="Status Badge" value={currentData.header?.statusBadge} onChangePath={['header', 'statusBadge']} placeholder="Production Ready" />
+                            <Input label="Report Title" value={currentData.header?.reportTitle} onChange={(val) => update(['header', 'reportTitle'], val)} placeholder="Development Process Report" />
+                            <Input label="Status Badge" value={currentData.header?.statusBadge} onChange={(val) => update(['header', 'statusBadge'], val)} placeholder="Production Ready" />
                         </div>
                         <div className="grid grid-cols-3 gap-4">
-                            <Input label="Case Study Title" value={currentData.meta?.title} onChangePath={['meta', 'title']} />
-                            <Input label="Agency" value={currentData.meta?.agency} onChangePath={['meta', 'agency']} />
-                            <Input label="Date" value={currentData.meta?.date} onChangePath={['meta', 'date']} />
+                            <Input label="Case Study Title" value={currentData.meta?.title} onChange={(val) => update(['meta', 'title'], val)} />
+                            <Input label="Agency" value={currentData.meta?.agency} onChange={(val) => update(['meta', 'agency'], val)} />
+                            <Input label="Date" value={currentData.meta?.date} onChange={(val) => update(['meta', 'date'], val)} />
                         </div>
                     </div>
                 )}
@@ -123,8 +123,8 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
                         {/* Heritage */}
                         <div className="space-y-4">
                             <h4 className="text-amber-500 font-bold border-b border-amber-900/30 pb-2">Heritage</h4>
-                            <Input label="Title" value={currentData.overview?.heritage?.title} onChangePath={['overview', 'heritage', 'title']} />
-                            <TextArea label="Description" value={currentData.overview?.heritage?.description} onChangePath={['overview', 'heritage', 'description']} />
+                            <Input label="Title" value={currentData.overview?.heritage?.title} onChange={(val) => update(['overview', 'heritage', 'title'], val)} />
+                            <TextArea label="Description" value={currentData.overview?.heritage?.description} onChange={(val) => update(['overview', 'heritage', 'description'], val)} />
                             <div className="space-y-2">
                                 <label className="text-xs font-bold text-amber-700 uppercase">Key Stats/Items</label>
                                 {currentData.overview?.heritage?.items?.map((item, idx) => (
@@ -177,7 +177,7 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
                         {/* Mission */}
                         <div className="space-y-4">
                             <h4 className="text-amber-500 font-bold border-b border-amber-900/30 pb-2">Mission</h4>
-                            <TextArea label="Statement" value={currentData.overview?.mission?.statement} onChangePath={['overview', 'mission', 'statement']} />
+                            <TextArea label="Statement" value={currentData.overview?.mission?.statement} onChange={(val) => update(['overview', 'mission', 'statement'], val)} />
                             <div className="space-y-2">
                                 <label className="text-xs font-bold text-amber-700 uppercase">Mission Stats</label>
                                 {currentData.overview?.mission?.stats?.map((stat, idx) => (
@@ -446,7 +446,7 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
 
                 {activeTab === "roadmap" && (
                     <div className="space-y-6">
-                        <Input label="Current Status" value={currentData.roadmap?.status} onChangePath={['roadmap', 'status']} placeholder="Active Development" />
+                        <Input label="Current Status" value={currentData.roadmap?.status} onChange={(val) => update(['roadmap', 'status'], val)} placeholder="Active Development" />
 
                         {/* Status Sections Helper */}
                         {['performance', 'security', 'features'].map((sectionKey) => (
