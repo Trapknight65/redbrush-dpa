@@ -4,8 +4,11 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { createProject, updateProject } from "@/actions/project.actions";
 import { useState, useEffect } from "react";
-import { Loader2, Save } from "lucide-react";
+import { Loader2, Save, Sparkles } from "lucide-react";
+import { generateProjectContent } from "@/actions/ai.actions";
+import { toast } from "sonner";
 import ImageUpload from "./ImageUpload";
+import VideoUpload from "./VideoUpload";
 
 type ProjectFormData = {
     title: string;
@@ -36,6 +39,7 @@ interface ProjectFormProps {
 export default function ProjectForm({ initialData }: ProjectFormProps) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const [isGenerating, setIsGenerating] = useState(false);
     const [error, setError] = useState("");
 
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<ProjectFormData>({
@@ -67,13 +71,13 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
     }, [titleValue, initialData, setValue]);
 
     const [logo, setLogo] = useState<string>("");
+    const [heroVideo, setHeroVideo] = useState<string>("");
 
     useEffect(() => {
         if (initialData?.figmaDesign && typeof initialData.figmaDesign === 'object') {
             const design = initialData.figmaDesign as any;
-            if (design.thumbnail) {
-                setLogo(design.thumbnail);
-            }
+            if (design.thumbnail) setLogo(design.thumbnail);
+            if (design.heroVideo) setHeroVideo(design.heroVideo);
         }
     }, [initialData]);
 
@@ -104,7 +108,8 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                 gallery: initialData?.gallery || [],
                 figmaDesign: {
                     ...currentFigmaDesign,
-                    thumbnail: logo || currentFigmaDesign.thumbnail
+                    thumbnail: logo || currentFigmaDesign.thumbnail,
+                    heroVideo: heroVideo || currentFigmaDesign.heroVideo
                 },
             };
 
@@ -126,6 +131,37 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
             console.error(err);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleGenerate = async () => {
+        const title = watch("title");
+        const category = watch("category");
+
+        if (!title || !category) {
+            toast.error("Please enter a Title and Category first.");
+            return;
+        }
+
+        setIsGenerating(true);
+        try {
+            const result = await generateProjectContent(title, category);
+
+            if (result.success && result.data) {
+                setValue("description", result.data.description);
+                setValue("challenge", result.data.challenge);
+                setValue("solution", result.data.solution);
+                setValue("tech", result.data.tech);
+                setValue("tags", result.data.tags);
+                toast.success("Content generated successfully using Gemini AI!");
+            } else {
+                toast.error(result.error || "Failed to generate content");
+            }
+        } catch (err) {
+            toast.error("Something went wrong with AI generation");
+            console.error(err);
+        } finally {
+            setIsGenerating(false);
         }
     };
 
@@ -183,6 +219,23 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                     {errors.image && <span className="text-red-500 text-xs">{errors.image.message}</span>}
                 </div>
 
+                {/* Hero Video */}
+                <div className="space-y-2">
+                    <label className="text-amber-700 text-sm font-bold uppercase">Hero Video (Optional)</label>
+                    <div className="flex items-center gap-4">
+                        <div className="flex-1">
+                            <VideoUpload
+                                value={heroVideo}
+                                onChange={(url) => setHeroVideo(url)}
+                                onRemove={() => setHeroVideo("")}
+                            />
+                        </div>
+                        <div className="text-xs text-gray-500 max-w-[200px]">
+                            Upload a background video (MP4/WebM). This will replace the image in the Hero section.
+                        </div>
+                    </div>
+                </div>
+
                 {/* Logo (Mapped to figmaDesign.thumbnail) */}
                 <div className="space-y-2">
                     <label className="text-amber-700 text-sm font-bold uppercase">Project Logo</label>
@@ -203,7 +256,22 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
 
             {/* Description */}
             <div className="space-y-2">
-                <label className="text-amber-700 text-sm font-bold uppercase">Description</label>
+                <div className="flex items-center justify-between">
+                    <label className="text-amber-700 text-sm font-bold uppercase">Description</label>
+                    <button
+                        type="button"
+                        onClick={handleGenerate}
+                        disabled={isGenerating}
+                        className="flex items-center gap-2 text-xs bg-amber-900/30 text-amber-200 px-3 py-1.5 rounded hover:bg-amber-900/50 transition-colors disabled:opacity-50"
+                    >
+                        {isGenerating ? (
+                            <Loader2 className="w-3 h-3 animate-spin" />
+                        ) : (
+                            <Sparkles className="w-3 h-3" />
+                        )}
+                        {isGenerating ? "Generating..." : "Magic Generate"}
+                    </button>
+                </div>
                 <textarea
                     {...register("description", { required: "Description is required" })}
                     rows={4}
