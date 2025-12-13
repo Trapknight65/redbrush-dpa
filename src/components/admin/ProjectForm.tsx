@@ -74,7 +74,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
     const [heroVideo, setHeroVideo] = useState<string>("");
     const [heroSubtitle, setHeroSubtitle] = useState<string>("");
     const [heroBaseline, setHeroBaseline] = useState<string>("");
-    const [heroReviewLink, setHeroReviewLink] = useState<string>("");
+    const [heroPreviewLink, setHeroPreviewLink] = useState<string>("");
 
     useEffect(() => {
         if (initialData?.figmaDesign && typeof initialData.figmaDesign === 'object') {
@@ -83,7 +83,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
             if (design.heroVideo) setHeroVideo(design.heroVideo);
             if (design.subtitle) setHeroSubtitle(design.subtitle);
             if (design.baseline) setHeroBaseline(design.baseline);
-            if (design.reviewLink) setHeroReviewLink(design.reviewLink);
+            if (design.previewLink) setHeroPreviewLink(design.previewLink);
         }
     }, [initialData]);
 
@@ -118,7 +118,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                     heroVideo: heroVideo || currentFigmaDesign.heroVideo,
                     subtitle: heroSubtitle || null,
                     baseline: heroBaseline || null,
-                    reviewLink: heroReviewLink || null,
+                    previewLink: heroPreviewLink || null,
                 },
             };
 
@@ -342,12 +342,12 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                     </div>
 
                     <div className="space-y-2 md:col-span-2">
-                        <label className="text-amber-700 text-sm font-bold uppercase">Review Link (Right)</label>
+                        <label className="text-amber-700 text-sm font-bold uppercase">Preview Link (Right)</label>
                         <input
-                            value={heroReviewLink}
-                            onChange={(e) => setHeroReviewLink(e.target.value)}
+                            value={heroPreviewLink}
+                            onChange={(e) => setHeroPreviewLink(e.target.value)}
                             className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-3 text-amber-100 focus:border-amber-600 focus:outline-none transition-colors"
-                            placeholder="e.g. https://example.com/project-review"
+                            placeholder="e.g. https://example.com/project-preview"
                         />
                     </div>
                 </div>

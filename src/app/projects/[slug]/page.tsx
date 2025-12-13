@@ -34,8 +34,8 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
         ? (project.figmaDesign as any).baseline
         : null;
 
-    const reviewLink = project.figmaDesign && typeof project.figmaDesign === 'object' && 'reviewLink' in project.figmaDesign
-        ? (project.figmaDesign as any).reviewLink
+    const previewLink = project.figmaDesign && typeof project.figmaDesign === 'object' && 'previewLink' in project.figmaDesign
+        ? (project.figmaDesign as any).previewLink
         : null;
 
     return (
@@ -114,17 +114,17 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
                         </div>
                     </div>
 
-                    {/* Right Column: Review Link */}
+                    {/* Right Column: Preview Link */}
                     <div className="flex flex-col items-start lg:items-end justify-end space-y-4">
-                        {reviewLink && (
+                        {previewLink && (
                             <a
-                                href={reviewLink}
+                                href={previewLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="group relative overflow-hidden rounded-full bg-white text-black px-8 py-4 font-bold tracking-wide transition-all hover:bg-gray-200 hover:scale-105 active:scale-95"
                             >
                                 <span className="relative z-10 flex items-center gap-2">
-                                    Read Review <Rocket className="w-4 h-4" />
+                                    Live Preview <Rocket className="w-4 h-4" />
                                 </span>
                             </a>
                         )}
