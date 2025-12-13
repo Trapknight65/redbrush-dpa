@@ -48,9 +48,7 @@ export interface CaseStudyData {
         other?: { title: string; description: string }[];
         status: string;
     };
-    deployment?: {
-        steps: { title: string; description: string; notes?: { title: string; text: string }[] }[];
-    };
+
     deployment?: {
         steps: { title: string; description: string; points?: { label?: string; text: string }[]; notes?: { title: string; text: string }[] }[];
     };
