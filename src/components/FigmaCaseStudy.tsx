@@ -43,7 +43,13 @@ export interface CaseStudyData {
         performance: { title: string; description: string }[];
         security: { title: string; description: string }[];
         features: { title: string; description: string }[];
+        ux?: { title: string; description: string }[];
+        seo?: { title: string; description: string }[];
+        other?: { title: string; description: string }[];
         status: string;
+    };
+    deployment?: {
+        steps: { title: string; description: string; notes?: { title: string; text: string }[] }[];
     };
     deployment?: {
         steps: { title: string; description: string; points?: { label?: string; text: string }[]; notes?: { title: string; text: string }[] }[];
@@ -341,65 +347,40 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                     Future Development Roadmap
                                 </h3>
                                 <div className="space-y-4">
-                                    <div className="content-card">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <Rocket className="w-5 h-5 text-gold" />
-                                            <h4 className="text-white font-bold">
-                                                Performance & Optimizations
-                                            </h4>
-                                        </div>
-                                        <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            {data?.roadmap?.performance?.map((item, i) => (
-                                                <li key={i} className="flex items-start gap-2">
-                                                    <span className="text-sunset-gold">□</span>
-                                                    <span>
-                                                        <strong className="text-white">{item.title}:</strong>{" "}
-                                                        {item.description}
-                                                    </span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                    {/* Roadmap Sections */}
+                                    {[
+                                        { key: 'performance', title: 'Performance & Optimizations', icon: Rocket },
+                                        { key: 'security', title: 'Security Enhancements', icon: Shield },
+                                        { key: 'features', title: 'Feature Roadmap', icon: Code },
+                                        { key: 'ux', title: 'UX/UI Improvements', icon: Layout },
+                                        { key: 'seo', title: 'SEO Strategy', icon: Globe },
+                                        { key: 'other', title: 'Other Initaives', icon: Zap },
+                                    ].map((section) => {
+                                        const items = data?.roadmap?.[section.key as keyof typeof data.roadmap] as any[];
+                                        if (!items || items.length === 0) return null;
 
-                                    <div className="content-card">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <Shield className="w-5 h-5 text-gold" />
-                                            <h4 className="text-white font-bold">
-                                                Security Enhancements
-                                            </h4>
-                                        </div>
-                                        <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            {data?.roadmap?.security?.map((item, i) => (
-                                                <li key={i} className="flex items-start gap-2">
-                                                    <span className="text-gold">□</span>
-                                                    <span>
-                                                        <strong className="text-white">{item.title}:</strong>{" "}
-                                                        {item.description}
-                                                    </span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    <div className="content-card">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <Code className="w-5 h-5 text-gold" />
-                                            <h4 className="text-white font-bold">
-                                                Feature Roadmap
-                                            </h4>
-                                        </div>
-                                        <ul className="space-y-2 text-fog ml-7 text-sm">
-                                            {data?.roadmap?.features?.map((item, i) => (
-                                                <li key={i} className="flex items-start gap-2">
-                                                    <span className="text-gold">□</span>
-                                                    <span>
-                                                        <strong className="text-white">{item.title}:</strong>{" "}
-                                                        {item.description}
-                                                    </span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                        return (
+                                            <div key={section.key} className="content-card">
+                                                <div className="flex items-center gap-2 mb-3">
+                                                    <section.icon className="w-5 h-5 text-gold" />
+                                                    <h4 className="text-white font-bold">
+                                                        {section.title}
+                                                    </h4>
+                                                </div>
+                                                <ul className="space-y-2 text-fog ml-7 text-sm">
+                                                    {items.map((item, i) => (
+                                                        <li key={i} className="flex items-start gap-2">
+                                                            <span className="text-gold">□</span>
+                                                            <span>
+                                                                <strong className="text-white">{item.title}:</strong>{" "}
+                                                                {item.description}
+                                                            </span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        );
+                                    })}
 
                                     <div className="content-card bg-deep-sea/5 border border-deep-sea/20">
                                         <p className="text-fog text-sm">

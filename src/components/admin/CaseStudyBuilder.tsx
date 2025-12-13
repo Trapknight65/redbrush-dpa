@@ -9,7 +9,11 @@ import {
     Map as MapIcon,
     Settings,
     Plus,
-    Trash2
+    Trash2,
+    ChevronDown,
+    ChevronUp,
+    CheckSquare,
+    Square
 } from "lucide-react";
 
 interface CaseStudyBuilderProps {
@@ -53,7 +57,15 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
             overview: { heritage: { title: "", description: "", items: [] }, mission: { statement: "", stats: [] } },
             architecture: { coreStack: [], decisions: [] },
             features: { items: [] },
-            roadmap: { performance: [], security: [], features: [], status: "" }
+            roadmap: {
+                performance: [],
+                security: [],
+                features: [],
+                ux: [],
+                seo: [],
+                other: [],
+                status: ""
+            }
         };
     };
 
@@ -77,6 +89,7 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
         { id: "architecture", label: "Architecture", icon: Layers },
         { id: "features", label: "Features", icon: Box },
         { id: "roadmap", label: "Roadmap", icon: MapIcon },
+        { id: "deployment", label: "Next Steps", icon: Globe },
     ];
 
     return (
@@ -448,58 +461,222 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
                     <div className="space-y-6">
                         <Input label="Current Status" value={currentData.roadmap?.status} onChange={(val) => update(['roadmap', 'status'], val)} placeholder="Active Development" />
 
-                        {/* Status Sections Helper */}
-                        {['performance', 'security', 'features'].map((sectionKey) => (
-                            <div key={sectionKey} className="space-y-3">
-                                <h4 className="text-amber-500 font-bold capitalize border-b border-amber-900/30 pb-1">{sectionKey}</h4>
-                                {(currentData.roadmap?.[sectionKey as keyof typeof currentData.roadmap] as any[])?.map((item, idx) => (
-                                    <div key={idx} className="flex gap-2 items-start">
-                                        <div className="flex-1 space-y-1">
-                                            <input
-                                                placeholder="Title"
-                                                value={item.title}
-                                                onChange={(e) => {
-                                                    const newSection = [...(currentData.roadmap[sectionKey as keyof typeof currentData.roadmap] as any[])];
-                                                    newSection[idx] = { ...newSection[idx], title: e.target.value };
-                                                    update(['roadmap', sectionKey], newSection);
-                                                }}
-                                                className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-sm"
-                                            />
-                                            <input
-                                                placeholder="Description"
-                                                value={item.description}
-                                                onChange={(e) => {
-                                                    const newSection = [...(currentData.roadmap[sectionKey as keyof typeof currentData.roadmap] as any[])];
-                                                    newSection[idx] = { ...newSection[idx], description: e.target.value };
-                                                    update(['roadmap', sectionKey], newSection);
-                                                }}
-                                                className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-xs"
-                                            />
+                        <div className="space-y-4">
+                            <h4 className="text-amber-500 font-bold border-b border-amber-900/30 pb-2">Modules Configuration</h4>
+
+                            {/* Roadmap Sections Loop */}
+                            {[
+                                { key: 'performance', label: 'Performance' },
+                                { key: 'security', label: 'Security' },
+                                { key: 'features', label: 'Features' },
+                                { key: 'ux', label: 'UX/UI' },
+                                { key: 'seo', label: 'SEO' },
+                                { key: 'other', label: 'Other' },
+                            ].map((section) => {
+                                const sectionKey = section.key as keyof typeof currentData.roadmap;
+                                const isActive = Array.isArray(currentData.roadmap?.[sectionKey]);
+                                const items = (currentData.roadmap?.[sectionKey] as any[]) || [];
+
+                                // Local state for collapse (using a simplistic approach since we can't easily add state hooks inside map here without refactor, 
+                                // but we can use details/summary element for native behavior or just always show if active)
+                                // Standard details/summary is reliable.
+
+                                return (
+                                    <div key={section.key} className={`border ${isActive ? 'border-amber-900/40 bg-black/40' : 'border-dashed border-gray-800 opacity-60'} rounded-lg overflow-hidden transition-all`}>
+                                        <div className="flex items-center justify-between p-3 bg-[#151212]">
+                                            <div className="flex items-center gap-3">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        if (isActive) {
+                                                            // Optional: Confirm delete? For now just direct update.
+                                                            update(['roadmap', section.key], undefined); // or [] if we want to keep it but empty
+                                                        } else {
+                                                            update(['roadmap', section.key], []);
+                                                        }
+                                                    }}
+                                                    className={`transition-colors ${isActive ? "text-amber-500" : "text-gray-600 hover:text-gray-400"}`}
+                                                >
+                                                    {isActive ? <CheckSquare className="w-5 h-5" /> : <Square className="w-5 h-5" />}
+                                                </button>
+                                                <span className={`font-bold ${isActive ? 'text-gray-200' : 'text-gray-500'}`}>{section.label}</span>
+                                            </div>
+                                            {isActive && (
+                                                <span className="text-xs text-gray-500">{items.length} items</span>
+                                            )}
                                         </div>
+
+                                        {isActive && (
+                                            <div className="p-4 border-t border-amber-900/20 space-y-3">
+                                                {items.map((item, idx) => (
+                                                    <div key={idx} className="flex gap-2 items-start group">
+                                                        <div className="flex-1 space-y-2">
+                                                            <div className="flex gap-2">
+                                                                <input
+                                                                    placeholder="Title"
+                                                                    value={item.title}
+                                                                    onChange={(e) => {
+                                                                        const newSection = [...items];
+                                                                        newSection[idx] = { ...newSection[idx], title: e.target.value };
+                                                                        update(['roadmap', section.key], newSection);
+                                                                    }}
+                                                                    className="w-1/3 bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-sm focus:border-amber-600 focus:outline-none"
+                                                                />
+                                                                <input
+                                                                    placeholder="Description"
+                                                                    value={item.description}
+                                                                    onChange={(e) => {
+                                                                        const newSection = [...items];
+                                                                        newSection[idx] = { ...newSection[idx], description: e.target.value };
+                                                                        update(['roadmap', section.key], newSection);
+                                                                    }}
+                                                                    className="flex-1 bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-sm focus:border-amber-600 focus:outline-none"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                const newSection = items.filter((_, i) => i !== idx);
+                                                                update(['roadmap', section.key], newSection);
+                                                            }}
+                                                            className="text-gray-600 hover:text-red-500 p-2"
+                                                        >
+                                                            <Trash2 className="w-4 h-4" />
+                                                        </button>
+                                                    </div>
+                                                ))}
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const newItems = [...items, { title: "", description: "" }];
+                                                        update(['roadmap', section.key], newItems);
+                                                    }}
+                                                    className="w-full py-2 border border-dashed border-amber-900/30 text-amber-700 hover:text-amber-500 hover:border-amber-600/50 rounded text-xs flex items-center justify-center gap-2 transition-all"
+                                                >
+                                                    <Plus className="w-3 h-3" /> Add Item
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+                {activeTab === "deployment" && (
+                    <div className="space-y-6">
+                        <div className="space-y-4">
+                            <h4 className="text-amber-500 font-bold border-b border-amber-900/30 pb-2">Deployment Steps</h4>
+                            {(currentData.deployment?.steps || []).map((step, idx) => (
+                                <div key={idx} className="border border-amber-900/20 p-4 rounded bg-black/20 space-y-3">
+                                    <div className="flex justify-between">
+                                        <h5 className="text-amber-300 font-bold text-sm">Step #{idx + 1}</h5>
                                         <button
                                             type="button"
                                             onClick={() => {
-                                                const newSection = (currentData.roadmap[sectionKey as keyof typeof currentData.roadmap] as any[]).filter((_, i) => i !== idx);
-                                                update(['roadmap', sectionKey], newSection);
+                                                const newSteps = (currentData.deployment?.steps || []).filter((_, i) => i !== idx);
+                                                update(['deployment', 'steps'], newSteps);
                                             }}
-                                            className="text-red-500 hover:text-red-400 mt-2"
+                                            className="text-red-500 hover:text-red-400"
                                         >
                                             <Trash2 className="w-4 h-4" />
                                         </button>
                                     </div>
-                                ))}
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        const currentSection = (currentData.roadmap && currentData.roadmap[sectionKey as keyof typeof currentData.roadmap]) as any[] || [];
-                                        update(['roadmap', sectionKey], [...currentSection, { title: "", description: "" }]);
-                                    }}
-                                    className="text-xs text-amber-600 hover:text-amber-500"
-                                >
-                                    + Add {sectionKey} Item
-                                </button>
-                            </div>
-                        ))}
+                                    <div className="space-y-3">
+                                        <Input
+                                            label="Title"
+                                            value={step.title}
+                                            onChange={(val) => {
+                                                const newSteps = [...(currentData.deployment?.steps || [])];
+                                                newSteps[idx] = { ...newSteps[idx], title: val };
+                                                update(['deployment', 'steps'], newSteps);
+                                            }}
+                                        />
+                                        <TextArea
+                                            label="Description"
+                                            value={step.description}
+                                            onChange={(val) => {
+                                                const newSteps = [...(currentData.deployment?.steps || [])];
+                                                newSteps[idx] = { ...newSteps[idx], description: val };
+                                                update(['deployment', 'steps'], newSteps);
+                                            }}
+                                        />
+
+                                        {/* Notes Section */}
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-amber-700 uppercase">Notes / Warnings</label>
+                                            {(step.notes || []).map((note, nIdx) => (
+                                                <div key={nIdx} className="flex gap-2 items-start bg-black/40 p-2 rounded">
+                                                    <div className="flex-1 space-y-1">
+                                                        <input
+                                                            placeholder="Note Title (e.g. Warning)"
+                                                            value={note.title}
+                                                            onChange={(e) => {
+                                                                const newSteps = [...(currentData.deployment?.steps || [])];
+                                                                const newNotes = [...(newSteps[idx].notes || [])];
+                                                                newNotes[nIdx] = { ...newNotes[nIdx], title: e.target.value };
+                                                                newSteps[idx].notes = newNotes;
+                                                                update(['deployment', 'steps'], newSteps);
+                                                            }}
+                                                            className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-xs mb-1"
+                                                        />
+                                                        <textarea
+                                                            placeholder="Note Text"
+                                                            value={note.text}
+                                                            onChange={(e) => {
+                                                                const newSteps = [...(currentData.deployment?.steps || [])];
+                                                                const newNotes = [...(newSteps[idx].notes || [])];
+                                                                newNotes[nIdx] = { ...newNotes[nIdx], text: e.target.value };
+                                                                newSteps[idx].notes = newNotes;
+                                                                update(['deployment', 'steps'], newSteps);
+                                                            }}
+                                                            className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-xs"
+                                                            rows={2}
+                                                        />
+                                                    </div>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            const newSteps = [...(currentData.deployment?.steps || [])];
+                                                            const newNotes = (newSteps[idx].notes || []).filter((_, i) => i !== nIdx);
+                                                            newSteps[idx].notes = newNotes;
+                                                            update(['deployment', 'steps'], newSteps);
+                                                        }}
+                                                        className="text-red-500 hover:text-red-400 p-1"
+                                                    >
+                                                        <Trash2 className="w-3 h-3" />
+                                                    </button>
+                                                </div>
+                                            ))}
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const newSteps = [...(currentData.deployment?.steps || [])];
+                                                    if (!newSteps[idx].notes) newSteps[idx].notes = [];
+                                                    newSteps[idx].notes.push({ title: "", text: "" });
+                                                    update(['deployment', 'steps'], newSteps);
+                                                }}
+                                                className="text-xs text-amber-600 hover:text-amber-500 flex items-center gap-1"
+                                            >
+                                                <Plus className="w-3 h-3" /> Add Note
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    const newSteps = [...(currentData.deployment?.steps || []), { title: "", description: "", notes: [] }];
+                                    update(['deployment', 'steps'], newSteps);
+                                }}
+                                className="bg-amber-900/20 text-amber-500 px-4 py-2 rounded text-sm w-full border border-amber-900/30 hover:bg-amber-900/30"
+                            >
+                                + Add Deployment Step
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>
