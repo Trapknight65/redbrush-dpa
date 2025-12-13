@@ -13,7 +13,26 @@ import {
     ChevronDown,
     ChevronUp,
     CheckSquare,
-    Square
+    Square,
+    Globe,
+    UserRoundCog,
+    PersonStanding,
+    FerrisWheel
+    Radar,
+    Map,
+    ShipWheel,
+    Route,
+    Snail,
+    Linkedin,
+    Brush,
+    TabletSmartphone,
+    Zap,
+    Hop,
+    TreePalm,
+    Box, Boxes,
+    Wind,
+
+
 } from "lucide-react";
 
 interface CaseStudyBuilderProps {
