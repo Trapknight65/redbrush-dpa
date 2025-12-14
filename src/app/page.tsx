@@ -12,9 +12,9 @@ export default async function Home() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <HeroParallax>
-        <div className="grid grid-cols-[70%_30%] sm:grid-cols-2 gap-2 sm:gap-12 items-center">
+        <div className="flex flex-col sm:grid sm:grid-cols-2 gap-8 sm:gap-12 items-center">
           {/* Left: Hero Content */}
-          <div className="text-left w-full pr-2">
+          <div className="text-left w-full pr-2 order-1">
             <h1 className="text-xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-6 leading-tight">
               <BrushCreate text="We Build Vessels for" className="block" delay={0.2} />
               <span className="text-crimson-red block">The New Era</span>
@@ -25,7 +25,7 @@ export default async function Home() {
           </div>
 
           {/* Right: Craft Bento (Beside Title) */}
-          <div className="w-full h-auto">
+          <div className="w-full h-auto order-2 mt-4 sm:mt-0">
             <CraftBento />
           </div>
         </div>
