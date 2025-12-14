@@ -4,12 +4,10 @@ import BrushCreate from "@/components/ui/BrushCreate";
 import HeroSlider from "@/components/HeroSlider";
 import { getProfile } from "@/actions/profile.actions";
 import HeroParallax from "@/components/HeroParallax";
-import ProjectBento from "@/components/ProjectBento";
-import { getProjects } from "@/actions/project.actions";
+import CraftBento from "@/components/CraftBento";
 
 export default async function Home() {
   const { data: profile } = await getProfile();
-  const { data: projects } = await getProjects();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -39,7 +37,7 @@ export default async function Home() {
           <span className="text-redbrush-gradient bg-clip-text text-transparent">Our Craft</span>
         </h2>
 
-        <ProjectBento projects={projects || []} />
+        <CraftBento />
       </section>
 
       {/* Hero Slider Section (Repositioned) */}
