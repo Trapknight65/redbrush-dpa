@@ -171,7 +171,7 @@ export default async function ProjectDetails({ params }: { params: Promise<{ slu
                         </div>
 
                         {/* Similar Projects / CTA & Gallery Wrapper */}
-                        <ProjectGalleryWrapper gallery={(!caseStudyData?.visuals && project.gallery) ? project.gallery : []}>
+                        <ProjectGalleryWrapper gallery={project.gallery || []}>
                             <div className="relative overflow-hidden rounded-2xl group border border-crimson-red/20">
                                 <div className="absolute inset-0 bg-gradient-to-br from-crimson-red/10 to-black transition-opacity duration-500" />
                                 <div className="absolute -right-10 -top-10 w-32 h-32 bg-crimson-red/20 blur-[60px]" />
