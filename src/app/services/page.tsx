@@ -2,6 +2,7 @@ import Card from "@/components/Card";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { getServices } from "@/actions/service.actions";
+import ServiceBento from "@/components/ServiceBento";
 import * as LucideIcons from "lucide-react";
 
 // Helper to render icon dynamically
@@ -29,68 +30,8 @@ export default async function Services() {
                 </div>
             </section>
 
-            {/* Services Grid (Bento Style) */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-fr">
-                    {services?.map((service: any, index: number) => {
-                        // Bento Logic: First item spans 2 cols, 4th item spans 2 cols, etc.
-                        const isWide = index === 0 || index === 3 || index === 6;
-
-                        return (
-                            <Card
-                                key={service.id}
-                                className={`
-                                    flex flex-col h-full border border-white/10 bg-black/40 backdrop-blur-md 
-                                    hover:border-crimson-red/50 transition-all duration-300 shadow-xl hover:shadow-crimson-red/20
-                                    group relative overflow-hidden
-                                    ${isWide ? 'md:col-span-2' : ''}
-                                `}
-                            >
-                                {/* Decorative Gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-crimson-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                                <div className="text-crimson-red mb-6 flex justify-between items-start relative z-10">
-                                    <div className="p-3 bg-white/5 rounded-2xl border border-white/10 group-hover:scale-110 transition-transform duration-300">
-                                        <IconRenderer name={service.icon} className="w-8 h-8 sm:w-10 sm:h-10" />
-                                    </div>
-                                    <span className="text-4xl font-black text-white/5">{String(index + 1).padStart(2, '0')}</span>
-                                </div>
-
-                                <h3 className="text-2xl sm:text-3xl font-black text-white mb-4 relative z-10 uppercase tracking-tight">
-                                    {service.title}
-                                </h3>
-
-                                <p className="text-gray-400 mb-6 flex-grow text-sm sm:text-base relative z-10 leading-relaxed group-hover:text-gray-300 transition-colors">
-                                    {service.description}
-                                </p>
-
-                                <div className="mt-auto relative z-10">
-                                    <div className="h-px w-full bg-gradient-to-r from-crimson-red/50 to-transparent mb-4" />
-                                    <h4 className="text-xs font-bold text-crimson-red mb-3 uppercase tracking-widest flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-crimson-red animate-pulse" />
-                                        Includes
-                                    </h4>
-                                    <ul className={`grid ${isWide ? 'grid-cols-2 gap-x-4' : 'grid-cols-1'} gap-y-2`}>
-                                        {service.features.map((feature: string, idx: number) => (
-                                            <li key={idx} className="text-sm text-gray-400 flex items-center gap-2 group-hover:text-gray-300 transition-colors">
-                                                <div className="w-1 h-1 bg-crimson-red rounded-full" />
-                                                {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </Card>
-                        );
-                    })}
-                    {!services?.length && (
-                        <div className="col-span-full text-center py-20 border border-dashed border-white/10 rounded-3xl">
-                            <LucideIcons.Ghost className="w-12 h-12 text-white/20 mx-auto mb-4" />
-                            <h3 className="text-xl text-gray-400 font-bold mb-2">No Services Found</h3>
-                            <p className="text-gray-600">Head to the Admin Panel to add your services.</p>
-                        </div>
-                    )}
-                </div>
-            </section>
+            {/* Services Grid (Bento Slider) */}
+            <ServiceBento services={services || []} />
 
             {/* Process Section */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
