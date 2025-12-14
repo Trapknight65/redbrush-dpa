@@ -28,12 +28,13 @@ export default function ProjectBento({ projects }: { projects: Project[] }) {
                             // Hovered: flex-[3.14] (Pi) for impact, neighbors flex-1
 
                             return (
-                                <div
+                                <Link
                                     key={project.id}
+                                    href={`/projects/${project.slug}`}
                                     onMouseEnter={() => setHoveredIndex(actualIndex)}
                                     onMouseLeave={() => setHoveredIndex(null)}
                                     className={cn(
-                                        "relative border-none overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group cursor-pointer rounded-2xl",
+                                        "relative border-none overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group cursor-pointer rounded-2xl block",
                                         "flex-1", // Default
                                         isHovered ? "md:flex-[3.14]" : "md:flex-1"
                                     )}
@@ -91,14 +92,14 @@ export default function ProjectBento({ projects }: { projects: Project[] }) {
                                                 ))}
                                             </div>
 
-                                            <Link href={`/projects/${project.slug}`} className="mt-2 w-fit">
+                                            <div className="mt-2 w-fit">
                                                 <Button variant="secondary" className="bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-crimson-red hover:border-crimson-red transition-all">
                                                     View Case Study
                                                 </Button>
-                                            </Link>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             );
                         })}
                     </div>

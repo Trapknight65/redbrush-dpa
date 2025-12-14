@@ -1,5 +1,5 @@
 # Redbrush Development Report & Recap
-**Date:** 2025-12-13
+**Date:** 2025-12-14
 
 ## Executive Summary
 Recent development cycles have focused on two primary objectives: stabilizing the backend infrastructure and establishing a unique, high-fidelity visual identity ("Fude Fude no Mi"). The application has been upgraded with a cohesive dark-themed aesthetic, custom animations, and a polished administrative interface, while underlying database connection issues have been resolved.
@@ -54,6 +54,18 @@ Recent development cycles have focused on two primary objectives: stabilizing th
 -   **Golden Ratio & Pi:** Used `Pi (3.14)` and Golden Ratio logic for expansion factors to create organic movement.
 -   **Visual Rhythm:** Split layouts (Text on Left/Right, Bento on Right/Left) to reduce visual monotony and improve readability.
 -   **Progressive Disclosure:** Content details are revealed only on hover, maintaining a clean initial view.
+
+### 9. UI Polish & Mobile Refinements (Dec 14 Update)
+-   **Craft Bento Refinements**:
+    -   Implemented "Floating Icons" design for default state (frameless, asynchronous bounce).
+    -   Mobile: Optimized to single-line icons with tap-to-expand functionality.
+-   **Service Bento Enhancements**:
+    -   Added "Unbox" hover effect (icon borders disappear on hover).
+    -   Fixed text overlay issues.
+    -   Mobile: Default state shows boxed icons; expansion reveals full details.
+-   **Mobile UX Overhaul**:
+    -   **Home Page**: Stacked Hero text and Bento vertically for better mobile readability.
+    -   **Clickable Cards**: Made entire Project Bento cards clickable (wrapped in `Link`) to improve mobile navigation reliability.
 
 ## Technical Snapshot
 - **Framework:** Next.js (App Router)
