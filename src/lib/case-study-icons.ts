@@ -1,5 +1,7 @@
-// General & UI
-Search, Menu, X, Check, CheckCircle2, AlertCircle, AlertTriangle, Plus, Minus, Settings,
+import {
+    LucideIcon,
+    // General & UI
+    Search, Menu, X, Check, CheckCircle2, AlertCircle, AlertTriangle, Plus, Minus, Settings,
     User, Users, LogIn, LogOut, Mail, Phone, Calendar, Clock, MapPin, Home,
     ChevronRight, ChevronLeft, ChevronDown, ChevronUp, ArrowRight, ArrowLeft,
     Edit, Trash2, Save, Download, Upload, Share2, Link, ExternalLink,
