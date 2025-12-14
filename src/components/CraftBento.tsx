@@ -42,7 +42,8 @@ export default function CraftBento() {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
     return (
-        <div className="flex flex-col md:flex-row gap-4 h-auto md:h-[270px] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 cursor-pointer">
+    return (
+        <div className="flex flex-col md:flex-row gap-4 h-full w-full max-w-7xl mx-auto px-2 sm:px-0 cursor-pointer">
             {craftItems.map((item, idx) => {
                 const isHovered = hoveredIndex === idx;
 
@@ -52,7 +53,7 @@ export default function CraftBento() {
                         onMouseEnter={() => setHoveredIndex(idx)}
                         onMouseLeave={() => setHoveredIndex(null)}
                         className={cn(
-                            "relative border border-white/10 bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group cursor-pointer flex flex-col justify-between",
+                            "relative border border-white/10 bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group cursor-pointer flex flex-col justify-between min-h-[180px]",
                             "flex-1", // Default equal width
                             isHovered ? "md:flex-[3.14]" : "md:flex-1", // Bento expansion
                             item.borderColor

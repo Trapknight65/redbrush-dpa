@@ -24,21 +24,14 @@ export default async function Home() {
             </p>
           </div>
 
-          {/* Right: Hero Slider */}
-          <div className="w-full h-[120px] sm:h-auto hidden">
-            {/* Hero Slider removed from here */}
+          {/* Right: Craft Bento (Beside Title) */}
+          <div className="w-full h-auto">
+            <CraftBento />
           </div>
         </div>
       </HeroParallax>
 
-      {/* Services Section (Our Craft) - Replaced with Bento Slider */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        <h2 className="text-4xl sm:text-5xl font-black text-center mb-12 uppercase tracking-tight">
-          <span className="text-redbrush-gradient bg-clip-text text-transparent">Our Craft</span>
-        </h2>
-
-        <CraftBento />
-      </section>
+      {/* Services/Our Craft Section REMOVED */}
 
       {/* Hero Slider Section (Repositioned) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-20">
