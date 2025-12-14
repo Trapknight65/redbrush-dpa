@@ -74,7 +74,7 @@ export default async function Services() {
                         Let's discuss how we can help transform your digital presence.
                     </p>
                     <Link href="/contact">
-                        <Button variant="secondary" className="bg-white text-crimson-red hover:bg-off-white border-white px-8 py-3 text-lg font-bold">
+                        <Button variant="secondary" className="bg-gradient-to-br from-crimson-red to-white  text-crimson-red hover:bg-off-white border-white px-8 py-3 text-lg font-bold">
                             Contact Us Today
                         </Button>
                     </Link>

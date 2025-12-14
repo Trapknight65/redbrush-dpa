@@ -16,7 +16,22 @@ export default function ServiceBento({ services }: { services: any[] }) {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const handleMouseEnter = (idx: number) => {
+        if (window.matchMedia('(hover: none)').matches) return;
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        setHoveredIndex(idx);
+    };
+
+    const handleMouseLeave = () => {
+        timeoutRef.current = setTimeout(() => {
+            setHoveredIndex(null);
+        }, 100); // 100ms debounce to prevent flicker
+    };
+
     const handleInteraction = (idx: number) => {
+        // Mobile tap logic remains immediate or can use same logic
         if (hoveredIndex === idx) {
             setHoveredIndex(null);
         } else {
@@ -54,15 +69,16 @@ export default function ServiceBento({ services }: { services: any[] }) {
                                 <div
                                     key={service.id}
                                     ref={(el) => { itemRefs.current[actualIndex] = el; }}
-                                    onMouseEnter={() => setHoveredIndex(actualIndex)}
-                                    onMouseLeave={() => setHoveredIndex(null)}
+                                    onMouseEnter={() => handleMouseEnter(actualIndex)}
+                                    onMouseLeave={handleMouseLeave}
                                     onClick={() => handleInteraction(actualIndex)}
                                     className={cn(
-                                        "relative border border-white/10 bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group cursor-pointer",
-                                        // Mobile logic:
-                                        // If any hovered in this row? 
-                                        isHovered ? "w-full basis-full order-first" : "flex-1 min-w-[30%] md:min-w-0", // Mobile: expand to full width if hovered, else share space
-                                        isHovered ? "md:flex-[3.14]" : "md:flex-1"
+                                        "relative border border-white/10 bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group cursor-pointer min-h-[280px]",
+                                        // Mobile: expand to full width & jump to top if hovered. 
+                                        // Desktop: reset order, reset width, let flex-grow handle expansion in-place.
+                                        isHovered
+                                            ? "w-full basis-full order-first md:order-none md:w-auto md:basis-auto md:flex-[3.14]"
+                                            : "flex-1 min-w-[30%] md:min-w-0 md:flex-1"
                                     )}
                                 >
                                     {/* Decorative Gradient */}
@@ -78,10 +94,10 @@ export default function ServiceBento({ services }: { services: any[] }) {
 
                                         {/* Icon - Moves based on state */}
                                         <div className={cn(
-                                            "rounded-2xl border transition-all duration-500 absolute",
+                                            "rounded-2xl border transition-all duration-500 absolute z-20",
                                             // Icon Positioning Logic
-                                            // Default: Center
-                                            !isHovered && "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 md:p-4 border-white/10 bg-white/5 scale-100",
+                                            // Default: Center-Top (40%)
+                                            !isHovered && "top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 md:p-4 border-white/10 bg-white/5 scale-100",
                                             // Hovered: Top-Left
                                             isHovered && "top-4 left-4 md:top-6 md:left-6 translate-x-0 translate-y-0 relative md:absolute flex items-center gap-3 w-auto pr-6 border-transparent bg-transparent scale-90 mb-4 md:mb-0"
                                         )}>
@@ -95,8 +111,8 @@ export default function ServiceBento({ services }: { services: any[] }) {
 
                                         {/* Title (Hidden on hover as it moves to label next to icon) */}
                                         <h3 className={cn(
-                                            "text-sm md:text-xl font-black text-white uppercase tracking-tight transition-all duration-500",
-                                            isHovered ? "hidden md:block md:opacity-0 md:h-0 md:overflow-hidden" : "opacity-100 text-xs md:text-lg" // Mobile: hide title if expanded (show label next to icon is handled above)
+                                            "text-sm md:text-xl font-black text-white uppercase tracking-tight transition-all duration-500 w-full text-center relative left-1/2 -translate-x-1/2 -translate-y-1/2",
+                                            isHovered ? "top-6 md:top-6 opacity-0 pointer-events-none" : "top-[65%] opacity-100" // Mobile: hide title if expanded (show label next to icon is handled above)
                                         )}>
                                             {service.title}
                                         </h3>
