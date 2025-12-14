@@ -73,7 +73,7 @@ export default function ServiceBento({ services }: { services: any[] }) {
                                     onMouseLeave={handleMouseLeave}
                                     onClick={() => handleInteraction(actualIndex)}
                                     className={cn(
-                                        "relative border border-white/10 bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group cursor-pointer min-h-[280px]",
+                                        "relative border border-white/10 bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group cursor-pointer min-h-[160px] md:min-h-[280px]",
                                         // Mobile: expand to full width & jump to top if hovered. 
                                         // Desktop: reset order, reset width, let flex-grow handle expansion in-place.
                                         isHovered
@@ -94,12 +94,12 @@ export default function ServiceBento({ services }: { services: any[] }) {
 
                                         {/* Icon - Moves based on state */}
                                         <div className={cn(
-                                            "rounded-2xl border transition-all duration-500 absolute z-20",
+                                            "rounded-2xl border transition-all duration-500 z-20",
                                             // Icon Positioning Logic
-                                            // Default: Center-Top (40%)
-                                            !isHovered && "top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 md:p-4 border-white/10 bg-white/5 scale-100",
-                                            // Hovered: Top-Left
-                                            isHovered && "top-4 left-4 md:top-6 md:left-6 translate-x-0 translate-y-0 relative md:absolute flex items-center gap-3 w-auto pr-6 border-transparent bg-transparent scale-90 mb-4 md:mb-0"
+                                            // Default: Relative in flow
+                                            !isHovered && "relative p-3 md:p-4 border-white/10 bg-white/5 scale-100 mb-2 md:mb-4",
+                                            // Hovered: Absolute Top-Left
+                                            isHovered && "absolute top-4 left-4 md:top-6 md:left-6 flex items-center gap-3 w-auto pr-6 border-transparent bg-transparent scale-90"
                                         )}>
                                             <IconRenderer name={service.icon} className="w-6 h-6 md:w-8 md:h-8 sm:w-10 sm:h-10 text-crimson-red" />
                                             {isHovered && (
@@ -111,8 +111,8 @@ export default function ServiceBento({ services }: { services: any[] }) {
 
                                         {/* Title (Hidden on hover as it moves to label next to icon) */}
                                         <h3 className={cn(
-                                            "text-sm md:text-xl font-black text-white uppercase tracking-tight transition-all duration-500 w-full text-center relative left-1/2 -translate-x-1/2 -translate-y-1/2",
-                                            isHovered ? "top-6 md:top-6 opacity-0 pointer-events-none" : "top-[65%] opacity-100" // Mobile: hide title if expanded (show label next to icon is handled above)
+                                            "text-sm md:text-xl font-black text-white uppercase tracking-tight transition-all duration-500 w-full text-center",
+                                            isHovered ? "absolute top-6 left-1/2 -translate-x-1/2 opacity-0 pointer-events-none" : "relative opacity-100"
                                         )}>
                                             {service.title}
                                         </h3>
@@ -149,6 +149,6 @@ export default function ServiceBento({ services }: { services: any[] }) {
                     </div>
                 );
             })}
-        </div>
+        </div >
     );
 }
