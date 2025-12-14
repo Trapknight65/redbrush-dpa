@@ -17,9 +17,8 @@ import {
     Globe,
     UserRoundCog,
     PersonStanding,
-    FerrisWheel
+    FerrisWheel,
     Radar,
-    Map,
     ShipWheel,
     Route,
     Snail,
@@ -29,11 +28,11 @@ import {
     Zap,
     Hop,
     TreePalm,
-    Box, Boxes,
+    Boxes,
     Wind,
-
-
+    Search
 } from "lucide-react";
+import { icons } from "@/components/FigmaCaseStudy";
 
 interface CaseStudyBuilderProps {
     data: CaseStudyData | null;
@@ -140,7 +139,11 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
                     <div className="space-y-6">
                         <div className="grid grid-cols-2 gap-4">
                             <Input label="Report Title" value={currentData.header?.reportTitle} onChange={(val) => update(['header', 'reportTitle'], val)} placeholder="Development Process Report" />
+                            <IconPicker label="Header Icon" value={currentData.header?.icon || ""} onChange={(val) => update(['header', 'icon'], val)} />
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
                             <Input label="Status Badge" value={currentData.header?.statusBadge} onChange={(val) => update(['header', 'statusBadge'], val)} placeholder="Production Ready" />
+                            <IconPicker label="Badge Icon" value={currentData.header?.badgeIcon || ""} onChange={(val) => update(['header', 'badgeIcon'], val)} />
                         </div>
                         <div className="grid grid-cols-3 gap-4">
                             <Input label="Case Study Title" value={currentData.meta?.title} onChange={(val) => update(['meta', 'title'], val)} />
