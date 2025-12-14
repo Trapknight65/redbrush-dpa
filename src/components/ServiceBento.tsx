@@ -65,8 +65,8 @@ export default function ServiceBento({ services }: { services: any[] }) {
 
                                         {/* Title */}
                                         <h3 className={cn(
-                                            "text-2xl font-black text-white uppercase tracking-tight transition-all duration-500",
-                                            isHovered ? "text-3xl mb-4" : "text-xl"
+                                            "text-xl font-black text-white uppercase tracking-tight transition-all duration-500",
+                                            isHovered ? "text-2xl mb-4" : "text-lg"
                                         )}>
                                             {service.title}
                                         </h3>
@@ -76,7 +76,7 @@ export default function ServiceBento({ services }: { services: any[] }) {
                                             "overflow-hidden transition-all duration-500 flex flex-col items-center gap-4",
                                             isHovered ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
                                         )}>
-                                            <p className="text-gray-300 max-w-md leading-relaxed">
+                                            <p className="text-gray-300 text-sm max-w-md leading-relaxed">
                                                 {service.description}
                                             </p>
 

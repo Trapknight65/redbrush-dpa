@@ -69,7 +69,7 @@ export default function ProjectBento({ projects }: { projects: Project[] }) {
                                         {/* Title */}
                                         <h3 className={cn(
                                             "font-black text-white leading-none transition-all duration-500",
-                                            isHovered ? "text-4xl mb-2" : "text-2xl mb-0"
+                                            isHovered ? "text-3xl mb-2" : "text-xl mb-0"
                                         )}>
                                             {project.title}
                                         </h3>
@@ -79,7 +79,7 @@ export default function ProjectBento({ projects }: { projects: Project[] }) {
                                             "overflow-hidden transition-all duration-500 flex flex-col gap-4",
                                             isHovered ? "max-h-[300px] opacity-100 mt-2" : "max-h-0 opacity-0 mt-0"
                                         )}>
-                                            <p className="text-gray-300 text-sm leading-relaxed max-w-lg">
+                                            <p className="text-gray-300 text-xs leading-relaxed max-w-lg">
                                                 {project.description}
                                             </p>
 
