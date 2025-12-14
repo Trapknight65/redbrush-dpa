@@ -55,8 +55,9 @@ export default function CraftBento() {
                         onMouseLeave={() => setHoveredIndex(null)}
                         className={cn(
                             "relative rounded-2xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group cursor-pointer flex flex-col min-h-[180px]",
-                            "flex-1", // Default equal width
-                            isHovered ? "md:flex-[3.14] border border-white/10 bg-black/40 backdrop-blur-md justify-between" : "md:flex-1 border-transparent bg-transparent justify-center items-center", // Expand gets box, others get transparent
+                            // Mobile Expansion Logic
+                            isMinored ? "w-0 p-0 m-0 border-0 opacity-0 overflow-hidden min-h-0 min-w-0 flex-[0]" : "flex-1", // Collapse minored
+                            isHovered ? "w-full flex-[100] md:flex-[3.14] border border-white/10 bg-black/40 backdrop-blur-md justify-between" : (isMinored ? "" : "md:flex-1 border-transparent bg-transparent justify-center items-center"),
                             isHovered ? item.borderColor : ""
                         )}
                     >

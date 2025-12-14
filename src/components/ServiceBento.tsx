@@ -24,7 +24,7 @@ export default function ServiceBento({ services }: { services: any[] }) {
             // Auto-scroll to center after a short delay to allow expansion animation to start
             setTimeout(() => {
                 const element = itemRefs.current[idx];
-                if (element) {
+                if (element && window.innerWidth < 768) {
                     element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             }, 100);
@@ -78,11 +78,12 @@ export default function ServiceBento({ services }: { services: any[] }) {
 
                                         {/* Icon - Moves based on state */}
                                         <div className={cn(
-                                            "transition-all duration-500 rounded-2xl border", // Base classes
-                                            // Handle "Unbox" effect: Remove bg/border on hover
-                                            isHovered
-                                                ? "relative md:absolute top-0 md:top-6 left-0 md:left-6 scale-90 mb-4 md:mb-0 flex items-center gap-3 w-auto pr-6 border-transparent bg-transparent" // Unboxed
-                                                : "relative p-3 md:p-4 border-white/10 bg-white/5 scale-100 mb-2 md:mb-4" // Boxed (Default)
+                                            "rounded-2xl border transition-all duration-500 absolute",
+                                            // Icon Positioning Logic
+                                            // Default: Center
+                                            !isHovered && "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 md:p-4 border-white/10 bg-white/5 scale-100",
+                                            // Hovered: Top-Left
+                                            isHovered && "top-4 left-4 md:top-6 md:left-6 translate-x-0 translate-y-0 relative md:absolute flex items-center gap-3 w-auto pr-6 border-transparent bg-transparent scale-90 mb-4 md:mb-0"
                                         )}>
                                             <IconRenderer name={service.icon} className="w-6 h-6 md:w-8 md:h-8 sm:w-10 sm:h-10 text-crimson-red" />
                                             {isHovered && (

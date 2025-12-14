@@ -22,9 +22,9 @@ export default function Footer() {
                 <div className="flex flex-col items-center">
                     <h3 className="text-lg font-bold mb-4 text-electric-blue">Quick Links</h3>
                     <ul className="flex flex-wrap gap-4 sm:gap-6 justify-center">
-                        {['Services', 'Portfolio', 'About', 'Contact'].map((item) => (
+                        {['Services', 'Portfolio', 'About', 'Contact', 'Privacy'].map((item) => (
                             <li key={item}>
-                                <a href={`/${item.toLowerCase()}`} className="hover:text-crimson-red transition-colors text-sm font-medium">
+                                <a href={item === 'Privacy' ? '/privacy' : `/${item.toLowerCase()}`} className="hover:text-crimson-red transition-colors text-sm font-medium">
                                     {item}
                                 </a>
                             </li>
