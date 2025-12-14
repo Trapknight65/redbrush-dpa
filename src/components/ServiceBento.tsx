@@ -60,8 +60,11 @@ export default function ServiceBento({ services }: { services: any[] }) {
 
                                         {/* Icon - Moves based on state */}
                                         <div className={cn(
-                                            "transition-all duration-500 p-4 rounded-2xl border border-white/10 bg-white/5",
-                                            isHovered ? "absolute top-6 left-6 scale-90 mb-0 flex items-center gap-3 w-auto pr-6" : "scale-100 mb-4"
+                                            "transition-all duration-500 rounded-2xl border", // Base classes
+                                            // Handle "Unbox" effect: Remove bg/border on hover
+                                            isHovered
+                                                ? "absolute top-6 left-6 scale-90 mb-0 flex items-center gap-3 w-auto pr-6 border-transparent bg-transparent" // Unboxed
+                                                : "relative p-4 border-white/10 bg-white/5 scale-100 mb-4" // Boxed (Default)
                                         )}>
                                             <IconRenderer name={service.icon} className="w-8 h-8 sm:w-10 sm:h-10 text-crimson-red" />
                                             {isHovered && (
@@ -81,8 +84,9 @@ export default function ServiceBento({ services }: { services: any[] }) {
 
                                         {/* Description + Features (Revealed on Hover) */}
                                         <div className={cn(
-                                            "overflow-hidden transition-all duration-500 flex flex-col gap-4 mt-6", // Added margin top to clear absolute icon
-                                            isHovered ? "max-h-[500px] opacity-100 items-start" : "max-h-0 opacity-0 items-center"
+                                            "overflow-hidden transition-all duration-500 flex flex-col gap-4",
+                                            // Add top margin/padding to avoid overlap with absolute icon
+                                            isHovered ? "max-h-[500px] opacity-100 items-start pt-16" : "max-h-0 opacity-0 items-center pt-0"
                                         )}>
                                             <p className="text-gray-300 text-sm leading-relaxed">
                                                 {service.description}

@@ -18,10 +18,10 @@ export default async function Services() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-off-white via-pure-white to-off-white">
             {/* Services Split Layout */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-start">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 min-h-[50vh] flex items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-center w-full">
                     {/* Left: Text Content (Sticky) */}
-                    <div className="lg:sticky lg:top-24">
+                    <div className="lg:sticky lg:top-24 flex flex-col justify-center animate-bounce-slow">
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark-gray mb-6">
                             Our <span className="text-crimson-red">Services</span>
                         </h1>
