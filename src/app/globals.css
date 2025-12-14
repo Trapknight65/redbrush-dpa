@@ -39,399 +39,400 @@
   --nami-wood-medium: #D4B483;
   --nami-wood-dark: #78350F;
   --nami-cream: #FFFBF0;
+}
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: #0a0a0a;
-      --foreground: #ededed;
-    }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--redbrush-gradient);
+  color: var(--canvas-white);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 700;
+}
+
+/* Animations */
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(0);
   }
 
-  body {
-    background: var(--redbrush-gradient);
-    color: var(--canvas-white);
-    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-    min-height: 100vh;
-    margin: 0;
-    overflow-x: hidden;
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+/* Utilities */
+.text-redbrush-gradient {
+  background: var(--redbrush-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.border-deep-sea {
+  border: 1px solid var(--deep-sea);
+}
+
+/* 3D Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Dark Neumorphism Utilities */
+.neu-flat {
+  background: var(--dev-surface);
+  box-shadow: 5px 5px 10px #050505,
+    -5px -5px 10px #191919;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.neu-pressed {
+  background: var(--dev-surface);
+  box-shadow: inset 5px 5px 10px #050505,
+    inset -5px -5px 10px #191919;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.neu-concave {
+  background: linear-gradient(145deg, #0e0e0e, #101010);
+  box-shadow: 5px 5px 10px #050505,
+    -5px -5px 10px #191919;
+}
+
+.neu-icon-embossed {
+  color: var(--dev-surface);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), -2px -2px 4px rgba(255, 255, 255, 0.05);
+}
+
+/* Cinematic Effects from Interactive Report */
+.film-grain {
+  pointer-events: none;
+  opacity: .05;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  width: 100%;
+  height: 100%;
+  animation: grain 8s steps(10, end) infinite;
+  position: absolute;
+  /* Changed from fixed to absolute for container containment option */
+  top: 0;
+  left: 0;
+}
+
+@keyframes grain {
+
+  0%,
+  100% {
+    transform: translate(0);
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-inter), sans-serif;
-    font-weight: 700;
+  10% {
+    transform: translate(-5%, -10%);
   }
 
-  /* Animations */
-  @keyframes bounce-slow {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-10px);
-    }
+  20% {
+    transform: translate(-15%, 5%);
   }
 
-  .animate-bounce-slow {
-    animation: bounce-slow 2s ease-in-out infinite;
+  30% {
+    transform: translate(7%, -25%);
   }
 
-  /* Utilities */
-  .text-redbrush-gradient {
-    background: var(--redbrush-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  40% {
+    transform: translate(-5%, 25%);
   }
 
-  .border-deep-sea {
-    border: 1px solid var(--deep-sea);
+  50% {
+    transform: translate(-15%, 10%);
   }
 
-  /* 3D Flip Card Utilities */
-  .perspective-1000 {
-    perspective: 1000px;
+  60% {
+    transform: translate(15%);
   }
 
-  .transform-style-3d {
-    transform-style: preserve-3d;
+  70% {
+    transform: translate(0%, 15%);
   }
 
-  .backface-hidden {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+  80% {
+    transform: translate(3%, 35%);
   }
 
-  .rotate-y-180 {
-    transform: rotateY(180deg);
+  90% {
+    transform: translate(-10%, 10%);
   }
+}
 
-  /* Dark Neumorphism Utilities */
-  .neu-flat {
-    background: var(--dev-surface);
-    box-shadow: 5px 5px 10px #050505,
-      -5px -5px 10px #191919;
-    border: 1px solid rgba(255, 255, 255, 0.02);
-  }
+.spotlight {
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(rgba(212, 175, 55, 0.15) 0%, rgba(0, 0, 0, 0) 60%);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-  .neu-pressed {
-    background: var(--dev-surface);
-    box-shadow: inset 5px 5px 10px #050505,
-      inset -5px -5px 10px #191919;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-  }
+.glass-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(20, 20, 20, 0.6);
+}
 
-  .neu-concave {
-    background: linear-gradient(145deg, #0e0e0e, #101010);
-    box-shadow: 5px 5px 10px #050505,
-      -5px -5px 10px #191919;
-  }
+.tab-button {
+  color: var(--color-fog);
+  cursor: pointer;
+  background: rgba(30, 30, 30, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s;
+}
 
-  .neu-icon-embossed {
-    color: var(--dev-surface);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), -2px -2px 4px rgba(255, 255, 255, 0.05);
-  }
+.tab-button:hover {
+  color: var(--color-gold);
+  background: rgba(40, 40, 40, 0.8);
+  border-color: rgba(212, 175, 55, 0.4);
+}
 
-  /* Cinematic Effects from Interactive Report */
-  .film-grain {
-    pointer-events: none;
-    opacity: .05;
-    z-index: 1;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    width: 100%;
-    height: 100%;
-    animation: grain 8s steps(10, end) infinite;
-    position: absolute;
-    /* Changed from fixed to absolute for container containment option */
-    top: 0;
-    left: 0;
-  }
+.tab-button.active {
+  color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--color-gold);
+}
 
-  @keyframes grain {
+.content-card {
+  background: rgba(30, 30, 30, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
 
-    0%,
-    100% {
-      transform: translate(0);
-    }
+.stat-badge {
+  color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+}
 
-    10% {
-      transform: translate(-5%, -10%);
-    }
+.stat-box {
+  text-align: center;
+  background: rgba(20, 20, 20, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
 
-    20% {
-      transform: translate(-15%, 5%);
-    }
+/* Helper Colors */
+.text-gold {
+  color: var(--color-gold);
+}
 
-    30% {
-      transform: translate(7%, -25%);
-    }
+.text-fog {
+  color: var(--color-fog);
+}
 
-    40% {
-      transform: translate(-5%, 25%);
-    }
+.bg-gold\/5 {
+  background-color: rgba(212, 175, 55, 0.05);
+}
 
-    50% {
-      transform: translate(-15%, 10%);
-    }
+.bg-gold\/10 {
+  background-color: rgba(212, 175, 55, 0.1);
+}
 
-    60% {
-      transform: translate(15%);
-    }
+/* Nami Theme Utilities */
+.bg-nami-wood {
+  background-color: var(--nami-wood-light);
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+}
 
-    70% {
-      transform: translate(0%, 15%);
-    }
+.bg-nami-panel {
+  background-color: rgba(255, 251, 240, 0.6);
+  /* Cream transparent */
+  border: 1px solid var(--nami-wood-dark);
+}
 
-    80% {
-      transform: translate(3%, 35%);
-    }
+.text-nami-tangerine {
+  color: var(--nami-tangerine);
+}
 
-    90% {
-      transform: translate(-10%, 10%);
-    }
-  }
+.text-nami-green {
+  color: var(--nami-green);
+}
 
-  .spotlight {
-    pointer-events: none;
-    z-index: 0;
-    background: radial-gradient(rgba(212, 175, 55, 0.15) 0%, rgba(0, 0, 0, 0) 60%);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: -50%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+.border-nami-wood {
+  border-color: var(--nami-wood-dark);
+}
 
-  .glass-card {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background: rgba(20, 20, 20, 0.6);
-  }
+/* One Piece Thematic Styles */
 
-  .tab-button {
-    color: var(--color-fog);
-    cursor: pointer;
-    background: rgba(30, 30, 30, 0.5);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    transition: all 0.3s;
-  }
+/* Armament Haki (Busoshoku) Effect */
+.hover-haki {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
 
-  .tab-button:hover {
-    color: var(--color-gold);
-    background: rgba(40, 40, 40, 0.8);
-    border-color: rgba(212, 175, 55, 0.4);
-  }
+.hover-haki::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
 
-  .tab-button.active {
-    color: var(--color-gold);
-    background: rgba(212, 175, 55, 0.1);
-    border-color: var(--color-gold);
-  }
+.hover-haki:hover {
+  color: white !important;
+  border-color: #333 !important;
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 0, 0, 0.5) inset;
+  /* Metallic hardening feel */
+}
 
-  .content-card {
-    background: rgba(30, 30, 30, 0.4);
-    border: 1px solid rgba(212, 175, 55, 0.1);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-  }
+.brush-mask {
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3Cpath d='M10,10 L190,10 L190,190 L10,190 Z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L200,0 L190,200 L10,200 Z' fill='black'/%3E%3C/svg%3E");
+  /* Simplified mask for reliability, in real prod use a real brush SVG */
+  clip-path: polygon(2% 2%, 98% 1%, 99% 98%, 1% 99%);
+}
 
-  .stat-badge {
-    color: var(--color-gold);
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-  }
+::selection {
+  background-color: var(--crimson-red);
+  color: var(--canvas-white);
+}
 
-  .stat-box {
-    text-align: center;
-    background: rgba(20, 20, 20, 0.6);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 0.5rem;
-    padding: 1rem;
-  }
+.hover-haki:hover::before {
+  opacity: 1;
+}
 
-  /* Helper Colors */
-  .text-gold {
-    color: var(--color-gold);
-  }
+/* Wanted Poster Effect */
+.wanted-poster {
+  background-color: #f4ecd8;
+  /* Parchment color */
+  color: #2b2b2b;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  transform: scale(0.9);
+  /* Downscale slightly overall */
+  transform-origin: center;
+}
 
-  .text-fog {
-    color: var(--color-fog);
-  }
+.wanted-poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
 
-  .bg-gold\/5 {
-    background-color: rgba(212, 175, 55, 0.05);
-  }
+.wanted-header {
+  font-family: serif;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  border-bottom: 2px solid #2b2b2b;
+  padding-bottom: 0.15rem;
+  /* Reduced */
+  margin-bottom: 0.25rem;
+  /* Reduced */
+  font-size: 0.9rem;
+  /* Reduced */
+}
 
-  .bg-gold\/10 {
-    background-color: rgba(212, 175, 55, 0.1);
-  }
+.wanted-footer {
+  font-family: serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  border-top: 2px solid #2b2b2b;
+  padding-top: 0.15rem;
+  /* Reduced */
+  margin-top: 0.25rem;
+  /* Reduced */
+  font-size: 0.7rem;
+  /* Reduced */
+}
 
-  /* Nami Theme Utilities */
-  .bg-nami-wood {
-    background-color: var(--nami-wood-light);
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
-  }
+.bounty-value {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  letter-spacing: -0.05em;
+}
 
-  .bg-nami-panel {
-    background-color: rgba(255, 251, 240, 0.6);
-    /* Cream transparent */
-    border: 1px solid var(--nami-wood-dark);
-  }
+/* Modernization: Micro-Interactions */
 
-  .text-nami-tangerine {
-    color: var(--nami-tangerine);
-  }
+/* Film Grain Overlay */
+.film-grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
 
-  .text-nami-green {
-    color: var(--nami-green);
-  }
+/* Magnetic Button Wrapper (requires JS for full effect, but CSS hover helps) */
+.magnetic-btn {
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-  .border-nami-wood {
-    border-color: var(--nami-wood-dark);
-  }
-
-  /* One Piece Thematic Styles */
-
-  /* Armament Haki (Busoshoku) Effect */
-  .hover-haki {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hover-haki::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-  }
-
-  .hover-haki:hover {
-    color: white !important;
-    border-color: #333 !important;
-    transform: scale(1.02);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8),
-      0 0 20px rgba(0, 0, 0, 0.5) inset;
-    /* Metallic hardening feel */
-  }
-
-  .brush-mask {
-    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3Cpath d='M10,10 L190,10 L190,190 L10,190 Z' fill='black'/%3E%3C/svg%3E");
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L200,0 L190,200 L10,200 Z' fill='black'/%3E%3C/svg%3E");
-    /* Simplified mask for reliability, in real prod use a real brush SVG */
-    clip-path: polygon(2% 2%, 98% 1%, 99% 98%, 1% 99%);
-  }
-
-  ::selection {
-    background-color: var(--crimson-red);
-    color: var(--canvas-white);
-  }
-
-  .hover-haki:hover::before {
-    opacity: 1;
-  }
-
-  /* Wanted Poster Effect */
-  .wanted-poster {
-    background-color: #f4ecd8;
-    /* Parchment color */
-    color: #2b2b2b;
-    position: relative;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-    transform: scale(0.9);
-    /* Downscale slightly overall */
-    transform-origin: center;
-  }
-
-  .wanted-poster::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.05'/%3E%3C/svg%3E");
-    pointer-events: none;
-    mix-blend-mode: multiply;
-  }
-
-  .wanted-header {
-    font-family: serif;
-    font-weight: 900;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-align: center;
-    border-bottom: 2px solid #2b2b2b;
-    padding-bottom: 0.15rem;
-    /* Reduced */
-    margin-bottom: 0.25rem;
-    /* Reduced */
-    font-size: 0.9rem;
-    /* Reduced */
-  }
-
-  .wanted-footer {
-    font-family: serif;
-    font-weight: 900;
-    text-transform: uppercase;
-    text-align: center;
-    border-top: 2px solid #2b2b2b;
-    padding-top: 0.15rem;
-    /* Reduced */
-    margin-top: 0.25rem;
-    /* Reduced */
-    font-size: 0.7rem;
-    /* Reduced */
-  }
-
-  .bounty-value {
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    letter-spacing: -0.05em;
-  }
-
-  /* Modernization: Micro-Interactions */
-
-  /* Film Grain Overlay */
-  .film-grain-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  }
-
-  /* Magnetic Button Wrapper (requires JS for full effect, but CSS hover helps) */
-  .magnetic-btn {
-    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  .magnetic-btn:hover {
-    transform: scale(1.05);
-  }
+.magnetic-btn:hover {
+  transform: scale(1.05);
+}

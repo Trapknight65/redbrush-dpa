@@ -30,7 +30,8 @@ import {
     TreePalm,
     Boxes,
     Wind,
-    Search
+    Search,
+    X
 } from "lucide-react";
 import { caseStudyIcons as icons } from "@/lib/case-study-icons";
 
@@ -63,6 +64,123 @@ const TextArea = ({ label, value, onChange, rows = 3 }: { label: string, value: 
         />
     </div>
 );
+
+const IconPicker = ({ value, onChange, label }: { value: string, onChange: (val: string) => void, label?: string }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const filteredIcons = Object.keys(icons).filter(key =>
+        key.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const SelectedIcon = icons[value as keyof typeof icons];
+
+    return (
+        <div className="space-y-1">
+            {label && <label className="text-xs font-bold text-nami-tangerine uppercase tracking-wider">{label}</label>}
+
+            {/* Trigger Button */}
+            <button
+                type="button"
+                onClick={() => setIsOpen(true)}
+                className="w-full flex items-center justify-between bg-white/50 border border-nami-wood rounded-lg p-2 text-nami-wood-dark text-sm hover:border-nami-tangerine hover:bg-white/80 transition-all font-medium"
+            >
+                <span className="flex items-center gap-2">
+                    {SelectedIcon ? <SelectedIcon className="w-5 h-5 text-nami-tangerine" /> : <span className="text-gray-400">Select Icon</span>}
+                    <span className="opacity-70">{value || "None"}</span>
+                </span>
+                <ChevronDown className="w-4 h-4 opacity-50" />
+            </button>
+
+            {/* Modal Overlay */}
+            {isOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white border border-nami-wood rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
+
+                        {/* Header */}
+                        <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+                            <h3 className="font-bold text-nami-wood-dark text-lg">Select Icon</h3>
+                            <button
+                                onClick={() => setIsOpen(false)}
+                                className="p-2 hover:bg-gray-100 rounded-full text-gray-500 hover:text-red-500 transition-colors"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        {/* Search */}
+                        <div className="p-4 border-b border-gray-100 bg-white">
+                            <div className="relative">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <input
+                                    type="text"
+                                    placeholder="Search icons..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:border-nami-tangerine focus:ring-1 focus:ring-nami-tangerine/50 focus:outline-none transition-all"
+                                    autoFocus
+                                />
+                            </div>
+                        </div>
+
+                        {/* Grid */}
+                        <div className="p-4 overflow-y-auto bg-gray-50/30 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+                            {filteredIcons.map((iconKey) => {
+                                const Icon = icons[iconKey];
+                                return (
+                                    <button
+                                        key={iconKey}
+                                        type="button"
+                                        onClick={() => {
+                                            onChange(iconKey);
+                                            setIsOpen(false);
+                                        }}
+                                        className={`group relative p-3 rounded-lg flex flex-col items-center justify-center gap-2 transition-all aspect-square border ${value === iconKey
+                                            ? "bg-nami-tangerine/10 border-nami-tangerine text-nami-tangerine shadow-sm"
+                                            : "bg-white border-gray-200 text-gray-600 hover:border-nami-tangerine/50 hover:bg-white hover:text-nami-tangerine hover:shadow-md"
+                                            }`}
+                                        title={iconKey}
+                                    >
+                                        <Icon className="w-6 h-6" />
+                                        <span className="text-[10px] opacity-0 group-hover:opacity-100 absolute bottom-1 w-full text-center truncate px-1 transition-opacity">
+                                            {iconKey}
+                                        </span>
+                                    </button>
+                                );
+                            })}
+
+                            {filteredIcons.length === 0 && (
+                                <div className="col-span-full py-8 text-center text-gray-400">
+                                    <Search className="w-8 h-8 mx-auto mb-2 opacity-20" />
+                                    <p className="text-sm">No icons found for "{searchTerm}"</p>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Footer */}
+                        <div className="p-3 border-t border-gray-100 bg-gray-50 flex justify-between items-center text-xs text-gray-400">
+                            <span>{filteredIcons.length} icons available</span>
+                            <div className="flex gap-2">
+                                {value && (
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            onChange("");
+                                            setIsOpen(false);
+                                        }}
+                                        className="text-red-500 hover:text-red-700 font-medium hover:underline"
+                                    >
+                                        Clear Selection
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderProps) {
     const [activeTab, setActiveTab] = useState("meta");
