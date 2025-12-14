@@ -24,6 +24,7 @@ type ProjectFormData = {
     solution: string;
     caseStudyData?: string;
     gallery?: string[];
+    order?: number;
 };
 
 import { Prisma } from "@prisma/client";
@@ -59,6 +60,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
             solution: initialData?.solution || "",
             caseStudyData: initialData?.caseStudyData ? JSON.stringify(initialData.caseStudyData, null, 2) : "",
             gallery: initialData?.gallery || [],
+            order: initialData?.order || 0,
         },
     });
 
@@ -219,6 +221,17 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                         placeholder="e.g. Web Development"
                     />
                     {errors.category && <span className="text-red-500 text-xs">{errors.category.message}</span>}
+                </div>
+
+                {/* Order */}
+                <div className="space-y-2">
+                    <label className="text-nami-tangerine text-sm font-bold uppercase tracking-wider">Order (Rank)</label>
+                    <input
+                        type="number"
+                        {...register("order", { valueAsNumber: true })}
+                        className="w-full bg-white/50 border border-nami-wood rounded-lg p-3 text-nami-wood-dark focus:border-nami-tangerine focus:outline-none transition-all shadow-sm font-medium"
+                        placeholder="0"
+                    />
                 </div>
 
                 {/* Image */}

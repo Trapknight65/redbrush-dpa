@@ -21,12 +21,13 @@ export interface ProjectFormInput {
     gallery: string[];
     figmaDesign?: any;
     caseStudyData?: string; // Passed as JSON string
+    order?: number;
 }
 
 export async function getProjects() {
     try {
         const projects = await prisma.project.findMany({
-            orderBy: { createdAt: 'desc' },
+            orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
             include: { caseStudies: true }
         })
         return { success: true, data: projects }

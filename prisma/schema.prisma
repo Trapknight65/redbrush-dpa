@@ -33,6 +33,7 @@ model Project {
   solution    String
   results     String[]
   gallery     String[]
+  order       Int      @default(0)
   figmaDesign Json?    // { thumbnail, title, url }
   
   caseStudyData Json? // Stores the FigmaCaseStudy data structure
