@@ -1,5 +1,7 @@
 import {
     LucideIcon,
+    // Existing
+    Film, Code, Layers, Rocket, Shield, Globe, Database, Server, CheckCircle, Lock,
     // General & UI
     Search, Menu, X, Check, CheckCircle2, AlertCircle, AlertTriangle, Plus, Minus, Settings,
     User, Users, LogIn, LogOut, Mail, Phone, Calendar, Clock, MapPin, Home,
