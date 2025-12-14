@@ -25,7 +25,7 @@ export default function ServiceBento({ services }: { services: any[] }) {
                 const rowServices = services?.slice(rowIndex * 3, (rowIndex + 1) * 3);
 
                 return (
-                    <div key={rowIndex} className="flex flex-col md:flex-row gap-4 h-auto md:h-[400px] w-full">
+                    <div key={rowIndex} className="flex flex-col md:flex-row gap-4 h-auto md:h-[270px] w-full cursor-pointer">
                         {rowServices.map((service: any, idx: number) => {
                             const actualIndex = rowIndex * 3 + idx;
                             const isHovered = hoveredIndex === actualIndex;

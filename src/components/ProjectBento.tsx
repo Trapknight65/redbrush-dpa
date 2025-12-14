@@ -17,7 +17,7 @@ export default function ProjectBento({ projects }: { projects: Project[] }) {
                 const rowProjects = projects?.slice(rowIndex * 3, (rowIndex + 1) * 3);
 
                 return (
-                    <div key={rowIndex} className="flex flex-col md:flex-row gap-4 h-[500px] md:h-[400px] w-full">
+                    <div key={rowIndex} className="flex flex-col md:flex-row gap-4 h-[330px] md:h-[270px] w-full cursor-pointer">
                         {rowProjects.map((project, idx) => {
                             const actualIndex = rowIndex * 3 + idx;
                             const isHovered = hoveredIndex === actualIndex;
