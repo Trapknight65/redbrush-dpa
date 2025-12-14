@@ -53,36 +53,44 @@ export default function ServiceBento({ services }: { services: any[] }) {
                                         isHovered ? "opacity-100" : "opacity-0"
                                     )} />
 
-                                    <div className="absolute inset-0 p-6 flex flex-col items-center justify-center text-center transition-all duration-500">
+                                    <div className={cn(
+                                        "absolute inset-0 p-6 flex flex-col justify-center transition-all duration-500",
+                                        isHovered ? "items-start text-left" : "items-center text-center"
+                                    )}>
 
                                         {/* Icon - Moves based on state */}
                                         <div className={cn(
                                             "transition-all duration-500 p-4 rounded-2xl border border-white/10 bg-white/5",
-                                            isHovered ? "scale-110 mb-6" : "scale-100 mb-4"
+                                            isHovered ? "absolute top-6 left-6 scale-90 mb-0 flex items-center gap-3 w-auto pr-6" : "scale-100 mb-4"
                                         )}>
                                             <IconRenderer name={service.icon} className="w-8 h-8 sm:w-10 sm:h-10 text-crimson-red" />
+                                            {isHovered && (
+                                                <span className="text-white font-bold uppercase tracking-wider text-sm whitespace-nowrap animate-in fade-in slide-in-from-left-4 duration-500">
+                                                    {service.title}
+                                                </span>
+                                            )}
                                         </div>
 
-                                        {/* Title */}
+                                        {/* Title (Hidden on hover as it moves to label next to icon) */}
                                         <h3 className={cn(
                                             "text-xl font-black text-white uppercase tracking-tight transition-all duration-500",
-                                            isHovered ? "text-2xl mb-4" : "text-lg"
+                                            isHovered ? "opacity-0 h-0 overflow-hidden" : "opacity-100 text-lg"
                                         )}>
                                             {service.title}
                                         </h3>
 
                                         {/* Description + Features (Revealed on Hover) */}
                                         <div className={cn(
-                                            "overflow-hidden transition-all duration-500 flex flex-col items-center gap-4",
-                                            isHovered ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                                            "overflow-hidden transition-all duration-500 flex flex-col gap-4 mt-6", // Added margin top to clear absolute icon
+                                            isHovered ? "max-h-[500px] opacity-100 items-start" : "max-h-0 opacity-0 items-center"
                                         )}>
-                                            <p className="text-gray-300 text-sm max-w-md leading-relaxed">
+                                            <p className="text-gray-300 text-sm leading-relaxed">
                                                 {service.description}
                                             </p>
 
                                             <div className="h-px w-24 bg-crimson-red/50" />
 
-                                            <div className="flex flex-wrap justify-center gap-2">
+                                            <div className="flex flex-wrap gap-2">
                                                 {service.features.map((feature: string, fIdx: number) => (
                                                     <span key={fIdx} className="text-xs font-mono text-crimson-red bg-crimson-red/10 px-2 py-1 rounded border border-crimson-red/20">
                                                         {feature}

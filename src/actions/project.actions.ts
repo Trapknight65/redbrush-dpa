@@ -27,7 +27,10 @@ export interface ProjectFormInput {
 export async function getProjects() {
     try {
         const projects = await prisma.project.findMany({
-            orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+            orderBy: [
+                { order: 'asc' },
+                { createdAt: 'desc' }
+            ],
             include: { caseStudies: true }
         })
         return { success: true, data: projects }

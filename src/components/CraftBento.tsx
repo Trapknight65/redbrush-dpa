@@ -42,7 +42,6 @@ export default function CraftBento() {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
     return (
-    return (
         <div className="flex flex-col md:flex-row gap-4 h-full w-full max-w-7xl mx-auto px-2 sm:px-0 cursor-pointer">
             {craftItems.map((item, idx) => {
                 const isHovered = hoveredIndex === idx;

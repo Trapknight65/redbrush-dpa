@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased flex flex-col min-h-screen cursor-none`}
+        className={`${inter.variable} antialiased flex flex-col min-h-screen`}
       >
         <div className="film-grain-overlay" />
         <EffectsWrapper />
