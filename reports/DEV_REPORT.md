@@ -49,6 +49,11 @@ Recent development cycles have focused on two primary objectives: stabilizing th
 - **Video Uploads:** Added ability to upload hero section videos via Cloudinary in the admin panel.
 - **Project Detail:** Updated project detail pages to render background videos in the hero section for a more immersive experience.
 - **Schema:** Updated data model to support `heroVideo` field within the `figmaDesign` object.
+### 8. UI Strategy: The "Bento Slider" (Interactive Proportions)
+-   **Services & Projects:** Replaced static grids with interactive Flex-based rows.
+-   **Golden Ratio & Pi:** Used `Pi (3.14)` and Golden Ratio logic for expansion factors to create organic movement.
+-   **Visual Rhythm:** Split layouts (Text on Left/Right, Bento on Right/Left) to reduce visual monotony and improve readability.
+-   **Progressive Disclosure:** Content details are revealed only on hover, maintaining a clean initial view.
 
 ## Technical Snapshot
 - **Framework:** Next.js (App Router)

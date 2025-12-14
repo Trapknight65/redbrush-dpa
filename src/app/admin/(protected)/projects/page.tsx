@@ -51,6 +51,13 @@ export default async function AdminProjectsPage() {
                                             fill
                                             className="object-cover rounded"
                                         />
+                                    ) : (project.figmaDesign as any)?.thumbnail ? (
+                                        <Image
+                                            src={(project.figmaDesign as any).thumbnail}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover rounded"
+                                        />
                                     ) : (
                                         "📁"
                                     )}

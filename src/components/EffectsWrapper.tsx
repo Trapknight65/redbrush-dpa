@@ -9,7 +9,7 @@ const CustomCursor = dynamic(() => import("@/components/ui/CustomCursor"), { ssr
 export default function EffectsWrapper() {
     return (
         <>
-            <CustomCursor />
+            {/* <CustomCursor /> */}
             <SplashingParticles />
             <LogPose />
         </>
