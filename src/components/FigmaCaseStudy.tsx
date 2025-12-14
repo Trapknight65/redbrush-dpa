@@ -59,6 +59,8 @@ export interface CaseStudyData {
     header?: {
         reportTitle?: string;
         statusBadge?: string;
+        icon?: string;
+        badgeIcon?: string;
     };
     meta: {
         title: string;
@@ -67,22 +69,10 @@ export interface CaseStudyData {
     };
 }
 
-const icons: Record<string, LucideIcon> = {
-    Film,
-    Code,
-    Layers,
-    Rocket,
-    Shield,
-    TrendingUp,
-    Globe,
-    Zap,
-    Database,
-    Server,
-    Smartphone,
-    CheckCircle,
-    Layout,
-    Lock,
-};
+import { caseStudyIcons } from "@/lib/case-study-icons";
+
+export const icons = caseStudyIcons; // Keep alias for backward compatibility if needed, but better to just use caseStudyIcons directly.
+
 
 export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
     const [activeTab, setActiveTab] = useState("overview");
@@ -116,7 +106,10 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="flex items-center gap-3 mb-2"
                             >
-                                <Film className="w-8 h-8 text-deep-sea" />
+                                {(() => {
+                                    const HeaderIcon = (data?.header?.icon && icons[data.header.icon]) || Film;
+                                    return <HeaderIcon className="w-8 h-8 text-deep-sea" />;
+                                })()}
                                 <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-deep-sea to-ocean-blue uppercase tracking-wider text-lg font-bold">
                                     {data?.header?.reportTitle || "Development Process Report"}
                                 </h1>
@@ -146,7 +139,10 @@ export default function FigmaCaseStudy({ data }: { data: CaseStudyData }) {
                             className="flex gap-2"
                         >
                             <div className="stat-badge border-deep-sea/30 text-deep-sea">
-                                <TrendingUp className="w-4 h-4" />
+                                {(() => {
+                                    const BadgeIcon = (data?.header?.badgeIcon && icons[data.header.badgeIcon]) || TrendingUp;
+                                    return <BadgeIcon className="w-4 h-4" />;
+                                })()}
                                 <span>{data?.header?.statusBadge || "Production Ready"}</span>
                             </div>
                         </motion.div>

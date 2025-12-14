@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import EffectsWrapper from "@/components/EffectsWrapper";
+import CookieConsent from "@/components/CookieConsent";
 
 export default function RootLayout({
   children,
@@ -35,6 +36,7 @@ export default function RootLayout({
         <main className="flex-grow">
           {children}
         </main>
+        <CookieConsent />
         <Footer />
       </body>
     </html>

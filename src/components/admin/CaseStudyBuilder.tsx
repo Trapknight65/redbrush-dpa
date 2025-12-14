@@ -32,7 +32,7 @@ import {
     Wind,
     Search
 } from "lucide-react";
-import { icons } from "@/components/FigmaCaseStudy";
+import { caseStudyIcons as icons } from "@/lib/case-study-icons";
 
 interface CaseStudyBuilderProps {
     data: CaseStudyData | null;
@@ -41,12 +41,12 @@ interface CaseStudyBuilderProps {
 
 const Input = ({ label, value, onChange, placeholder = "" }: { label: string, value: any, onChange: (val: string) => void, placeholder?: string }) => (
     <div className="space-y-1">
-        <label className="text-xs font-bold text-amber-700 uppercase">{label}</label>
+        <label className="text-xs font-bold text-nami-tangerine uppercase tracking-wider">{label}</label>
         <input
             type="text"
             value={value || ""}
             onChange={(e) => onChange(e.target.value)}
-            className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-sm focus:border-amber-600 focus:outline-none"
+            className="w-full bg-white/50 border border-nami-wood rounded-lg p-2 text-nami-wood-dark text-sm focus:border-nami-tangerine focus:outline-none focus:ring-1 focus:ring-nami-tangerine/50 transition-all font-medium"
             placeholder={placeholder}
         />
     </div>
@@ -54,12 +54,12 @@ const Input = ({ label, value, onChange, placeholder = "" }: { label: string, va
 
 const TextArea = ({ label, value, onChange, rows = 3 }: { label: string, value: any, onChange: (val: string) => void, rows?: number }) => (
     <div className="space-y-1">
-        <label className="text-xs font-bold text-amber-700 uppercase">{label}</label>
+        <label className="text-xs font-bold text-nami-tangerine uppercase tracking-wider">{label}</label>
         <textarea
             value={value || ""}
             onChange={(e) => onChange(e.target.value)}
             rows={rows}
-            className="w-full bg-[#1a1515] border border-amber-900/30 rounded p-2 text-amber-100 text-sm focus:border-amber-600 focus:outline-none"
+            className="w-full bg-white/50 border border-nami-wood rounded-lg p-2 text-nami-wood-dark text-sm focus:border-nami-tangerine focus:outline-none focus:ring-1 focus:ring-nami-tangerine/50 transition-all font-medium"
         />
     </div>
 );
@@ -111,22 +111,23 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
     ];
 
     return (
-        <div className="border border-amber-900/30 rounded-lg overflow-hidden bg-black/20">
+        <div className="border border-nami-wood rounded-xl overflow-hidden bg-white/30 backdrop-blur-sm shadow-sm">
             {/* Tabs */}
-            <div className="flex border-b border-amber-900/30 bg-[#1a1515]">
+            <div className="flex border-b border-nami-wood bg-white/40 overflow-x-auto">
                 {tabs.map((tab) => {
                     const Icon = tab.icon;
+                    const isActive = activeTab === tab.id;
                     return (
                         <button
                             key={tab.id}
                             type="button"
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${activeTab === tab.id
-                                ? "bg-amber-900/20 text-amber-500 border-b-2 border-amber-500"
-                                : "text-gray-400 hover:text-amber-200 hover:bg-amber-900/10"
+                            className={`flex items-center gap-2 px-4 py-3 text-sm font-bold transition-all whitespace-nowrap ${isActive
+                                ? "bg-nami-tangerine/10 text-nami-tangerine border-b-2 border-nami-tangerine"
+                                : "text-nami-wood-dark/60 hover:text-nami-tangerine hover:bg-white/50"
                                 }`}
                         >
-                            <Icon className="w-4 h-4" />
+                            <Icon className={`w-4 h-4 ${isActive ? "text-nami-tangerine" : "text-nami-wood-dark/50"}`} />
                             {tab.label}
                         </button>
                     );
