@@ -19,7 +19,7 @@ export default async function Home() {
               <BrushCreate text="We Build Vessels for" className="block" delay={0.2} />
               <span className="text-crimson-red block">The New Era</span>
             </h1>
-            <p className="text-xs sm:text-lg lg:text-xl text-canvas-white max-w-2xl lg:max-w-none mb-4 sm:mb-10">
+            <p className="text-xs sm:text-lg lg:text-xl text-canvas-white max-w-2xl lg:max-w-none">
               Your ambition is the treasure. We provide the ship, the map, and the crew to reach it.
             </p>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Card from "@/components/Card";
 import * as LucideIcons from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -14,12 +14,20 @@ const IconRenderer = ({ name, className }: { name: string, className?: string })
 
 export default function ServiceBento({ services }: { services: any[] }) {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     const handleInteraction = (idx: number) => {
         if (hoveredIndex === idx) {
             setHoveredIndex(null);
         } else {
             setHoveredIndex(idx);
+            // Auto-scroll to center after a short delay to allow expansion animation to start
+            setTimeout(() => {
+                const element = itemRefs.current[idx];
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
         }
     }
 
@@ -45,6 +53,7 @@ export default function ServiceBento({ services }: { services: any[] }) {
                             return (
                                 <div
                                     key={service.id}
+                                    ref={(el) => { itemRefs.current[actualIndex] = el; }}
                                     onMouseEnter={() => setHoveredIndex(actualIndex)}
                                     onMouseLeave={() => setHoveredIndex(null)}
                                     onClick={() => handleInteraction(actualIndex)}
