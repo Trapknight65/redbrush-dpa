@@ -23,6 +23,7 @@ type ProjectFormData = {
     challenge: string;
     solution: string;
     caseStudyData?: string;
+    gallery?: string[];
 };
 
 import { Prisma } from "@prisma/client";
@@ -57,6 +58,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
             challenge: initialData?.challenge || "",
             solution: initialData?.solution || "",
             caseStudyData: initialData?.caseStudyData ? JSON.stringify(initialData.caseStudyData, null, 2) : "",
+            gallery: initialData?.gallery || [],
         },
     });
 
@@ -113,7 +115,7 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                 tags: data.tags.split(",").map((t) => t.trim()).filter(Boolean),
                 tech: data.tech.split(",").map((t) => t.trim()).filter(Boolean),
                 results: initialData?.results || [],
-                gallery: initialData?.gallery || [],
+                gallery: data.gallery || [],
                 figmaDesign: {
                     ...currentFigmaDesign,
                     thumbnail: logo || currentFigmaDesign.thumbnail,
@@ -458,6 +460,52 @@ export default function ProjectForm({ initialData }: ProjectFormProps) {
                         className="w-full bg-black/80 border border-nami-wood rounded p-3 text-white font-mono text-xs h-32 mt-2"
                     />
                 </details>
+            </div>
+
+            {/* Gallery */}
+            <div className="space-y-4 pt-6 border-t border-nami-wood/20">
+                <h3 className="text-lg font-bold text-nami-tangerine flex items-center gap-2">
+                    <Sparkles className="w-5 h-5" />
+                    Project Gallery
+                </h3>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {(watch("gallery") || []).map((url, index) => (
+                        <div key={index} className="relative group aspect-video">
+                            <ImageUpload
+                                value={url}
+                                onChange={(newUrl) => {
+                                    const currentGallery = watch("gallery") || [];
+                                    const newGallery = [...currentGallery];
+                                    newGallery[index] = newUrl;
+                                    setValue("gallery", newGallery);
+                                }}
+                                onRemove={() => {
+                                    const currentGallery = watch("gallery") || [];
+                                    const newGallery = currentGallery.filter((_, i) => i !== index);
+                                    setValue("gallery", newGallery);
+                                }}
+                            />
+                            <div className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
+                                {index + 1}
+                            </div>
+                        </div>
+                    ))}
+
+                    <button
+                        type="button"
+                        onClick={() => {
+                            const currentGallery = watch("gallery") || [];
+                            setValue("gallery", [...currentGallery, ""]);
+                        }}
+                        className="aspect-video flex flex-col items-center justify-center border-2 border-dashed border-nami-wood/50 rounded-lg hover:border-nami-tangerine hover:bg-nami-tangerine/5 transition-all group"
+                    >
+                        <div className="p-3 rounded-full bg-nami-wood/20 group-hover:bg-nami-tangerine/20 transition-colors mb-2">
+                            <Sparkles className="w-6 h-6 text-nami-wood-dark group-hover:text-nami-tangerine" />
+                        </div>
+                        <span className="text-sm font-bold text-nami-wood-dark group-hover:text-nami-tangerine">Add Image</span>
+                    </button>
+                </div>
             </div>
 
             <div className="pt-6">

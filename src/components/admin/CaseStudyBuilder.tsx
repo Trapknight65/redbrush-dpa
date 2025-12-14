@@ -653,6 +653,16 @@ export default function CaseStudyBuilder({ data, onChange }: CaseStudyBuilderPro
                                                     <div key={idx} className="flex gap-2 items-start group">
                                                         <div className="flex-1 space-y-2">
                                                             <div className="flex gap-2">
+                                                                <div className="w-12">
+                                                                    <IconPicker
+                                                                        value={item.icon || ""}
+                                                                        onChange={(val) => {
+                                                                            const newSection = [...items];
+                                                                            newSection[idx] = { ...newSection[idx], icon: val };
+                                                                            update(['roadmap', section.key], newSection);
+                                                                        }}
+                                                                    />
+                                                                </div>
                                                                 <input
                                                                     placeholder="Title"
                                                                     value={item.title}
