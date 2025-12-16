@@ -2,7 +2,7 @@
 
 import { useForm, useFieldArray } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { updateProfile, Experience, Education, Certification, HeroSlide, ContactInfo } from "@/actions/profile.actions";
+import { updateProfile, Experience, Education, Certification, ContactInfo } from "@/actions/profile.actions";
 import { useState } from "react";
 import { Loader2, Save, Plus, Trash2 } from "lucide-react";
 import ImageUpload from "@/components/admin/ImageUpload";
@@ -17,7 +17,7 @@ interface ProfileFormData {
     education: Education[];
     certifications: Certification[];
     languages: { language: string; proficiency: string }[];
-    heroSlides: HeroSlide[];
+
     contactInfo: ContactInfo;
 }
 
@@ -37,7 +37,7 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
             education: initialData?.education || [],
             certifications: initialData?.certifications || [],
             languages: initialData?.languages || [],
-            heroSlides: initialData?.heroSlides || [],
+
             contactInfo: initialData?.contactInfo || { email: "", phone: "", address: "", socials: [] },
         },
     });
@@ -45,7 +45,7 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
     const { fields: expFields, append: appendExp, remove: removeExp } = useFieldArray({ control, name: "experiences" });
     const { fields: eduFields, append: appendEdu, remove: removeEdu } = useFieldArray({ control, name: "education" });
     const { fields: certFields, append: appendCert, remove: removeCert } = useFieldArray({ control, name: "certifications" });
-    const { fields: heroFields, append: appendHero, remove: removeHero } = useFieldArray({ control, name: "heroSlides" });
+
     const { fields: socialFields, append: appendSocial, remove: removeSocial } = useFieldArray({ control, name: "contactInfo.socials" });
 
     const onSubmit = async (data: ProfileFormData) => {
@@ -162,56 +162,7 @@ export default function ProfileForm({ initialData }: { initialData?: any }) {
                 ))}
             </div>
 
-            {/* Hero Slides */}
-            <div className="bg-[#1a1515] p-6 rounded-lg border border-amber-900/30 space-y-4">
-                <div className="flex justify-between items-center">
-                    <h2 className="text-xl font-bold text-amber-500">Hero Slides</h2>
-                    <button type="button" onClick={() => appendHero({ type: "image", url: "", component: "", alt: "" })} className="text-amber-500 hover:text-amber-400">
-                        <Plus size={20} />
-                    </button>
-                </div>
-                {heroFields.map((field, index) => (
-                    <div key={field.id} className="p-4 bg-[#0a0505] rounded border border-amber-900/20 space-y-2 relative">
-                        <button type="button" onClick={() => removeHero(index)} className="absolute top-2 right-2 text-red-500"><Trash2 size={16} /></button>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-amber-700 text-xs font-bold mb-1">Type</label>
-                                <select {...register(`heroSlides.${index}.type`)} className="w-full bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm">
-                                    <option value="image" className="bg-[#0a0505]">Image</option>
-                                    <option value="video" className="bg-[#0a0505]">Video</option>
-                                    <option value="3d" className="bg-[#0a0505]">3D Model</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block text-amber-700 text-xs font-bold mb-1">URL / Source</label>
-                                <div className="flex gap-2 items-center">
-                                    <div className="space-y-2 w-full">
-                                        <input {...register(`heroSlides.${index}.url`)} placeholder="URL or /path" className="w-full bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm" />
-                                        {watch(`heroSlides.${index}.type`) === 'image' && (
-                                            <ImageUpload
-                                                value={watch(`heroSlides.${index}.url`) || ""}
-                                                onChange={(url) => setValue(`heroSlides.${index}.url`, url)}
-                                                onRemove={() => setValue(`heroSlides.${index}.url`, "")}
-                                            />
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                            {watch(`heroSlides.${index}.type`) === '3d' && (
-                                <div>
-                                    <label className="block text-amber-700 text-xs font-bold mb-1">Component / Model</label>
-                                    <input {...register(`heroSlides.${index}.component`)} placeholder="e.g. FrogViewer" className="w-full bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm" />
-                                    <p className="text-xs text-amber-500/50 mt-1">Leave empty for default Frog</p>
-                                </div>
-                            )}
-                            <div>
-                                <label className="block text-amber-700 text-xs font-bold mb-1">Alt Text</label>
-                                <input {...register(`heroSlides.${index}.alt`)} placeholder="Alt text" className="w-full bg-transparent border-b border-amber-900/30 p-2 text-amber-100 text-base sm:text-sm" />
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
+
 
             {/* Contact Info */}
             <div className="bg-[#1a1515] p-6 rounded-lg border border-amber-900/30 space-y-4">
